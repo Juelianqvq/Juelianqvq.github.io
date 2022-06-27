@@ -1150,120 +1150,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://github.com/2022/06/27/Detection/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Welcome, Pastel!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/27/Detection/" class="post-title-link" itemprop="url">Detection</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-06-27 10:30:42 / 修改时间：11:05:53" itemprop="dateCreated datePublished" datetime="2022-06-27T10:30:42+08:00">2022-06-27</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>1.RCNN</strong>(CNN攻克目标检测的开山之作)</p>
-<p>   selective search算法生成1-2k个候选区域，</p>
-<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27467369">目标检测（1）-Selective Search - 知乎 (zhihu.com)</a></p>
-<p>   将图像分割成很多很多的小块  合并 规则如下：</p>
-<p>   颜色、纹理相近；合并后总面积最小；合并后的与其所属gt边界框boundng box公共面积大的</p>
-<p>   依次对区域用CNN做特征提取，</p>
-<p>   经过各个类别的SVM，判别是否属于该类</p>
-<p>   <strong>NMS非极大值抑制</strong>：detection输出个数未知$\rightarrow$提高召回率</p>
-<p>   召回率：指模型找到所有某类目标的能力（所有标注的真实边界框有多少被预测出来了）</p>
-<p>   $Recall&#x3D;\frac{TP}{TP+FN}$</p>
-<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/78504109">非极大值抑制Non-Maximum Suppression（NMS）一文搞定理论+多平台实现 - 知乎 (zhihu.com)</a></p>
-<p>   寻找得分最高的目标，计算与其他目标的iou，删除所有iou大于给定阈值的目标</p>
-<p>   回归器修正候选框位置：最小二乘法 线性回归  得到bounding box</p>
-<p>   问题：RoI获取慢；特征提取慢</p>
-<p><strong>2.Fast RCNN</strong>（解决特征提取满）</p>
-<p>   图像输入网络得到fm，将ss生成的候选框投影到fm上 得到相应的特征矩阵</p>
-<p>   通过ROI pooling 矩阵缩放到7$\times$7，展平后送入fc预测</p>
-<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/73138740">ROI Pooling和ROI Align - 知乎 (zhihu.com)</a></p>
-<p>   优点：一次性计算全图特征，不限制输入尺寸</p>
-<p>   正负样本：1张图 采64个region 16个采自IoU&gt;0.5,&lt;0.1标记为负样本</p>
-<p>   边界框回归器 输出N+1个类别 4个回归参数$d_x,d_y,d_w,d_h$ </p>
-<p>   分类损失+回归损失 $smooth_{L_1}(x)&#x3D;0.5x^2, |x|-0.5$</p>
-<p><strong>3.Faster RCNN</strong></p>
-<p>   图像输入CNN网络得到fm</p>
-<p>   <strong>RPN</strong>生成候选框region proposals，softmax判断属于正负样本，再利用bounding box regression修正  </p>
-<p>   anchors获得精确的proposals</p>
-<p>   ROI 收集输入的fm和proposals 提取proposal fm ，送入fc分类</p>
-<p>   利用 proposal fm 计算 proposal类别，再次bbr得到最终定位</p>
-<p>   Fast-RCNN</p>
-<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/59186710">Faster RCNN之RPN理解 - 知乎 (zhihu.com)</a></p>
-<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/49897496">学一百遍都不算多的 Faster-RCNN - 知乎 (zhihu.com)</a></p>
-<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/31426458"> 一文读懂Faster RCNN - 知乎 (zhihu.com)</a>(<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/49897496">https://zhuanlan.zhihu.com/p/49897496</a>)</p>
-<p>   RPN来 proposal ROI  原论文3尺度3比例 每个位置在原图对应9个anchor（候选窗口）</p>
-<p>   在一个滑动窗口上生成不同大小和长宽比例的anchor box，取定IoU的阈值来标定这些ab的正负。与gt有</p>
-<p>   最大IoU的或者&gt;0.7的为正。</p>
-<p>   于是传入RPN网络的样本数据被整理为anchor box 坐标 和 每个anchor box是否有物体（二分类标签）</p>
-<p>   RPN网络将每个样本映射为一个概率值和四个坐标值，概率值表示anchor box有物体的概率，坐标值用</p>
-<p>   于回归定义物体的位置。最后将二分类和坐标回归的损失统一起来，作为RPN网络的目标训练。</p>
-<p>   由RPN得到Region Proposal在根据概率值筛选后经过类似的标记过程，被传入Fast RCNN子网络，进行</p>
-<p>   多分类和坐标回归，同样用多任务损失将二者的损失联合训练。</p>
-<p><strong>4.YOLO</strong></p>
-<p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/litt1e/article/details/88907542">一文看懂YOLO v3_litt1e的博客-CSDN博客_yolov3</a></p>
-<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/74540100">【论文解读】Yolo三部曲解读——Yolov2 - 知乎 (zhihu.com)</a></p>
-<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/76802514">【论文解读】Yolo三部曲解读——Yolov3 - 知乎 (zhihu.com)</a></p>
-<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94799295">IoU、GIoU、DIoU、CIoU损失函数的那点事儿 - 知乎 (zhihu.com)</a></p>
-<p>   Yolov5: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/183838757">https://zhuanlan.zhihu.com/p/183838757</a></p>
-<p><strong>5.注释</strong></p>
-<p>   anchor box其实就是从训练集的所有ground truth box中统计(使用k-means)出来的在训练集中最经常出</p>
-<p>   现的几个box形状和尺寸</p>
-<p>   ground truth指标注框</p>
-<p>   anchor指人为初始给的先验框，一般在二阶段检测器的RPN阶段或者在一阶段检测器中设置</p>
-<p>   proposal指的是二阶段方法中RPN的输出框，也就是对anchor第一次做回归得到的结果</p>
-<p>   ROI指RPN阶段输出的proposal经过排序取topk，然后做nms取一定数量的框，用于第二阶段的再次精</p>
-<p>   修；在RCNN ，Fast RCNN方法中指通过选择性搜索生成的框</p>
-<p>   bounding box指proposal经过再次精修后的预测框</p>
-<p>   <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/53405779">目标检测中的mAP是什么含义？ - 知乎 (zhihu.com)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://github.com/2022/06/27/Toolkit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2101,6 +1987,86 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://github.com/2022/04/12/Pytorch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome, Pastel!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/12/Pytorch/" class="post-title-link" itemprop="url">Pytorch</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-12 21:40:44" itemprop="dateCreated datePublished" datetime="2022-04-12T21:40:44+08:00">2022-04-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-10 18:33:56" itemprop="dateModified" datetime="2022-06-10T18:33:56+08:00">2022-06-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h6 id="TODO"><a href="#TODO" class="headerlink" title="TODO:"></a>TODO:</h6><p>1.<a target="_blank" rel="noopener" href="https://zasdfgbnm.github.io/2020/02/07/PyTorch-JIT-Source-Code-Read-Note-Updated-202002/">PyTorch JIT Source Code Read Note (Updated at Feb 2020) | zasdfgbnm</a></p>
+<p>2.[从头开始阅读PyTorch代码 – Operators篇 | zasdfgbnm](<a target="_blank" rel="noopener" href="https://zasdfgbnm.github.io/2018/06/11/%E4%BB%8E%E5%A4%B4%E5%BC%80%E5%A7%8B%E9%98%85%E8%AF%BBPyTorch%E4%BB%A3%E7%A0%81">https://zasdfgbnm.github.io/2018/06/11/从头开始阅读PyTorch代码</a> – Operators篇&#x2F;)</p>
+<h6 id="Trivial"><a href="#Trivial" class="headerlink" title="Trivial:"></a>Trivial:</h6><p>1.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/92134485">深度可分离卷积 - 知乎 (zhihu.com)</a> </p>
+<p>2.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/86997775">torch的广播机制(broadcast mechanism) - 知乎 (zhihu.com)</a></p>
+<p>3.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/329104226">PyTorch中的index_select选择函数 - 知乎 (zhihu.com)</a></p>
+<p>4.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/148061684">tensor.clone() 和 tensor.detach() - 知乎 (zhihu.com)</a></p>
+<p>5.<a target="_blank" rel="noopener" href="https://blog.csdn.net/sodalife/article/details/89461030">Python copy与deepcopy(深浅复制)_sodalife的博客-CSDN博客</a></p>
+<p>6.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/79887894">【PyTorch】唯快不破：基于Apex的混合精度加速 - 知乎 (zhihu.com)</a></p>
+<p>7.<a target="_blank" rel="noopener" href="https://blog.csdn.net/shwan_ma/article/details/108830991?utm_medium=distribute.pc_relevant.none-task-blog-title-6&spm=1001.2101.3001.4242">【图像处理】bilinear中的align&#x3D;True or False_Shwan_ma的博客-CSDN博客</a></p>
+<p>8.<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33559972/article/details/104708008">CEloss的weight怎么用，reduction三种模式啥意思_爱上牛奶巧克力-CSDN博客_reduction&#x3D;none</a></p>
+<p>9.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/76583143">Pytorch之permute函数 - 知乎 (zhihu.com)</a></p>
+<p>10.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/113928413">如何理解pytorch 卷积里group 这个参数 - 知乎 (zhihu.com)</a></p>
+<p>11.<a target="_blank" rel="noopener" href="https://blog.csdn.net/hottie_xiaomiao/article/details/124262405">Pytorch张量乘法详解</a></p>
+<p>12.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/356273702">Pytorch替换model对象任意层的方法 - 知乎 (zhihu.com)</a></p>
+<p>13.<a target="_blank" rel="noopener" href="https://blog.csdn.net/u010630669/article/details/105425572/">pytorch scatter_的用法及含义_u010630669的博客-CSDN博客</a>  第一个1意味着每行有1个</p>
+<p>14.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/393648544">DDP笔记</a>     <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/453798093">DDP介绍</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -2170,7 +2136,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
