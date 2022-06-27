@@ -220,68 +220,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://github.com/2022/06/27/toolkit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Welcome, Pastel!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/27/toolkit/" class="post-title-link" itemprop="url">toolkit</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-06-27 10:30:42 / 修改时间：11:03:09" itemprop="dateCreated datePublished" datetime="2022-06-27T10:30:42+08:00">2022-06-27</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Hexo 主题：<a href="https://github.com/theme-next/hexo-theme-next">https://github.com/theme-next/hexo-theme-next</a></p>
-<p>linux shell：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/387878326/answer/2253913399">https://www.zhihu.com/question/387878326/answer/2253913399</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.ilovepdf.com/">iLovePDF | Online PDF tools for PDF lovers</a></p>
-<p><a target="_blank" rel="noopener" href="https://bigjpg.com/">Bigjpg - AI人工智能图片无损放大 - 使用人工智能深度卷积神经网络(CNN)无损放大图片</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://github.com/2022/06/27/JIT%20OVERVIEW/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -975,7 +913,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/06/27/Classification/" class="post-title-link" itemprop="url">Classification</a>
+            <a href="/2022/06/27/Classification/" class="post-title-link" itemprop="url">CV</a>
         </h2>
 
         <div class="post-meta">
@@ -986,7 +924,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-06-27 10:30:42 / 修改时间：11:00:41" itemprop="dateCreated datePublished" datetime="2022-06-27T10:30:42+08:00">2022-06-27</time>
+              <time title="创建时间：2022-06-27 10:30:42 / 修改时间：14:58:40" itemprop="dateCreated datePublished" datetime="2022-06-27T10:30:42+08:00">2022-06-27</time>
             </span>
 
           
@@ -1003,10 +941,9 @@
           <h5 id="图像分类："><a href="#图像分类：" class="headerlink" title="图像分类："></a>图像分类：</h5><h5 id="kaggle-的-木薯叶分类-不同疾病下叶子的特征（ViT夺冠）"><a href="#kaggle-的-木薯叶分类-不同疾病下叶子的特征（ViT夺冠）" class="headerlink" title="kaggle 的 木薯叶分类   不同疾病下叶子的特征（ViT夺冠）"></a>kaggle 的 木薯叶分类   不同疾病下叶子的特征（ViT夺冠）</h5><p>1.model: 分类网络 efficientb0 b1  倍率代表卷积核个数 输入分辨率</p>
 <p>   <strong>resnet</strong> 残差模块 梯度消失梯度爆炸 退化问题 </p>
 <p>   残差结构 shortcut：$1\times 1$卷积降维,$3\times3$卷积, $1\times1$升维</p>
-<p>   BN:使一批数据的fm服从均值为0方差为1的分布</p>
-<p>​         正向传播得到$\mu,\sigma^2$,反向 $\gamma,\beta$</p>
 <p>   <strong>resnext</strong> 组卷积(对输入的fm，卷积核的channel进行分组，降低参数) </p>
-<p>   <strong>mobilenet</strong> 利用 DW+PW 将分组卷积应用到极致，即网络的分组数与网络的channel数量相等，使网络的计算量减到最低，channel之间的交互由 point-wise conv,即使用1x1的卷积进行channel之间的融合来进行补充。</p>
+<p>   <strong>mobilenet</strong> 利用 DW+PW 将分组卷积应用到极致，即网络的分组数与网络的channel数量相等，使网络的计算量减到最低，channel之间的交互由 point-wise                        </p>
+<p>​                        conv,即使用1x1的卷积进行channel之间的融合来进行补充。</p>
 <p>   <strong>V2</strong> 倒残差结构 $Relu6(x)&#x3D;min(max(0,x),6)$ ReLU丢失低微特征信息</p>
 <p>   <strong>V3</strong> SE模块（squeeze &amp; excitation）</p>
 <p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42617455/article/details/108165206">SE模块详解_Mounsey的博客-CSDN博客_se模块</a></p>
@@ -1019,24 +956,17 @@
 <p>   <strong>efficientnet</strong> 权衡分辨率 宽高 SE 改用Swish Sigmoid&#x3D;$x\sigma(x)$ </p>
 <p>  训练尺寸大时速度慢 DWC逐元素慢 同等放大是次优的</p>
 <p>   <strong>V2</strong> Fused-MBConv ：融合了DW卷积，SE模块，dropout</p>
-<p>   渐进学习：根据训练图尺寸动态调节 正则方法 dropout randaugment mixup</p>
-<p>   情绪识别：喜怒哀乐 害怕惊讶中性</p>
 <p>2.图像增强：</p>
-<p>   albumentations  基于OpenCV的快速训练数据增强库 可以使用 one of 组合 随机选择</p>
-<p>   kaggle训练的时间限制</p>
+<p>   <strong>albumentations</strong> ：基于OpenCV的快速训练数据增强库 可以使用 one of 组合 随机选择</p>
 <p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/107399127/">albumentations 数据增强工具的使用 - 知乎 (zhihu.com)</a></p>
 <p>   其他增强：mixup cutmix cutout fmix snapmix</p>
 <p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_36618660/article/details/101633504">数据增强之mixup算法详解_sinat_36618660的博客-CSDN博客_mixup</a></p>
-<p>   猫狗：既像猫又像狗  淡入淡出 比例？</p>
 <p>  <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38715903/article/details/103999227">【论文阅读笔记】CutMix：数据增强_花噜噜酱的博客-CSDN博客_cutmix</a></p>
 <p>   对裁剪区域的边界框采样，作为对AB两张图裁剪区域的标定：</p>
-<p>   采样公式：$r_x\sim U(0,W),r_w&#x3D;W\sqrt{1-\lambda}$  cut掉关键部分？</p>
-<p>   裁剪区域面积作为权重</p>
+<p>   采样公式：$r_x\sim U(0,W),r_w&#x3D;W\sqrt{1-\lambda}$  ，裁剪区域面积作为权重</p>
 <p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42990464/article/details/105933992">数据增强之FMix_海里的羊的博客-CSDN博客</a></p>
 <p>   <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/89ce7fdb9e12">图像的傅里叶变换 - 简书 (jianshu.com)</a></p>
-<p>   Fmix: 利用掩膜来定义图像哪部分需要被考虑，对傅里叶空间采样的低频图像进行阈值处理 去除噪声边  </p>
-<p>   界点</p>
-<p>   因此能从图像中剪切出任意形状的部分，将其粘贴到相关图像上</p>
+<p>   <strong>Fmix</strong>: 利用掩膜来定义图像哪部分需要被考虑，对傅里叶空间采样的低频图像进行阈值处理从而去除噪声边界点，<br>              因此能从图像中剪切出任意形状的部分，将其粘贴到相关图像上</p>
 <p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/kuweicai/article/details/111877458">数据增强（Data Augmentation）系列： SnapMix 原理及应用_生命在于折腾！-CSDN博客</a></p>
 <p>   生成 label 的时候，直接在原图中以被 cut 掉的面积作为权重不合理 计算每个 pixel 对标签的贡献度</p>
 <p>   首先计算输入图像的 CAM（Class Activation Mapping），归一化得到 SPM进行标签融合</p>
@@ -1044,12 +974,65 @@
 <p>3.优化器：adam + sgd 组合  &#x2F;  5折交叉验证 sgd </p>
 <p>   学习率：带重启的余弦退火 公式: $\eta_t&#x3D;\eta_{min}+\frac{1}{2}(1+\cos(\frac{T_{cur}}{T_i}\pi))$ 前几个epoch大学习率</p>
 <p>   ReduceLROnPlateau在发现loss不再降低或者acc不再提高之后，降低学习率</p>
-<p>4.Focal loss：降低易分样本的权重，提高难分样本的权重 也能解决目标检测中样本不均衡</p>
+<p>4.<strong>Focal loss</strong>：降低易分样本的权重，提高难分样本的权重 也能解决目标检测中样本不均衡</p>
 <p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/113716961">Focal loss及多分类任务实现 - 知乎 (zhihu.com)</a></p>
 <p>   $FL(p_t)&#x3D;-\alpha(1-p_t)^{\gamma}\log(p_t)$ 概率较大的样本 趋近于0 $\alpha$提高误分类样本的权重</p>
-<p>   label smoothing ：提高模型泛化能力；降低迭代次数  onehot的微调</p>
+<p>   **label smoothing **：提高模型泛化能力；降低迭代次数  onehot的微调</p>
 <p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/302843504">Label Smoothing分析 - 知乎 (zhihu.com)</a></p>
-<p>5.5折交叉验证</p>
+<h5 id="目标检测："><a href="#目标检测：" class="headerlink" title="目标检测："></a>目标检测：</h5><p><strong>1.RCNN</strong>(CNN攻克目标检测的开山之作)</p>
+<p>   selective search算法生成1-2k个候选区域，</p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27467369">目标检测（1）-Selective Search - 知乎 (zhihu.com)</a></p>
+<p>   将图像分割成很多很多的小块  合并规则如下：</p>
+<p>   颜色、纹理相近；合并后总面积最小；合并后的与其所属gt边界框boundng box公共面积大的</p>
+<p>   依次对区域用CNN做特征提取经过各个类别的SVM，来判别是否属于该类</p>
+<p>   <strong>NMS非极大值抑制</strong>：detection输出个数未知$\rightarrow$提高召回率</p>
+<p>   召回率：指模型找到所有某类目标的能力（所有标注的真实边界框有多少被预测出来了）</p>
+<p>   $Recall&#x3D;\frac{TP}{TP+FN}$</p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/78504109">非极大值抑制Non-Maximum Suppression（NMS）一文搞定理论+多平台实现 - 知乎 (zhihu.com)</a></p>
+<p>   寻找得分最高的目标，计算与其他目标的iou，删除所有iou大于给定阈值的目标</p>
+<p>   回归器修正候选框位置：最小二乘法 线性回归  得到bounding box</p>
+<p>   不足：RoI获取慢；特征提取慢</p>
+<p><strong>2.Fast RCNN</strong>（解决特征提取慢）</p>
+<p>   图像输入网络得到fm，将ss生成的候选框投影到fm上 得到相应的特征矩阵</p>
+<p>   通过ROI pooling 矩阵缩放到7$\times$7，展平后送入fc预测</p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/73138740">ROI Pooling和ROI Align - 知乎 (zhihu.com)</a></p>
+<p>   优点：一次性计算全图特征，不限制输入尺寸</p>
+<p>   正负样本：1张图 采64个region 16个采自IoU&gt;0.5,&lt;0.1标记为负样本</p>
+<p>   边界框回归器 输出N+1个类别 4个回归参数$d_x,d_y,d_w,d_h$ </p>
+<p>   分类损失+回归损失 $smooth_{L_1}(x)&#x3D;0.5x^2, |x|-0.5$</p>
+<p><strong>3.Faster RCNN</strong></p>
+<p>   图像输入CNN网络得到fm</p>
+<p>   <strong>RPN</strong>生成候选框region proposals，softmax判断属于正负样本，再利用bounding box regression修正  </p>
+<p>   anchors获得精确的proposals</p>
+<p>   ROI 收集输入的fm和proposals 提取proposal fm ，送入fc分类</p>
+<p>   利用 proposal fm 计算 proposal类别，再次bbr得到最终定位</p>
+<p>   Fast-RCNN</p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/59186710">Faster RCNN之RPN理解 - 知乎 (zhihu.com)</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/49897496">学一百遍都不算多的 Faster-RCNN - 知乎 (zhihu.com)</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/31426458"> 一文读懂Faster RCNN - 知乎 (zhihu.com)</a>(<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/49897496">https://zhuanlan.zhihu.com/p/49897496</a>)</p>
+<p>   RPN来 proposal ROI  原论文3尺度3比例 每个位置在原图对应9个anchor（候选窗口）</p>
+<p>   在一个滑动窗口上生成不同大小和长宽比例的anchor box，取定IoU的阈值来标定这些ab的正负。与gt有</p>
+<p>   最大IoU的或者&gt;0.7的为正。</p>
+<p>   于是传入RPN网络的样本数据被整理为anchor box 坐标 和 每个anchor box是否有物体（二分类标签）</p>
+<p>   RPN网络将每个样本映射为一个概率值和四个坐标值，概率值表示anchor box有物体的概率，坐标值用</p>
+<p>   于回归定义物体的位置。最后将二分类和坐标回归的损失统一起来，作为RPN网络的目标训练。</p>
+<p>   由RPN得到Region Proposal在根据概率值筛选后经过类似的标记过程，被传入Fast RCNN子网络，进行</p>
+<p>   多分类和坐标回归，同样用多任务损失将二者的损失联合训练。</p>
+<p><strong>4.YOLO</strong></p>
+<p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/litt1e/article/details/88907542">一文看懂YOLO v3_litt1e的博客-CSDN博客_yolov3</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/74540100">【论文解读】Yolo三部曲解读——Yolov2 - 知乎 (zhihu.com)</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/76802514">【论文解读】Yolo三部曲解读——Yolov3 - 知乎 (zhihu.com)</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94799295">IoU、GIoU、DIoU、CIoU损失函数的那点事儿 - 知乎 (zhihu.com)</a></p>
+<p>   Yolov5: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/183838757">https://zhuanlan.zhihu.com/p/183838757</a></p>
+<p><strong>5.注释</strong></p>
+<p>   anchor box其实就是从训练集的所有ground truth box中统计(使用k-means)出来的在训练集中最经常出现的几个box形状和尺寸</p>
+<p>   anchor指人为初始给的先验框，一般在二阶段检测器的RPN阶段或者在一阶段检测器中设置</p>
+<p>   proposal指的是二阶段方法中RPN的输出框，也就是对anchor第一次做回归得到的结果</p>
+<p>   ROI指RPN阶段输出的proposal经过排序取topk，然后做nms取一定数量的框，用于第二阶段的再次精</p>
+<p>   修；在RCNN ，Fast RCNN方法中指通过选择性搜索生成的框</p>
+<p>   bounding box指proposal经过再次精修后的预测框</p>
+<h5 id="语义分割："><a href="#语义分割：" class="headerlink" title="语义分割："></a>语义分割：</h5><p>转置卷积：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37541097/article/details/120709865">https://blog.csdn.net/qq_37541097/article/details/120709865</a></p>
+<p>膨胀卷积：<a target="_blank" rel="noopener" href="https://blog.csdn.net/tracelessle/article/details/106114975">https://blog.csdn.net/tracelessle/article/details/106114975</a></p>
 
       
     </div>
@@ -1262,6 +1245,68 @@
 <p>   修；在RCNN ，Fast RCNN方法中指通过选择性搜索生成的框</p>
 <p>   bounding box指proposal经过再次精修后的预测框</p>
 <p>   <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/53405779">目标检测中的mAP是什么含义？ - 知乎 (zhihu.com)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://github.com/2022/06/27/Toolkit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome, Pastel!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/27/Toolkit/" class="post-title-link" itemprop="url">Toolkit</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-27 10:30:42 / 修改时间：14:50:20" itemprop="dateCreated datePublished" datetime="2022-06-27T10:30:42+08:00">2022-06-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Hexo 主题：<a href="https://github.com/theme-next/hexo-theme-next">https://github.com/theme-next/hexo-theme-next</a></p>
+<p>linux shell：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/387878326/answer/2253913399">https://www.zhihu.com/question/387878326/answer/2253913399</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ilovepdf.com/">iLovePDF | Online PDF tools for PDF lovers</a></p>
+<p><a target="_blank" rel="noopener" href="https://bigjpg.com/">Bigjpg - AI人工智能图片无损放大 - 使用人工智能深度卷积神经网络(CNN)无损放大图片</a></p>
 
       
     </div>
@@ -1787,7 +1832,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-27 10:43:08" itemprop="dateModified" datetime="2022-06-27T10:43:08+08:00">2022-06-27</time>
+                <time title="修改时间：2022-06-27 11:11:02" itemprop="dateModified" datetime="2022-06-27T11:11:02+08:00">2022-06-27</time>
               </span>
 
           
@@ -1804,13 +1849,15 @@
           <p>1.compact fix yolov5</p>
 <p>2.resrep on yolov5</p>
 <p>3.new distil </p>
+<p>4.最新nni</p>
 <p>5.C++ inside NCNN MNN等 </p>
 <p>6.量化</p>
 <p>7.Unet</p>
 <p>8.霹雳巴拉 知乎</p>
 <p>9.OT OS CSAPP</p>
 <p>10.90-100 youtube</p>
-<p>1.Pytorch CPU optimization</p>
+<p>11.其他github</p>
+<p>12.Pytorch CPU optimization</p>
 <p>C++学完学CUDA编程</p>
 <p>CL,CF：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/494620090">https://zhuanlan.zhihu.com/p/494620090</a></p>
 <p>并行化：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/495278415">https://zhuanlan.zhihu.com/p/495278415</a></p>
@@ -2123,7 +2170,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
