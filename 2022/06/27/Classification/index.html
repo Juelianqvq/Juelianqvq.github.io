@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"github.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="1.Ubuntu 在win10+Ubuntu双系统下，完美卸载Ubuntu_guikunchen的博客-CSDN博客_双系统卸载ubuntu 深度学习三件套:Ubuntu 20.04 安装 NVIDIA 驱动&#x2F;CUDA&#x2F;cuDNN全流程 | CO + 2Fe &#x3D; COFFee (cyfeng.science) Ubuntu 安装 cuDNN（附测试）_代码使我快乐-C">
+  <meta name="description" content="图像分类：kaggle 的 木薯叶分类   不同疾病下叶子的特征（ViT夺冠）1.model: 分类网络 efficientb0 b1  倍率代表卷积核个数 输入分辨率    resnet 残差模块 梯度消失梯度爆炸 退化问题     残差结构 shortcut：$1\times 1$卷积降维,$3\times3$卷积, $1\times1$升维    BN:使一批数据的fm服从均值为0方差为1的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Various Errors">
-<meta property="og:url" content="http://github.com/2022/04/11/error/index.html">
+<meta property="og:title" content="Classification">
+<meta property="og:url" content="http://github.com/2022/06/27/Classification/index.html">
 <meta property="og:site_name" content="Welcome, Pastel!">
-<meta property="og:description" content="1.Ubuntu 在win10+Ubuntu双系统下，完美卸载Ubuntu_guikunchen的博客-CSDN博客_双系统卸载ubuntu 深度学习三件套:Ubuntu 20.04 安装 NVIDIA 驱动&#x2F;CUDA&#x2F;cuDNN全流程 | CO + 2Fe &#x3D; COFFee (cyfeng.science) Ubuntu 安装 cuDNN（附测试）_代码使我快乐-C">
+<meta property="og:description" content="图像分类：kaggle 的 木薯叶分类   不同疾病下叶子的特征（ViT夺冠）1.model: 分类网络 efficientb0 b1  倍率代表卷积核个数 输入分辨率    resnet 残差模块 梯度消失梯度爆炸 退化问题     残差结构 shortcut：$1\times 1$卷积降维,$3\times3$卷积, $1\times1$升维    BN:使一批数据的fm服从均值为0方差为1的">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-11T03:13:04.000Z">
-<meta property="article:modified_time" content="2022-06-22T09:52:33.973Z">
+<meta property="article:published_time" content="2022-06-27T02:30:42.000Z">
+<meta property="article:modified_time" content="2022-06-27T03:00:41.087Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Solutions">
+<meta property="article:tag" content="CV">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://github.com/2022/04/11/error/">
+<link rel="canonical" href="http://github.com/2022/06/27/Classification/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Various Errors | Welcome, Pastel!</title>
+  <title>Classification | Welcome, Pastel!</title>
   
 
 
@@ -151,7 +151,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://github.com/2022/04/11/error/">
+    <link itemprop="mainEntityOfPage" href="http://github.com/2022/06/27/Classification/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -164,7 +164,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Various Errors
+          Classification
         </h1>
 
         <div class="post-meta">
@@ -173,16 +173,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-04-11 11:13:04" itemprop="dateCreated datePublished" datetime="2022-04-11T11:13:04+08:00">2022-04-11</time>
+              <time title="创建时间：2022-06-27 10:30:42 / 修改时间：11:00:41" itemprop="dateCreated datePublished" datetime="2022-06-27T10:30:42+08:00">2022-06-27</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-22 17:52:33" itemprop="dateModified" datetime="2022-06-22T17:52:33+08:00">2022-06-22</time>
-              </span>
 
           
 
@@ -195,38 +189,56 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>1.Ubuntu</strong></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/guikunchen/article/details/88077330">在win10+Ubuntu双系统下，完美卸载Ubuntu_guikunchen的博客-CSDN博客_双系统卸载ubuntu</a></p>
-<p><a target="_blank" rel="noopener" href="https://cyfeng.science/2020/05/02/ubuntu-install-nvidia-driver-cuda-cudnn-suits/">深度学习三件套:Ubuntu 20.04 安装 NVIDIA 驱动&#x2F;CUDA&#x2F;cuDNN全流程 | CO + 2Fe &#x3D; COFFee (cyfeng.science)</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42699580/article/details/104430168">Ubuntu 安装 cuDNN（附测试）_代码使我快乐-CSDN博客_ubuntu测试cudnn</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lingyunxianhe/article/details/81116157#commentBox">最简单的方式解决ubuntu 16.04 屏幕亮度问题_007的博客-CSDN博客_ubuntu屏幕亮度</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2a1cce843983">debain unable to bind to codec,导致无法开机 - 简书 (jianshu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/409460098">win10文件夹只读属性无法去除怎么修改？ - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/1271611/app-software-updates-not-responding">Ubuntu软件和更新无响应</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46412818/article/details/116806127">apt update no release</a></p>
-<p>sudo rm &#x2F;var&#x2F;crash*&#x2F;**</p>
-<p>sudo apt-mark hold …</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/X_T_S/article/details/110144658?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-110144658-blog-123733984.pc_relevant_antiscanv3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-110144658-blog-123733984.pc_relevant_antiscanv3&utm_relevant_index=2">完美解决关机左上角光标闪烁</a></p>
-<p><a target="_blank" rel="noopener" href="https://forums.insynchq.com/t/apt-key-deprecation-with-workaround/18100">apt key</a></p>
-<p><a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/588658/override-ubuntu-20-04-dns-using-systemd-resolved">nameserver</a></p>
-<p><strong>2.Docker</strong></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/luojio/article/details/121115955?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-1.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-1.no_search_link&utm_relevant_index=2">笔记：RuntimeError: Ninja is required to load C++ extensions_luojio的博客-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shenghuiping2001/article/details/93378185">docker创建容器命令时：Error response from daemon: No command specified_shenghuiping2001的专栏-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/clj198606061111/article/details/50450793#commentBox">docker export import_都是浮云-CSDN博客_docker export import</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/377537818">docker入门：CUDA环境 - 知乎 (zhihu.com)</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">\sudo docker run \</span><br><span class="line">-it \</span><br><span class="line">--name=nncf_v1<span class="number">.0</span> \</span><br><span class="line">--runtime=nvidia \</span><br><span class="line">--network=host \</span><br><span class="line">--shm-size=1g \</span><br><span class="line">--ulimit memlock=-<span class="number">1</span> \</span><br><span class="line">--mount <span class="built_in">type</span>=bind,source=/home/kwx/Python \Project/nncf-develop/dataset,target=/home/nncf/dataset \</span><br><span class="line">--mount <span class="built_in">type</span>=bind,source=/home/kwx/Python \Project/nncf-develop,target=/home/nncf \</span><br></pre></td></tr></table></figure>
-
-<p><strong>3.Git</strong></p>
-<p>git clone速度慢：在github.com后面加上.cnpmjs.org即可 </p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shaopeng568/article/details/114919318">跳坑 gnutls_handshake() failed: The TLS connection was non-properly terminated._公子鹏的博客-CSDN博客</a></p>
-<p><strong>4.Vscode</strong></p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/68052984/there-was-an-error-while-opening-file-handle">https://stackoverflow.com/questions/68052984/there-was-an-error-while-opening-file-handle</a></p>
-<p>支持C++17<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_50871362/article/details/124684328">https://blog.csdn.net/m0_50871362/article/details/124684328</a></p>
-<p><strong>5.Next</strong></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/188625365">Ubuntu下GitHub+Hexo搭建博客教程一 - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.iplayio.cn/post/73493441">如何将Nodejs升级到最新版本14.x(以及最新版本的NPM) - IPlayIO中文网</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hannah2233/article/details/119976392">hexo+github搭建博客时报spawn failed错误【多种解决方法】_翼遥bingo的博客-CSDN博客</a></p>
-<p>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</p>
+        <h5 id="图像分类："><a href="#图像分类：" class="headerlink" title="图像分类："></a>图像分类：</h5><h5 id="kaggle-的-木薯叶分类-不同疾病下叶子的特征（ViT夺冠）"><a href="#kaggle-的-木薯叶分类-不同疾病下叶子的特征（ViT夺冠）" class="headerlink" title="kaggle 的 木薯叶分类   不同疾病下叶子的特征（ViT夺冠）"></a>kaggle 的 木薯叶分类   不同疾病下叶子的特征（ViT夺冠）</h5><p>1.model: 分类网络 efficientb0 b1  倍率代表卷积核个数 输入分辨率</p>
+<p>   <strong>resnet</strong> 残差模块 梯度消失梯度爆炸 退化问题 </p>
+<p>   残差结构 shortcut：$1\times 1$卷积降维,$3\times3$卷积, $1\times1$升维</p>
+<p>   BN:使一批数据的fm服从均值为0方差为1的分布</p>
+<p>​         正向传播得到$\mu,\sigma^2$,反向 $\gamma,\beta$</p>
+<p>   <strong>resnext</strong> 组卷积(对输入的fm，卷积核的channel进行分组，降低参数) </p>
+<p>   <strong>mobilenet</strong> 利用 DW+PW 将分组卷积应用到极致，即网络的分组数与网络的channel数量相等，使网络的计算量减到最低，channel之间的交互由 point-wise conv,即使用1x1的卷积进行channel之间的融合来进行补充。</p>
+<p>   <strong>V2</strong> 倒残差结构 $Relu6(x)&#x3D;min(max(0,x),6)$ ReLU丢失低微特征信息</p>
+<p>   <strong>V3</strong> SE模块（squeeze &amp; excitation）</p>
+<p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42617455/article/details/108165206">SE模块详解_Mounsey的博客-CSDN博客_se模块</a></p>
+<p>   S : fm上执行GAP（替代MLP 每个channel输出一个 all像素点的平均值）,fm被压缩为$1\times1\times C$ 的向量</p>
+<p>   E：两个FC（1&#x2F;4），两个激活函数，bottleneck结构；训练fm中每个channel的权重，</p>
+<p>​         加权后的fm作为下一层网络的input</p>
+<p>​         hard-s: $x\frac{ReLU6(x+3)}{6}$  NAS搜参</p>
+<p>   <strong>shufflenet</strong> 针对组卷积缺乏通道间的信息传递</p>
+<p>   <strong>V2</strong> 4准则</p>
+<p>   <strong>efficientnet</strong> 权衡分辨率 宽高 SE 改用Swish Sigmoid&#x3D;$x\sigma(x)$ </p>
+<p>  训练尺寸大时速度慢 DWC逐元素慢 同等放大是次优的</p>
+<p>   <strong>V2</strong> Fused-MBConv ：融合了DW卷积，SE模块，dropout</p>
+<p>   渐进学习：根据训练图尺寸动态调节 正则方法 dropout randaugment mixup</p>
+<p>   情绪识别：喜怒哀乐 害怕惊讶中性</p>
+<p>2.图像增强：</p>
+<p>   albumentations  基于OpenCV的快速训练数据增强库 可以使用 one of 组合 随机选择</p>
+<p>   kaggle训练的时间限制</p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/107399127/">albumentations 数据增强工具的使用 - 知乎 (zhihu.com)</a></p>
+<p>   其他增强：mixup cutmix cutout fmix snapmix</p>
+<p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_36618660/article/details/101633504">数据增强之mixup算法详解_sinat_36618660的博客-CSDN博客_mixup</a></p>
+<p>   猫狗：既像猫又像狗  淡入淡出 比例？</p>
+<p>  <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38715903/article/details/103999227">【论文阅读笔记】CutMix：数据增强_花噜噜酱的博客-CSDN博客_cutmix</a></p>
+<p>   对裁剪区域的边界框采样，作为对AB两张图裁剪区域的标定：</p>
+<p>   采样公式：$r_x\sim U(0,W),r_w&#x3D;W\sqrt{1-\lambda}$  cut掉关键部分？</p>
+<p>   裁剪区域面积作为权重</p>
+<p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42990464/article/details/105933992">数据增强之FMix_海里的羊的博客-CSDN博客</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/89ce7fdb9e12">图像的傅里叶变换 - 简书 (jianshu.com)</a></p>
+<p>   Fmix: 利用掩膜来定义图像哪部分需要被考虑，对傅里叶空间采样的低频图像进行阈值处理 去除噪声边  </p>
+<p>   界点</p>
+<p>   因此能从图像中剪切出任意形状的部分，将其粘贴到相关图像上</p>
+<p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/kuweicai/article/details/111877458">数据增强（Data Augmentation）系列： SnapMix 原理及应用_生命在于折腾！-CSDN博客</a></p>
+<p>   生成 label 的时候，直接在原图中以被 cut 掉的面积作为权重不合理 计算每个 pixel 对标签的贡献度</p>
+<p>   首先计算输入图像的 CAM（Class Activation Mapping），归一化得到 SPM进行标签融合</p>
+<p>   $CAM(I_i)&#x3D;\phi(\sum_{l&#x3D;0}^dw_{y_i}^lF_l(I_i))$ 输入图片 上采样(分类权重$\times$fm)</p>
+<p>3.优化器：adam + sgd 组合  &#x2F;  5折交叉验证 sgd </p>
+<p>   学习率：带重启的余弦退火 公式: $\eta_t&#x3D;\eta_{min}+\frac{1}{2}(1+\cos(\frac{T_{cur}}{T_i}\pi))$ 前几个epoch大学习率</p>
+<p>   ReduceLROnPlateau在发现loss不再降低或者acc不再提高之后，降低学习率</p>
+<p>4.Focal loss：降低易分样本的权重，提高难分样本的权重 也能解决目标检测中样本不均衡</p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/113716961">Focal loss及多分类任务实现 - 知乎 (zhihu.com)</a></p>
+<p>   $FL(p_t)&#x3D;-\alpha(1-p_t)^{\gamma}\log(p_t)$ 概率较大的样本 趋近于0 $\alpha$提高误分类样本的权重</p>
+<p>   label smoothing ：提高模型泛化能力；降低迭代次数  onehot的微调</p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/302843504">Label Smoothing分析 - 知乎 (zhihu.com)</a></p>
+<p>5.5折交叉验证</p>
 
     </div>
 
@@ -236,7 +248,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Solutions/" rel="tag"># Solutions</a>
+              <a href="/tags/CV/" rel="tag"># CV</a>
           </div>
 
         
@@ -245,12 +257,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/04/10/hello-world/" rel="prev" title="Hello World">
-      <i class="fa fa-chevron-left"></i> Hello World
+    <a href="/2022/06/12/acceleration/" rel="prev" title="acceleration">
+      <i class="fa fa-chevron-left"></i> acceleration
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/04/12/Pytorch/" rel="next" title="Pytorch">
-      Pytorch <i class="fa fa-chevron-right"></i>
+    <a href="/2022/06/27/JIT%20OVERVIEW/" rel="next" title="JIT">
+      JIT <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -310,6 +322,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">图像分类：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#kaggle-%E7%9A%84-%E6%9C%A8%E8%96%AF%E5%8F%B6%E5%88%86%E7%B1%BB-%E4%B8%8D%E5%90%8C%E7%96%BE%E7%97%85%E4%B8%8B%E5%8F%B6%E5%AD%90%E7%9A%84%E7%89%B9%E5%BE%81%EF%BC%88ViT%E5%A4%BA%E5%86%A0%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">kaggle 的 木薯叶分类   不同疾病下叶子的特征（ViT夺冠）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
