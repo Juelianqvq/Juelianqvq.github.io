@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"github.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="有一个大学同学，每年都会准时发生日快乐，连续6年，但是除了生日快乐也没有再多闲聊。这是什么情况? - 知乎 (zhihu.com) 认识了6年的男孩，每一年都准时12点和我说生日快乐,然后闲聊几句就没了，他到底是什么想法? - 知乎 (zhihu.com) 认识6年,几乎没什么见面, 但他却每年都12点和我说生日快乐, 然后闲聊几句,我和他有没有发展的可能? - 知乎 (zhihu.com) 那个">
+  <meta name="description" content="1.RCNN(CNN攻克目标检测的开山之作)    selective search算法生成1-2k个候选区域，    目标检测（1）-Selective Search - 知乎 (zhihu.com)    将图像分割成很多很多的小块  合并 规则如下：    颜色、纹理相近；合并后总面积最小；合并后的与其所属gt边界框boundng box公共面积大的    依次对区域用CNN做特征提取，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Confused">
-<meta property="og:url" content="http://github.com/2022/06/27/Confused/index.html">
+<meta property="og:title" content="Detection">
+<meta property="og:url" content="http://github.com/2022/06/27/Detection/index.html">
 <meta property="og:site_name" content="Welcome, Pastel!">
-<meta property="og:description" content="有一个大学同学，每年都会准时发生日快乐，连续6年，但是除了生日快乐也没有再多闲聊。这是什么情况? - 知乎 (zhihu.com) 认识了6年的男孩，每一年都准时12点和我说生日快乐,然后闲聊几句就没了，他到底是什么想法? - 知乎 (zhihu.com) 认识6年,几乎没什么见面, 但他却每年都12点和我说生日快乐, 然后闲聊几句,我和他有没有发展的可能? - 知乎 (zhihu.com) 那个">
+<meta property="og:description" content="1.RCNN(CNN攻克目标检测的开山之作)    selective search算法生成1-2k个候选区域，    目标检测（1）-Selective Search - 知乎 (zhihu.com)    将图像分割成很多很多的小块  合并 规则如下：    颜色、纹理相近；合并后总面积最小；合并后的与其所属gt边界框boundng box公共面积大的    依次对区域用CNN做特征提取，">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-06-27T02:57:54.000Z">
-<meta property="article:modified_time" content="2022-06-27T02:58:53.976Z">
+<meta property="article:published_time" content="2022-06-27T02:30:42.000Z">
+<meta property="article:modified_time" content="2022-06-27T03:05:53.632Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Confused">
+<meta property="article:tag" content="CV">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://github.com/2022/06/27/Confused/">
+<link rel="canonical" href="http://github.com/2022/06/27/Detection/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Confused | Welcome, Pastel!</title>
+  <title>Detection | Welcome, Pastel!</title>
   
 
 
@@ -151,7 +151,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://github.com/2022/06/27/Confused/">
+    <link itemprop="mainEntityOfPage" href="http://github.com/2022/06/27/Detection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -164,7 +164,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Confused
+          Detection
         </h1>
 
         <div class="post-meta">
@@ -175,7 +175,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-06-27 10:57:54 / 修改时间：10:58:53" itemprop="dateCreated datePublished" datetime="2022-06-27T10:57:54+08:00">2022-06-27</time>
+              <time title="创建时间：2022-06-27 10:30:42 / 修改时间：11:05:53" itemprop="dateCreated datePublished" datetime="2022-06-27T10:30:42+08:00">2022-06-27</time>
             </span>
 
           
@@ -189,23 +189,62 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/343516892/answers/updated">有一个大学同学，每年都会准时发生日快乐，连续6年，但是除了生日快乐也没有再多闲聊。这是什么情况? - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/311405000/answers/updated">认识了6年的男孩，每一年都准时12点和我说生日快乐,然后闲聊几句就没了，他到底是什么想法? - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/311497395">认识6年,几乎没什么见面, 但他却每年都12点和我说生日快乐, 然后闲聊几句,我和他有没有发展的可能? - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/347423988/answers/updated">那个男孩又和我说了生日快乐，我们已经8年没见面了,他去了外国念书，这个算是爱情吗? - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/438222464/answers/updated">想问问大家，那些一直不聊天，只在生日时发生日快乐或新年时发新年快乐的朋友是怎么想的呀？ - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/38430655/answers/updated">你曾喜欢过的男生很久没联系，但他记得你生日还发来祝福，他这是什么心理？ - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/376273564/answers/updated">一个女生记得你的生日说明什么？ - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/378186135/answers/updated">有个很长时间不联系的朋友祝我生日快乐该怎么回？ - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/441238603/answers/updated">现在表白还来得及吗? - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/484871280/answers/updated?page=1">同班同学，平常没有什么交集，但是我生日那天晚上他给我发消息祝我生日快乐，是对我有意思吗? - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/395184501/answers/updated">喜欢一个人，但许久未曾联系，是自己的高中同学，该怎么做？ - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/383615012/answers/updated">一个女孩在你生日0.00整给你发生日祝福，什么意思？ - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/497828504/answers/updated">有必要为很久未联系的异性朋友送生日祝福吗? - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/507720488">异性好友每年会祝我生日快乐？ - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/507720488/answers/updated">好友每年都会会祝我生日快乐？ - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/530896617/answers/updated">一个女孩在你生日0.00整给你发生日祝福,什么意思？ - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/496929585/answers/updated">请问一个男生很多年了都会记得我的生日，这代表了什么呢? - 知乎 (zhihu.com)</a></p>
+        <p><strong>1.RCNN</strong>(CNN攻克目标检测的开山之作)</p>
+<p>   selective search算法生成1-2k个候选区域，</p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27467369">目标检测（1）-Selective Search - 知乎 (zhihu.com)</a></p>
+<p>   将图像分割成很多很多的小块  合并 规则如下：</p>
+<p>   颜色、纹理相近；合并后总面积最小；合并后的与其所属gt边界框boundng box公共面积大的</p>
+<p>   依次对区域用CNN做特征提取，</p>
+<p>   经过各个类别的SVM，判别是否属于该类</p>
+<p>   <strong>NMS非极大值抑制</strong>：detection输出个数未知$\rightarrow$提高召回率</p>
+<p>   召回率：指模型找到所有某类目标的能力（所有标注的真实边界框有多少被预测出来了）</p>
+<p>   $Recall&#x3D;\frac{TP}{TP+FN}$</p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/78504109">非极大值抑制Non-Maximum Suppression（NMS）一文搞定理论+多平台实现 - 知乎 (zhihu.com)</a></p>
+<p>   寻找得分最高的目标，计算与其他目标的iou，删除所有iou大于给定阈值的目标</p>
+<p>   回归器修正候选框位置：最小二乘法 线性回归  得到bounding box</p>
+<p>   问题：RoI获取慢；特征提取慢</p>
+<p><strong>2.Fast RCNN</strong>（解决特征提取满）</p>
+<p>   图像输入网络得到fm，将ss生成的候选框投影到fm上 得到相应的特征矩阵</p>
+<p>   通过ROI pooling 矩阵缩放到7$\times$7，展平后送入fc预测</p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/73138740">ROI Pooling和ROI Align - 知乎 (zhihu.com)</a></p>
+<p>   优点：一次性计算全图特征，不限制输入尺寸</p>
+<p>   正负样本：1张图 采64个region 16个采自IoU&gt;0.5,&lt;0.1标记为负样本</p>
+<p>   边界框回归器 输出N+1个类别 4个回归参数$d_x,d_y,d_w,d_h$ </p>
+<p>   分类损失+回归损失 $smooth_{L_1}(x)&#x3D;0.5x^2, |x|-0.5$</p>
+<p><strong>3.Faster RCNN</strong></p>
+<p>   图像输入CNN网络得到fm</p>
+<p>   <strong>RPN</strong>生成候选框region proposals，softmax判断属于正负样本，再利用bounding box regression修正  </p>
+<p>   anchors获得精确的proposals</p>
+<p>   ROI 收集输入的fm和proposals 提取proposal fm ，送入fc分类</p>
+<p>   利用 proposal fm 计算 proposal类别，再次bbr得到最终定位</p>
+<p>   Fast-RCNN</p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/59186710">Faster RCNN之RPN理解 - 知乎 (zhihu.com)</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/49897496">学一百遍都不算多的 Faster-RCNN - 知乎 (zhihu.com)</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/31426458"> 一文读懂Faster RCNN - 知乎 (zhihu.com)</a>(<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/49897496">https://zhuanlan.zhihu.com/p/49897496</a>)</p>
+<p>   RPN来 proposal ROI  原论文3尺度3比例 每个位置在原图对应9个anchor（候选窗口）</p>
+<p>   在一个滑动窗口上生成不同大小和长宽比例的anchor box，取定IoU的阈值来标定这些ab的正负。与gt有</p>
+<p>   最大IoU的或者&gt;0.7的为正。</p>
+<p>   于是传入RPN网络的样本数据被整理为anchor box 坐标 和 每个anchor box是否有物体（二分类标签）</p>
+<p>   RPN网络将每个样本映射为一个概率值和四个坐标值，概率值表示anchor box有物体的概率，坐标值用</p>
+<p>   于回归定义物体的位置。最后将二分类和坐标回归的损失统一起来，作为RPN网络的目标训练。</p>
+<p>   由RPN得到Region Proposal在根据概率值筛选后经过类似的标记过程，被传入Fast RCNN子网络，进行</p>
+<p>   多分类和坐标回归，同样用多任务损失将二者的损失联合训练。</p>
+<p><strong>4.YOLO</strong></p>
+<p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/litt1e/article/details/88907542">一文看懂YOLO v3_litt1e的博客-CSDN博客_yolov3</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/74540100">【论文解读】Yolo三部曲解读——Yolov2 - 知乎 (zhihu.com)</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/76802514">【论文解读】Yolo三部曲解读——Yolov3 - 知乎 (zhihu.com)</a></p>
+<p>   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94799295">IoU、GIoU、DIoU、CIoU损失函数的那点事儿 - 知乎 (zhihu.com)</a></p>
+<p>   Yolov5: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/183838757">https://zhuanlan.zhihu.com/p/183838757</a></p>
+<p><strong>5.注释</strong></p>
+<p>   anchor box其实就是从训练集的所有ground truth box中统计(使用k-means)出来的在训练集中最经常出</p>
+<p>   现的几个box形状和尺寸</p>
+<p>   ground truth指标注框</p>
+<p>   anchor指人为初始给的先验框，一般在二阶段检测器的RPN阶段或者在一阶段检测器中设置</p>
+<p>   proposal指的是二阶段方法中RPN的输出框，也就是对anchor第一次做回归得到的结果</p>
+<p>   ROI指RPN阶段输出的proposal经过排序取topk，然后做nms取一定数量的框，用于第二阶段的再次精</p>
+<p>   修；在RCNN ，Fast RCNN方法中指通过选择性搜索生成的框</p>
+<p>   bounding box指proposal经过再次精修后的预测框</p>
+<p>   <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/53405779">目标检测中的mAP是什么含义？ - 知乎 (zhihu.com)</a></p>
 
     </div>
 
@@ -215,7 +254,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Confused/" rel="tag"># Confused</a>
+              <a href="/tags/CV/" rel="tag"># CV</a>
           </div>
 
         
@@ -224,10 +263,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/06/27/toolkit/" rel="prev" title="toolkit">
-      <i class="fa fa-chevron-left"></i> toolkit
+    <a href="/2022/06/12/acceleration/" rel="prev" title="acceleration">
+      <i class="fa fa-chevron-left"></i> acceleration
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/27/Compression/" rel="next" title="Compression">
+      Compression <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
