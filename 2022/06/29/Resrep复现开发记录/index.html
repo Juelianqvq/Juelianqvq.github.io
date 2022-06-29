@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"github.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Resrep算法复现及开发介绍">
+  <meta name="description" content="9个block能看出来吗？能 16通道的1串联18(is_first) 与 32、64通道的两个 18分支+1 中间层：block中三个conv，32 64两层深 16 三层深 所谓中间层就是奇数的中间 012 的 1 以及偶数的前一个 34的3 一共57个conv 55深 编号是0-56 12345678910111213141516171819202122230 1 2 134 3...17">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Resrep_Develop">
-<meta property="og:url" content="http://github.com/2022/06/29/Resrep-Develop/index.html">
+<meta property="og:url" content="http://github.com/2022/06/29/Resrep%E5%A4%8D%E7%8E%B0%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Welcome, Pastel!">
-<meta property="og:description" content="Resrep算法复现及开发介绍">
+<meta property="og:description" content="9个block能看出来吗？能 16通道的1串联18(is_first) 与 32、64通道的两个 18分支+1 中间层：block中三个conv，32 64两层深 16 三层深 所谓中间层就是奇数的中间 012 的 1 以及偶数的前一个 34的3 一共57个conv 55深 编号是0-56 12345678910111213141516171819202122230 1 2 134 3...17">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-29T14:35:31.000Z">
-<meta property="article:modified_time" content="2022-06-29T14:43:18.517Z">
+<meta property="article:modified_time" content="2022-06-29T15:51:45.646Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Prunig">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://github.com/2022/06/29/Resrep-Develop/">
+<link rel="canonical" href="http://github.com/2022/06/29/Resrep%E5%A4%8D%E7%8E%B0%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/">
 
 
 <script id="page-configurations">
@@ -151,7 +151,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://github.com/2022/06/29/Resrep-Develop/">
+    <link itemprop="mainEntityOfPage" href="http://github.com/2022/06/29/Resrep%E5%A4%8D%E7%8E%B0%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-06-29 22:35:31 / 修改时间：22:43:18" itemprop="dateCreated datePublished" datetime="2022-06-29T22:35:31+08:00">2022-06-29</time>
+              <time title="创建时间：2022-06-29 22:35:31 / 修改时间：23:51:45" itemprop="dateCreated datePublished" datetime="2022-06-29T22:35:31+08:00">2022-06-29</time>
             </span>
 
           
@@ -189,7 +189,71 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Resrep算法复现及开发介绍</p>
+        <p>9个block能看出来吗？能</p>
+<p>16通道的1串联18(is_first) 与 32、64通道的两个 18分支+1</p>
+<p>中间层：block中三个conv，32 64两层深 16 三层深</p>
+<p>所谓中间层就是奇数的中间 012 的 1 以及偶数的前一个 34的3</p>
+<p>一共57个conv 55深</p>
+<p>编号是0-56</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">0 1 2 1</span><br><span class="line"></span><br><span class="line">34 3</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">17 **18** 17</span><br><span class="line"></span><br><span class="line">19 20 21 20</span><br><span class="line"></span><br><span class="line">22 23 22</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">36 **37** 36</span><br><span class="line"></span><br><span class="line">38 39 40 39</span><br><span class="line"></span><br><span class="line">41 42 41</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">55 56 55</span><br></pre></td></tr></table></figure>
+
+
+
+<p>得到了加入了compactor后的网络 按照什么剪枝？</p>
+<p>compactor_layer是不做升降维的，并且由于等于单位阵，因此不会影响原网络的输出</p>
+<p>是只有中间层后加了layer吗？Yes，根据onnx判断出来的</p>
+<p>先看知乎作者自己的评注，然后继续深究代码</p>
+<p>知乎上说记忆训练与遗忘训练，在卷积层的kernel上加一个惩罚项</p>
+<p>记忆：不改变目标函数，超参与更新规则</p>
+<p>遗忘：基于SGD的魔改</p>
+<p><strong>卷积的等价性</strong></p>
+<p>1*1理解成FC，所以它就是输入通道的线性重组（就是加权）</p>
+<p>首先去理解为什么图中代码是shape一致的</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/laizi_laizi/article/details/110201274">https://blog.csdn.net/laizi_laizi/article/details/110201274</a></p>
+<p>input x  [9,4,10,11]</p>
+<p>注意到kernel&#x3D;3，pad&#x3D;1；kernel&#x3D;1，pad&#x3D;0这是为了保证特征图大小也就是10，11不发生改变</p>
+<p>而本身ConvM.weight.shape  [3,4,3,3]</p>
+<p>ConvP [3,5,1,1]</p>
+<p>ConvA [5,4,3,3]</p>
+<p>根据卷积 因为input和weight的第二个维度都是out_channel，所以要一致</p>
+<p>所以input是ConA.w.p(1,0,2,3) 也就是[4,5,3,3] 让5对齐</p>
+<p>卷积出来的结果就是 [4,3,3,3] permute之后恰好就是M的大小</p>
+<p>又因为P来自于B，我们B(A)&#x3D;A</p>
+<p>又验证了P(A)等价于M，也就是说剪了P就是剪了M</p>
+<p>B是compactor,M本身权重的分配就是来自于A（不变）与P（剪完B之后获得） 所以这两者也是一致的</p>
+<p>综上所述 这是为了验证Rep的一致性</p>
+<p>Rep本身是为了剪A，那我构造B&#x3D;I,得到B(A)，只对B做裁剪，不影响原来A的结构，于是得到P(A)，</p>
+<p>然后这个结果等价于生成一个M。</p>
+<p>筛选得到待剪枝的通道时，更新梯度时令其为0，这样得到的梯度中，模型性能LF仍然较小，保留惩罚项梯度（只对compactor的梯度这么处理）</p>
+<p>finish.h5是哪一步生成的？ 除此之外又生成了什么？ train_base init.h5</p>
+<p>get_compactor_mask_dict需要先删除finish.h5</p>
+<p>确认utils里最后到底是remaining还是pruned</p>
+<p>保存一个剪枝完的pt来</p>
+<p>先看完那个函数 然后理解是否会生成mask</p>
+<p>如果生成了mask 就同步生成剪枝后的pt</p>
+<p>然后喂给KCE 看有什么问题</p>
+<p>要新建一个py 然后先对resnet18插入compactor并完成训练</p>
+<p>训练完合并，不剪枝</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/402106979">ResRep</a></p>
+<p>魔改SGD<strong>只用在compactor上。</strong>compactor是<strong>故意构造</strong>出来的，去掉的也是那些故意构造的结构的梯度信息，模型原来的部分（负责“记忆”的部分）一点都没碰！</p>
+<p>也就是说，通过将模型分解成“记忆”和“遗忘”两部分，<strong>凭空创造</strong>出了一些结构，让它们去<strong>承载花式操作</strong>，就避免了这种花式操作对模型原本结构的<strong>直接</strong>负面影响<strong>。</strong></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/344324470">RepVGG</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/361090497">结构重参数化：利用参数转换解耦训练和推理结构</a></p>
+<p>只要参数的转换是等价的，这两个结构的替换就是等价的。</p>
+<p>hook:</p>
+<p>配合lambda函数</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/375811657">hook提取中间层</a><br>        <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/375811657">hook输出shape，梯度裁剪</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/152314451">15.hook技术</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for idx, (name, md) in enumerate(model._modules.items()):</span><br><span class="line">       if isinstance(md, nn.Linear):</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/156127643">16.再谈Module类</a></p>
+<p>里面函数执行 ，需要用到外面函数的一个变量 ，所以，就把外面变量和里面这个函数合到一块，合到一块的这两个东西就是闭包。</p>
+<p>以及阈值lasso的处理 怎么调用？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># [&#x27;bn1&#x27;, &#x27;layer1.0.bn1&#x27;, &#x27;layer1.0.bn2&#x27;, &#x27;layer1.1.bn1&#x27;, &#x27;layer1.1.bn2&#x27;, &#x27;layer2.0.bn1&#x27;,</span><br><span class="line">#  &#x27;layer2.0.bn2&#x27;, &#x27;layer2.0.downsample.1&#x27;, &#x27;layer2.1.bn1&#x27;, &#x27;layer2.1.bn2&#x27;, &#x27;layer3.0.bn1&#x27;,</span><br><span class="line">#  &#x27;layer3.0.bn2&#x27;, &#x27;layer3.0.downsample.1&#x27;, &#x27;layer3.1.bn1&#x27;, &#x27;layer3.1.bn2&#x27;, &#x27;layer4.0.bn1&#x27;,</span><br><span class="line">#  &#x27;layer4.0.bn2&#x27;, &#x27;layer4.0.downsample.1&#x27;, &#x27;layer4.1.bn1&#x27;, &#x27;layer4.1.bn2&#x27;]</span><br></pre></td></tr></table></figure>
+
+<p>not urgent: add log information</p>
+<p>融合了BN后，容易梯度消失or梯度爆炸</p>
 
     </div>
 
