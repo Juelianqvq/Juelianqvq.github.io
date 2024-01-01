@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>LLM | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="– [1.LLM](# 1.LLM) – [2.vLLM](# 2.vLLM) – [3.Attention 优化](# 3.Attention 优化) – [4.TensorRT-LLM](# 4.TensorRT-LLM) – [5.lmdeploy](# 5.lmdeploy) – [6.Coroutine &amp; Thread &amp; Process](# 6.Coroutine">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LLM">
+<meta property="og:url" content="http://example.com/2023/07/16/LLM/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="– [1.LLM](# 1.LLM) – [2.vLLM](# 2.vLLM) – [3.Attention 优化](# 3.Attention 优化) – [4.TensorRT-LLM](# 4.TensorRT-LLM) – [5.lmdeploy](# 5.lmdeploy) – [6.Coroutine &amp; Thread &amp; Process](# 6.Coroutine">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-15T16:46:38.000Z">
+<meta property="article:modified_time" content="2024-01-01T04:51:39.686Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="LLM">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-LLM" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/07/16/LLM/" class="article-date">
+  <time class="dt-published" datetime="2023-07-15T16:46:38.000Z" itemprop="datePublished">2023-07-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      LLM
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>– [1.LLM](# 1.LLM)</p>
+<p>– [2.vLLM](# 2.vLLM)</p>
+<p>– [3.Attention 优化](# 3.Attention 优化)</p>
+<p>– [4.TensorRT-LLM](# 4.TensorRT-LLM)</p>
+<p>– [5.lmdeploy](# 5.lmdeploy)</p>
+<p>– [6.Coroutine &amp; Thread &amp; Process](# 6.Coroutine &amp; Thread &amp; Process)</p>
+<p>– [7.Frontier](# 7.Frontier)</p>
+<p>– [8.Triton](# 8.Triton)</p>
+<h4 id="1-LLM"><a href="#1-LLM" class="headerlink" title="1.LLM"></a>1.LLM</h4><p>内存带宽和cpu算力简单计算: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/661062002">https://zhuanlan.zhihu.com/p/661062002</a></p>
+<p>前沿6问LLM推理: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/670980266">https://zhuanlan.zhihu.com/p/670980266</a></p>
+<p>Cache miss &amp; 分块矩阵一致性: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/342923482">https://zhuanlan.zhihu.com/p/342923482</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">因为a[0][0]本身就不在缓存中，所以肯定有一次 cache miss 啊</span><br></pre></td></tr></table></figure>
+
+<p>fp32 fp16 bf16: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/667163603">https://zhuanlan.zhihu.com/p/667163603</a></p>
+<p>device_map&#x3D;’auto’ 不然多卡会卡死</p>
+<p>Transformer-1: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662489503">https://zhuanlan.zhihu.com/p/662489503</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">正余弦交替的位置编码只与偏移量k有关，这意味着两个正弦位置嵌入的点乘可以反应两个tokens的距离，且该距离对称</span><br></pre></td></tr></table></figure>
+
+<p>Transformer-4: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662624035">https://zhuanlan.zhihu.com/p/662624035</a> 手撕多头</p>
+<p>Transformer-3: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662900859">https://zhuanlan.zhihu.com/p/662900859</a> paged attention 清晰图解</p>
+<p>国内 LLM 面经: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/657826357">https://zhuanlan.zhihu.com/p/657826357</a></p>
+<p>Nvidia 面经: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/658609960">https://zhuanlan.zhihu.com/p/658609960</a></p>
+<p>HPC面试: </p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/634557901">https://zhuanlan.zhihu.com/p/634557901</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/663917237">https://zhuanlan.zhihu.com/p/663917237</a></p>
+<p>LLM 面经: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/672632008">https://zhuanlan.zhihu.com/p/672632008</a></p>
+<p><strong>模型侧</strong></p>
+<p>Scaling law: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/669193585">https://zhuanlan.zhihu.com/p/669193585</a></p>
+<ul>
+<li><input disabled="" type="checkbox"> ChatGLM1&amp;2 &#x2F; Llama1&amp;2 mask: <a target="_blank" rel="noopener" href="https://github.com/THUDM/ChatGLM2-6B/issues/535">https://github.com/THUDM/ChatGLM2-6B/issues/535</a></li>
+</ul>
+<p>Llama 1&amp;2 模型结构: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/636784644">https://zhuanlan.zhihu.com/p/636784644</a></p>
+<p>Decoding: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/631847634">https://zhuanlan.zhihu.com/p/631847634</a></p>
+<p>Bloom单机版: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/625911234">https://zhuanlan.zhihu.com/p/625911234</a></p>
+<p>Bloom TP版: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/626444817">https://zhuanlan.zhihu.com/p/626444817</a></p>
+<p>AR AE: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/163455527">https://zhuanlan.zhihu.com/p/163455527</a></p>
+<p>训练显存占用: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/650846284">https://zhuanlan.zhihu.com/p/650846284</a></p>
+<p><strong>推理侧</strong></p>
+<p>LLM推理优化探索: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/653735572">https://zhuanlan.zhihu.com/p/653735572</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int4 分块，kv cache fp8 存储</span><br><span class="line">kv cache 显存占用: b * (s + l) * h * n * 2 * 2</span><br></pre></td></tr></table></figure>
+
+<p>混合精度: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/604764475">https://zhuanlan.zhihu.com/p/604764475</a></p>
+<p>为何不用4090: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/655402388">https://zhuanlan.zhihu.com/p/655402388</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Adam需要用fp32来计算，fp16误差太大，容易不收敛。</span><br><span class="line">每个参数需要存4字节的32位版本（模型forward是fp16，optimizer是fp32，mixed-precision）以及4字节的momentum和4字节的variance，共12字节。SGD可以不存variance，只需要8字节。</span><br><span class="line"></span><br><span class="line">pipeline不可取: </span><br><span class="line">1)中间状态存储容量巨大，经过大量流水级后才会被用到(一共N个流水级，N-1个forward + N-1个backward)</span><br><span class="line">2)相邻流水级之间需要通信，级数越多，通信的总数据量和总延时就越高</span><br><span class="line">3)batch_size需要等于transformer里的层数，pipeline才能流动起来，再乘以dp的并行数，batch_size会很大，影响收敛速度以及收敛后的精度</span><br></pre></td></tr></table></figure>
+
+<p>推理框架概述: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/659792625">https://zhuanlan.zhihu.com/p/659792625</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> LLM部署代价评估: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/658868628">https://zhuanlan.zhihu.com/p/658868628</a></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fp16 312 TFlops/s / 1350 GB/S = 231</span><br><span class="line">2blh * sizeof(data) / bandwidth 计算耗时</span><br><span class="line">计算受限之前都可以做w8，也就是2b&lt;Imax（fp16占满带宽，int8降半）;之后可考虑w8a8</span><br><span class="line">batch size = (GPU显存 - W模型) / KVcache显存</span><br><span class="line"></span><br><span class="line">优化建议:</span><br><span class="line">KVcache 8bit化对准确率几乎无损，并且成倍提升attention部分速度，对增加并发帮助最大</span><br><span class="line">如果处于访存受限区域，将权重8bit化，对准确率接近无损，提高矩阵乘的计算强度</span><br><span class="line">如果仍然访存受限，考虑权重4bit化，准确率可能有损，可用分块分组量化或者非线性量化的方式缓解，进一步提高矩阵乘的计算强度</span><br><span class="line">如果已处于计算受限区域，使用a8w8的提高计算性能</span><br><span class="line">TP策略调整，增加TP维度提高并发和GEMM计算强度，直至达到单机上限或跨越计算受限区间</span><br><span class="line"></span><br><span class="line">** 5.1 总并发度 延迟 最终吞吐量公式 **</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 推理优化综述: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/656485997">https://zhuanlan.zhihu.com/p/656485997</a></li>
+<li><input disabled="" type="checkbox"> 推理优化论文算法: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/660986039">https://zhuanlan.zhihu.com/p/660986039</a></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">显存优化:  KVcache 避免重复运算</span><br><span class="line">自回归特点: 每次推理只预测单个token,当前轮输出token与历史输入tokens相拼接作为下一轮的输入</span><br><span class="line">cache_per_token = 2 * 2 * n_layer * n_head * d_head * dtype_size</span><br><span class="line">total_cache = batch * context_length  * cache_per_token</span><br><span class="line">预填充阶段 用prompt计算第一个token GEMM 计算密集</span><br><span class="line">解码阶段 第二个输出token到最后一个token GEMV 访存密集</span><br><span class="line"></span><br><span class="line">算子融合: 1）LN+QKV 2）Attention 3）残差+LN+MLP+Act：将第一个FC上下相关的算子合并为一个</span><br><span class="line"></span><br><span class="line">分布式: </span><br><span class="line">Column Parallel 权重按列拆分到多个GPU，每个GPU上的本地计算结果需要在列方向拼接为最终结果</span><br><span class="line">Row Parallel 每个GPU上的本地结果需要进行AllReduce规约</span><br><span class="line"></span><br><span class="line">MLP： CP + RP + AllReduce</span><br><span class="line">Attention: CP(QKV) + RP + AllReduce</span><br><span class="line">InputEmbedding: RP</span><br><span class="line">OutputEmbedding: CP</span><br></pre></td></tr></table></figure>
+
+<p>Continuous batching: 迭代调度处理，当部分序列处理完成，插入新序列</p>
+<p>RoPE: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/647109286">https://zhuanlan.zhihu.com/p/647109286</a></p>
+<p>​           <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/642884818">https://zhuanlan.zhihu.com/p/642884818</a></p>
+<p>实现差异分析: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/627536105">https://zhuanlan.zhihu.com/p/627536105</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">假设Ra表示角度为a的旋转矩阵，那么R具有如下性质：</span><br><span class="line"></span><br><span class="line">1. Ra^T = R(-a)</span><br><span class="line">2. Ra Rb = R(a+b)</span><br><span class="line"></span><br><span class="line">回到旋转位置编码，我们可以去证明 &lt;RaX, RbY&gt; = &lt;X, R(b-a)Y&gt; ，证明如下：</span><br><span class="line">&lt;RaX, RbY&gt;</span><br><span class="line">= (RaX)^T RbY</span><br><span class="line">= X^T Ra^T RbY</span><br><span class="line">= X^T R(b-a) Y</span><br><span class="line">= &lt;X, R(b-a)Y&gt;</span><br></pre></td></tr></table></figure>
+
+<p>LM-Infinite: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/656709745">https://zhuanlan.zhihu.com/p/656709745</a></p>
+<p>GPU参数列表: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/643292970">https://zhuanlan.zhihu.com/p/643292970</a></p>
+<p>解码策略: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/653926703">https://zhuanlan.zhihu.com/p/653926703</a></p>
+<p>分词: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/652520262">https://zhuanlan.zhihu.com/p/652520262</a></p>
+<p>__ldg: 只能用于读取全局内存中的单个数据，不能用于读取数组或结构体中的数据</p>
+<p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42536162/article/details/129892382">https://blog.csdn.net/qq_42536162/article/details/129892382</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 大模型架构要点: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/648050614">https://zhuanlan.zhihu.com/p/648050614</a></li>
+</ul>
+<p>Tokenizer: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/651430181">https://zhuanlan.zhihu.com/p/651430181</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Transformer时空复杂度: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/606514058/answer/3078324182">https://www.zhihu.com/question/606514058/answer/3078324182</a></li>
+</ul>
+<p>Decoder only: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/614722351">https://zhuanlan.zhihu.com/p/614722351</a></p>
+<p>hf多卡推理: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/639850033">https://zhuanlan.zhihu.com/p/639850033</a></p>
+<p>split k: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u013701860/article/details/128674224">https://blog.csdn.net/u013701860/article/details/128674224</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> LLM 技术原理: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/647843722">https://zhuanlan.zhihu.com/p/647843722</a></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Transformer 计算量 l*(24bNh^2) 和 显存占用 l*(34bNh+5bH^2a) 都是序列长度N的二次方</span><br><span class="line">时空复杂度都是O(N^2) Self-Attention 内存受限</span><br></pre></td></tr></table></figure>
+
+<p>微调: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/635710004">https://zhuanlan.zhihu.com/p/635710004</a></p>
+<p>Deepnorm: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/480783670">https://zhuanlan.zhihu.com/p/480783670</a></p>
+<p>量化: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/651874446">https://zhuanlan.zhihu.com/p/651874446</a></p>
+<p>​          <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645308698">https://zhuanlan.zhihu.com/p/645308698</a></p>
+<p>​          <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645362500">https://zhuanlan.zhihu.com/p/645362500</a></p>
+<p>剪枝: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/630902012">https://zhuanlan.zhihu.com/p/630902012</a></p>
+<p>encoder decoder: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/427311331">https://zhuanlan.zhihu.com/p/427311331</a></p>
+<p>给定前面的对话内容，续写后续的对话内容。前面给定的信息就是这里的Context。</p>
+<p>enc: 给一个向量，输出一个同样长度的向量</p>
+<p>解码器输出一个向量，长度为 词表 长度 。这个向量是一个概率分布，表示取得对应词的概率。</p>
+<p>自回归解码器 将解码器自己当前步的输出加入下一步的输入，解码器融合所有已经输入的向量来输出下一个向量，所以越往后的输出考虑了更多输入。在一定程度上自己预测自己</p>
+<p>解码器和编码器的另一个区别是：在解码器block的第一个自注意力是 <em>masked</em> multi-head attention。在训练阶段，其输出序列的所有位置（时间步）的标记都是已知的；然而，在预测阶段，其输出序列的标记是逐个生成的。因此，在任何解码器时间步中，只有生成的标记才能用于解码器的自注意力计算中</p>
+<p>Left padding: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/646852375">https://zhuanlan.zhihu.com/p/646852375</a></p>
+<p>bos_token: <a target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/main_classes/tokenizer">https://huggingface.co/docs/transformers/main_classes/tokenizer</a></p>
+<p>token pruning：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/570832732">https://zhuanlan.zhihu.com/p/570832732</a></p>
+<p>多batch推理: <a target="_blank" rel="noopener" href="https://github.com/THUDM/ChatGLM-6B/issues/745">https://github.com/THUDM/ChatGLM-6B/issues/745</a></p>
+<p>LLM微调: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/635710004">https://zhuanlan.zhihu.com/p/635710004</a></p>
+<p>PPT简析: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/636329188">https://zhuanlan.zhihu.com/p/636329188</a></p>
+<p>Gpipe: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/613196255">https://zhuanlan.zhihu.com/p/613196255</a> 流水线并行 压缩空闲气泡 切分更细碎的batch forward的时候不存中间结果 bp的时候重新计算</p>
+<p>ZeRO: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/618865052">https://zhuanlan.zhihu.com/p/618865052</a> 数据并行 ZeRO 优化器 梯度 模型参数 分散各卡 减少通讯</p>
+<p>TP: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/622212228">https://zhuanlan.zhihu.com/p/622212228</a> 横向纵向切分 推理结果累加还是拼接 梯度还要累加 </p>
+<h4 id="2-vLLM"><a href="#2-vLLM" class="headerlink" title="2.vLLM"></a>2.vLLM</h4><p>PRs:</p>
+<ul>
+<li><input disabled="" type="checkbox"> torch.compile: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1795">https://github.com/vllm-project/vllm/pull/1795</a></li>
+<li><input disabled="" type="checkbox"> align sampling: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1885">https://github.com/vllm-project/vllm/pull/1885</a></li>
+<li><input disabled="" type="checkbox"> Refactor worker &amp; InputMetadata: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1843">https://github.com/vllm-project/vllm/pull/1843</a></li>
+<li><input disabled="" type="checkbox"> Paged_AttentionV2: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1348">https://github.com/vllm-project/vllm/pull/1348</a></li>
+<li><input disabled="" type="checkbox"> add streaming: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1052">https://github.com/vllm-project/vllm/pull/1052</a></li>
+<li><input disabled="" type="checkbox"> Support fused rmsnorm: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1667">https://github.com/vllm-project/vllm/pull/1667</a></li>
+<li><input disabled="" type="checkbox"> Prefix Caching: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1669">https://github.com/vllm-project/vllm/pull/1669</a></li>
+<li><input disabled="" type="checkbox"> int8 fp8 KVCache: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1507">https://github.com/vllm-project/vllm/pull/1507</a></li>
+<li><input disabled="" type="checkbox"> fix peak memory: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2031">https://github.com/vllm-project/vllm/pull/2031</a></li>
+<li><input disabled="" type="checkbox"> GPTQ: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/916">https://github.com/vllm-project/vllm/pull/916</a></li>
+<li><input disabled="" type="checkbox"> Prefix Prompt Cache: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2296">https://github.com/vllm-project/vllm/pull/2296</a></li>
+<li><input disabled="" type="checkbox"> CUDA Graph: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1926">https://github.com/vllm-project/vllm/pull/1926</a></li>
+<li><input disabled="" type="checkbox"> Speculative decoding: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2188">https://github.com/vllm-project/vllm/pull/2188</a></li>
+<li><input disabled="" type="checkbox"> Faster and memory-efficient top-p top-k kernel: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2169">https://github.com/vllm-project/vllm/pull/2169</a></li>
+<li><input disabled="" type="checkbox"> Fix the non-blocking behavior of the sampler: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2190">https://github.com/vllm-project/vllm/pull/2190</a></li>
+<li><input disabled="" type="checkbox"> Fast all-reduce: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2192">https://github.com/vllm-project/vllm/pull/2192</a></li>
+<li><input disabled="" type="checkbox"> </li>
+</ul>
+<p>Issues:</p>
+<ul>
+<li><input disabled="" type="checkbox"> 16 byte chunks: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/1630">https://github.com/vllm-project/vllm/issues/1630</a></li>
+<li><input disabled="" type="checkbox"> Support context length exceeding about 13k: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/905">https://github.com/vllm-project/vllm/issues/905</a></li>
+<li><input disabled="" type="checkbox"> options to increase performance: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/2073">https://github.com/vllm-project/vllm/issues/2073</a></li>
+<li><input disabled="" type="checkbox"> optimized kernel: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/1880">https://github.com/vllm-project/vllm/issues/1880</a></li>
+<li><input disabled="" type="checkbox"> +34%: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/421">https://github.com/vllm-project/vllm/issues/421</a></li>
+<li><input disabled="" type="checkbox"> lessen memory: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/1571">https://github.com/vllm-project/vllm/issues/1571</a></li>
+<li><input disabled="" type="checkbox"> performance down due to the scheduler: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/1985">https://github.com/vllm-project/vllm/issues/1985</a></li>
+<li><input disabled="" type="checkbox"> memory_efficient_attention_forward: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/1895">https://github.com/vllm-project/vllm/issues/1895</a></li>
+<li><input disabled="" type="checkbox"> CPU affinity: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/1838">https://github.com/vllm-project/vllm/issues/1838</a></li>
+<li><input disabled="" type="checkbox"> SparQ Attention: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/2039">https://github.com/vllm-project/vllm/issues/2039</a></li>
+<li><input disabled="" type="checkbox"> Slowdown in batch request handling: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/1707">https://github.com/vllm-project/vllm/issues/1707</a></li>
+<li><input disabled="" type="checkbox"> Lookahead decoding: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/1742">https://github.com/vllm-project/vllm/issues/1742</a></li>
+<li><input disabled="" type="checkbox"> </li>
+</ul>
+<p>Warp-level Primitives: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/572820783">https://zhuanlan.zhihu.com/p/572820783</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">T __shfl_sync(unsigned mask, T var, int srcLane, int width=warpSize);</span><br><span class="line">T __shfl_xor_sync(unsigned mask, T var, int laneMask, int width=warpSize);</span><br></pre></td></tr></table></figure>
+
+<p>Transformer-4: Paged Attention kernel</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/663632255">https://zhuanlan.zhihu.com/p/663632255</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/663719053">https://zhuanlan.zhihu.com/p/663719053</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">一个线程组处理16个字节，一个线程8个字节相当于两个fp16</span><br><span class="line">K_vec 和 Q_vec 都表示这样的 vector：类型是fp16，大小为4</span><br><span class="line"></span><br><span class="line">加载q向量: q 是传入的关于整体 q 所在的显存起始地址，q_ptr 是当前 head 下当前 seq 的 q 的地址</span><br><span class="line">q_stride = num_head*head_size，表示要越过前面所有 seq 所有 head 的 q，当前处理的 head 的 idx 是 head_idx，那么在此 head 之前有关于当前 seq 的 head_idx 个 HEAD_SIZE 数量，也要越过，才是当前 seq 在当前 head 下的 q 的显存地址 q_ptr</span><br><span class="line"></span><br><span class="line">vec_idx * VEC_SIZE 求出包含的 fp16 个数，vec_idx 实际为 0 ~ 63</span><br><span class="line">const int offset1 = (vec_idx * VEC_SIZE) / x;  (0,4,8,12,...,252) / 8 = (0,0,1,1,...,31,31)</span><br><span class="line">const int offset2 = (vec_idx * VEC_SIZE) % x;  (0,0,0,0,4,4,4,4,...)</span><br></pre></td></tr></table></figure>
+
+<p>Transformer-8: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/671316667">https://zhuanlan.zhihu.com/p/671316667</a> init_cache</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">max_num_batched_tokens: 单次迭代中可处理的 token 上限</span><br><span class="line">max_num_seqs: 单次迭代中可处理的 sequence 上限</span><br><span class="line">max_model_len: 单个 seq 最大长度</span><br><span class="line">max_paddings: 一个 batch 可增加的最大 padding 数量</span><br><span class="line"></span><br><span class="line">根据 num_gpu_blocks 和每个 block 的大小 key_block_shape，分配了 gpu_cache</span><br><span class="line">对 k 做了更细粒度的划分，</span><br><span class="line">cuda流在GPU上并发执行任务</span><br></pre></td></tr></table></figure>
+
+<p>Transformer-10: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/671344566">https://zhuanlan.zhihu.com/p/671344566</a> SchedulerOutputs</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">num_batched_tokens = len(new_seq_lens) * max(new_seq_lens)</span><br><span class="line">当前运行的 seq 总数 x 最大长度不能超过 profile 预设</span><br><span class="line">有新加入 scheduled 的 seq 就做 prompt run 并提前 return</span><br><span class="line">在 not self.swapped 的情况下，从 waiting 中拿 seq group 构造的 SchedulerOutputs 是promopt 阶段的调度；反之是在 running 和可以 swap_in 的 list 中拿数据，是generator阶段的调度</span><br><span class="line"></span><br><span class="line">generation 阶段的 每个 seq 都只持有一个 token slot，所以此后的 num_batched_tokens == running 中的 seq 数目</span><br><span class="line">两种抢占策略</span><br></pre></td></tr></table></figure>
+
+<p>Transformer-11: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/671443606">https://zhuanlan.zhihu.com/p/671443606</a> Sequence 类等</p>
+<p>Paged Attention: </p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662900859">https://zhuanlan.zhihu.com/p/662900859</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/660192497">https://zhuanlan.zhihu.com/p/660192497</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/664276902">https://zhuanlan.zhihu.com/p/664276902</a></p>
+<p>Paged Attention 源码解析:</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/663632255">https://zhuanlan.zhihu.com/p/663632255</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/663719053">https://zhuanlan.zhihu.com/p/663719053</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">当前 head 下的 seq 的 q 向量，load到共享内存 q_vecs 中，即 <span class="number">256</span> 个 fp16 的数据，使用第一个 warp load 进来</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = thread_group_idx; i &lt; NUM_VECS_PER_THREAD; i += NUM_THREAD_GROUPS) &#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> vec_idx = thread_group_offset + i * THREAD_GROUP_SIZE;</span><br><span class="line">    q_vecs[thread_group_offset][i] = *<span class="built_in">reinterpret_cast</span>&lt;<span class="type">const</span> Q_vec*&gt;(q_ptr + vec_idx * VEC_SIZE);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">关于NUM_TOKENS_PER_THREAD_GROUP的循环：</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; NUM_TOKENS_PER_THREAD_GROUP; i++) &#123;  <span class="comment">// 按照线程组处理的 token 数量循环，每1个线程组也就是2个线程处理1个token</span></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> physical_block_offset = (thread_group_idx + i * WARP_SIZE) % BLOCK_SIZE;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> token_idx = block_idx * BLOCK_SIZE + physical_block_offset;  </span><br><span class="line">    ... </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">根据 offset 获得当前线程负责的 token 的 k 向量  j = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> offset1 = (vec_idx * VEC_SIZE) / x;  <span class="number">256</span>个元素，两组<span class="number">128</span>，offset1=<span class="number">0</span>~<span class="number">15</span>,offset2=<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>/<span class="number">0</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> offset2 = (vec_idx * VEC_SIZE) % x;  </span><br><span class="line">类似于展平成一行后重新寻址 一共<span class="number">256</span>个数放到容量为<span class="number">32</span>的寄存器中 每<span class="number">8</span>个数放一起 一个线程放几个 一个线程组一次传输<span class="number">16b</span>yte 也就是一个线程<span class="number">4</span>个数</span><br><span class="line"></span><br><span class="line">kv_head_stride 本质上是一个 block 中所有的 token 乘以 head_size，只算<span class="number">1</span>个头，所占的 fp16 的数量</span><br><span class="line">    </span><br><span class="line">thread_group_offset为<span class="number">0</span>的线程，收集的是当前 group（<span class="number">1</span>个group负责<span class="number">1</span>个token的<span class="number">1</span>个head的head_size个数据）中最大的 qk值</span><br><span class="line"></span><br><span class="line">处理和传输带宽要区分开</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/665609491">https://zhuanlan.zhihu.com/p/665609491</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 源码分析: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/641999400">https://zhuanlan.zhihu.com/p/641999400</a></li>
+</ul>
+<p>vLLM 推理流程梳理: </p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/649974825">https://zhuanlan.zhihu.com/p/649974825</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/649977422">https://zhuanlan.zhihu.com/p/649977422</a></p>
+<p>Paged Attention 核心: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/655561941">https://zhuanlan.zhihu.com/p/655561941</a></p>
+<p>一致性 penalty: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/658780653">https://zhuanlan.zhihu.com/p/658780653</a></p>
+<p>LLM服务(上): <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/656939628">https://zhuanlan.zhihu.com/p/656939628</a></p>
+<ul>
+<li><p><input checked="" disabled="" type="checkbox"> 
+vLLM top down 概览: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645251151">https://zhuanlan.zhihu.com/p/645251151</a></p>
+<p>vLLM 踩坑:</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+export PYTHONPATH&#x3D;&#x2F;home&#x2F;kwx&#x2F;vllm: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8abf4b9a881d">https://www.jianshu.com/p/8abf4b9a881d</a></p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+精度: fp16 &lt;–&gt; fp32的累积误差使得回答质量不下降但是足够长的序列之后一致性对不齐</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+Flash Attention v2 issue: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/485">https://github.com/vllm-project/vllm/issues/485</a></p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+fastapi 部署: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/6256971">https://zhuanlan.zhihu.com/p/6256971</a></p>
+<p>fastapi async single threaded: <a target="_blank" rel="noopener" href="https://github.com/tiangolo/fastapi/issues/4265">https://github.com/tiangolo/fastapi/issues/4265</a></p>
+</li>
+</ul>
+<h4 id="3-Attention-优化"><a href="#3-Attention-优化" class="headerlink" title="3.Attention 优化"></a>3.Attention 优化</h4><p>4版本: <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/xformers/issues/918">https://github.com/facebookresearch/xformers/issues/918</a></p>
+<ul>
+<li><p><input checked="" disabled="" type="checkbox"> 
+KV cache: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/646577898">https://zhuanlan.zhihu.com/p/646577898</a></p>
+<pre><code> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: [b, s=1, h] x [h, h] 得到 Q,K,V [b, s=1, h]</span><br><span class="line">QK^T: [b, head_num, 1, hidden_per_head] x [b, head_num, hidden_per_head, kv_length + 1] -&gt; [b, head_num, 1, kv_length + 1], s = kv_length + 1</span><br><span class="line">score*V: [b, head_num, 1, kv_length + 1] x [b, head_num, kv_length + 1, hidden_per_head] -&gt; [b, head_num, 1, hidden_per_head]</span><br><span class="line">linear(非mlp模块): [b, 1, h] x [h, h] -&gt; [b, 1, h]</span><br><span class="line">计算量为什么是 2bs(kv_length + 1)h</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<p>​      <strong>显存占用 参数量 flops 中间激活 KV cache</strong>：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/624740065">https://zhuanlan.zhihu.com/p/624740065</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Flops:</span><br><span class="line">QKV: [b,s,h] x [h,h] -&gt; [b,s,h] 计算量 3*2bsh^2</span><br><span class="line">QK^T [b,head_num,s,hidden_per_head] x [b,head_num,hidden_per_head,s] -&gt; [b,head_num,s,s]，2bs^2h</span><br><span class="line">score*V 2bs^2h</span><br><span class="line">attention的线性映射 2bsh^2</span><br><span class="line">mlp_1 [b,s,h] x [h,4h] -&gt; [b,s,4h] 8bsh^2</span><br><span class="line">mlp_2 [b,s,4h] x [4h,h] -&gt; [b,s,h] 8bsh^2</span><br><span class="line"></span><br><span class="line">激活值分析:</span><br><span class="line">== Attention占用显存 11bsh+5bs^a ==</span><br><span class="line">QKV: x [b,s,h] 占用显存 2bsh</span><br><span class="line">QK^T: Q,K [b,s,h] 4bsh</span><br><span class="line">softmax: QK^T 2bs^a a表示注意力头数</span><br><span class="line">Q [b,hn,s,ph] K^T [b,hn,ph,s] 2bs^a</span><br><span class="line">dropout: 保存一个mask矩阵 形状同QK^T bs^a</span><br><span class="line">score*V: score 2bs^a &amp; V 2bsh</span><br><span class="line">输出映射及一个dropout: 输入 2bsh &amp; mask矩阵 bsh</span><br><span class="line">== MLP 19bsh ==</span><br><span class="line">mlp1的输入 2bsh</span><br><span class="line">激活函数的输入 8bsh</span><br><span class="line">mlp2的输入 8bsh</span><br><span class="line">dropout的mask bsh</span><br><span class="line">== 两个LN ==</span><br><span class="line">两个输入各2bsh</span><br><span class="line">l层transformer (34bsh+5bs^a)l</span><br></pre></td></tr></table></figure>
+
+<p>​      参数量: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/649229047">https://zhuanlan.zhihu.com/p/649229047</a></p>
+<p>​	  运算量: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/648988727">https://zhuanlan.zhihu.com/p/648988727</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">推导 (m,n) * (n,p) 运算量 2mnp</span><br></pre></td></tr></table></figure>
+
+<p>​	  显存占用: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/648924115">https://zhuanlan.zhihu.com/p/648924115</a></p>
+<ul>
+<li><p><input checked="" disabled="" type="checkbox"> 
+FlashAttention: </p>
+<p>只看图: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/663932651">https://zhuanlan.zhihu.com/p/663932651</a></p>
+<p>值得和2最后细看: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/607364156">https://zhuanlan.zhihu.com/p/607364156</a></p>
+<p>Flops, 复杂度, 访问次数: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/626079753">https://zhuanlan.zhihu.com/p/626079753</a></p>
+<p>速度优化原理: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/611236756/answer/3322413586">https://www.zhihu.com/question/611236756/answer/3322413586</a></p>
+<p>v2 两点优化项十分清晰: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645627275">https://zhuanlan.zhihu.com/p/645627275</a></p>
+<p>Triton引子 &amp; FA循序渐进 &amp; 极具含金量: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/665170554">https://zhuanlan.zhihu.com/p/665170554</a></p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4OxoRLxhOcjGf0Q4Tvp2Q">https://mp.weixin.qq.com/s/_4OxoRLxhOcjGf0Q4Tvp2Q</a></p>
+</li>
+</ul>
+<h4 id="4-TensorRT-LLM"><a href="#4-TensorRT-LLM" class="headerlink" title="4.TensorRT-LLM"></a>4.TensorRT-LLM</h4><p>evaluate 本地下载: <a target="_blank" rel="noopener" href="https://blog.csdn.net/misaki_min/article/details/132650725">https://blog.csdn.net/misaki_min/article/details/132650725</a></p>
+<p>perf json: <a target="_blank" rel="noopener" href="https://github.com/triton-inference-server/server/issues/5746">https://github.com/triton-inference-server/server/issues/5746</a></p>
+<p>Attention kernels: <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT-LLM/issues/457">https://github.com/NVIDIA/TensorRT-LLM/issues/457</a></p>
+<p>max_batch_size 讲究: <a target="_blank" rel="noopener" href="https://github.com/triton-inference-server/tensorrtllm_backend/issues/72">https://github.com/triton-inference-server/tensorrtllm_backend/issues/72</a></p>
+<p>perf_analyzer cli: <a target="_blank" rel="noopener" href="https://github.com/triton-inference-server/client/blob/main/src/c%2B%2B/perf_analyzer/docs/cli.md">https://github.com/triton-inference-server/client/blob/main/src/c%2B%2B/perf_analyzer/docs/cli.md</a></p>
+<p>perf_analyzer -m ensemble -i grpc –shape “bad_words:1” –shape “max_tokens:1” –shape “stop_words:1” –shape “text_input:1” –streaming</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Cannot send stop request without specifying a request_id.</span><br><span class="line"><span class="keyword">in</span> ensemble <span class="string">&#x27;ensemble&#x27;</span>, Streaming is only supported <span class="keyword">if</span> model is deployed using decoupled mode.</span><br><span class="line">ModelInfer RPC doesn<span class="string">&#x27;t support models with decoupled transaction policy.</span></span><br><span class="line"><span class="string">https://github.com/triton-inference-server/server/issues/4994  + --streaming</span></span><br><span class="line"><span class="string">Failed to init manager inputs: input bad_words contains dynamic shape, provide shapes to send along with the request  + --shape</span></span><br><span class="line"><span class="string">Cannot process new request: Streaming mode is only supported with beam width of 1.</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><input disabled="" type="checkbox"> 我不会用 Triton 系列: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/zzk0/p/15510825.html">https://www.cnblogs.com/zzk0/p/15510825.html</a></li>
+</ul>
+<p>ulimit memlock&#x3D;-1: <a target="_blank" rel="noopener" href="https://gorden5566.com/post/1089.html">https://gorden5566.com/post/1089.html</a></p>
+<p>LD_DEBUG&#x3D;libs 查看程序搜索库的路径: </p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/skyie53101517/article/details/45461835">https://blog.csdn.net/skyie53101517/article/details/45461835</a></p>
+<p>3个.so: <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT-LLM/issues/388">https://github.com/NVIDIA/TensorRT-LLM/issues/388</a></p>
+<p>result mismatch: </p>
+<p><a target="_blank" rel="noopener" href="https://github.com/triton-inference-server/tensorrtllm_backend/issues/77">https://github.com/triton-inference-server/tensorrtllm_backend/issues/77</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT-LLM/issues/208">https://github.com/NVIDIA/TensorRT-LLM/issues/208</a></p>
+<p>max_batch_size 讲究: <a target="_blank" rel="noopener" href="https://github.com/triton-inference-server/tensorrtllm_backend/issues/72">https://github.com/triton-inference-server/tensorrtllm_backend/issues/72</a></p>
+<p>perf_analyzer cli: <a target="_blank" rel="noopener" href="https://github.com/triton-inference-server/client/blob/main/src/c%2B%2B/perf_analyzer/docs/cli.md">https://github.com/triton-inference-server/client/blob/main/src/c%2B%2B/perf_analyzer/docs/cli.md</a></p>
+<p>evaluate 本地下载: <a target="_blank" rel="noopener" href="https://blog.csdn.net/misaki_min/article/details/132650725">https://blog.csdn.net/misaki_min/article/details/132650725</a></p>
+<p>LLaMA2详细流程: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/665209786">https://zhuanlan.zhihu.com/p/665209786</a></p>
+<p>架构: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/665595557">https://zhuanlan.zhihu.com/p/665595557</a></p>
+<p>C++ runtime: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/665792495">https://zhuanlan.zhihu.com/p/665792495</a></p>
+<p>Attention &amp; BatchManager: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/665907001">https://zhuanlan.zhihu.com/p/665907001</a></p>
+<p>BatchManager: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/665959440">https://zhuanlan.zhihu.com/p/665959440</a></p>
+<p>图重写: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/666082166">https://zhuanlan.zhihu.com/p/666082166</a></p>
+<p>数值精度: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/666215626">https://zhuanlan.zhihu.com/p/666215626</a></p>
+<p>Tensor 设计实现: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/666219289">https://zhuanlan.zhihu.com/p/666219289</a></p>
+<p>Python模块: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/667175043">https://zhuanlan.zhihu.com/p/667175043</a></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">find</span> / -name pybind11Config.cmake</span><br><span class="line"></span><br><span class="line">cmake -DSM=<span class="number">80</span> -DCMAKE_BUILD_TYPE=Release -DBUILD_PYT=ON -DBUILD_MULTI_GPU=ON -Dpybind11_DIR=/usr/local/lib/python3.<span class="number">8</span>/dist-packages/pybind11/share/cmake/pybind11/pybind11Config.cmake ..</span><br><span class="line"></span><br><span class="line">mpirun -n <span class="number">2</span> --allow-run-as-root  python api_server.py --model /data2/dingweihao/llama-<span class="number">2</span>-<span class="number">13</span>b-pretrain-sft-<span class="number">2048</span>-checkpoint-<span class="number">546</span>-<span class="number">20230912</span>/ft/<span class="number">2</span>-gpu/ --tokenizer /data2/dingweihao/llama-<span class="number">2</span>-<span class="number">13</span>b-pretrain-sft-<span class="number">2048</span>-checkpoint-<span class="number">546</span>-<span class="number">20230912</span>/ --lib ../build/lib/ --tensor_para_size <span class="number">2</span> --port <span class="number">7000</span> --host <span class="number">0</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>-Dpybind11_DIR: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38163468/article/details/121600290">https://blog.csdn.net/qq_38163468/article/details/121600290</a></p>
+<p>remove padding的目的是为了减少padding部分的计算量，FT 中实现的remove padding仅仅减少了layernorm部分以及ffn部分还有self-attention中最后那个全联接部分的padding的计算量</p>
+<h4 id="5-lmdeploy"><a href="#5-lmdeploy" class="headerlink" title="5.lmdeploy"></a>5.lmdeploy</h4><p>add_special_tokens 去除 offset</p>
+<p>token负值: <a target="_blank" rel="noopener" href="https://github.com/InternLM/lmdeploy/issues/388">https://github.com/InternLM/lmdeploy/issues/388</a></p>
+<p>std::promise: <a target="_blank" rel="noopener" href="https://blog.csdn.net/godmaycry/article/details/72844159">https://blog.csdn.net/godmaycry/article/details/72844159</a></p>
+<p>std::unique_lock: <a target="_blank" rel="noopener" href="https://blog.csdn.net/fengbingchun/article/details/78638138">https://blog.csdn.net/fengbingchun/article/details/78638138</a></p>
+<p>lock_guard &amp; unique_lock: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/340348726">https://zhuanlan.zhihu.com/p/340348726</a></p>
+<p>notify_one&#x2F;all: <a target="_blank" rel="noopener" href="https://blog.csdn.net/feikudai8460/article/details/109604690">https://blog.csdn.net/feikudai8460/article/details/109604690</a></p>
+<p>cv.wait: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34999565/article/details/120874408">https://blog.csdn.net/qq_34999565/article/details/120874408</a></p>
+<p>只有当条件为false时调用wait才会阻塞当前线程，并且在收到其他线程的通知后只有当条件为true时才会被解除阻塞</p>
+<p>pthread_barrier: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u013748256/article/details/45243473">https://blog.csdn.net/u013748256/article/details/45243473</a></p>
+<p>多线程锁住的是什么: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u011754972/article/details/118184053">https://blog.csdn.net/u011754972/article/details/118184053</a></p>
+<p>queue.put(None): <a target="_blank" rel="noopener" href="https://blog.csdn.net/u011331731/article/details/106320216">https://blog.csdn.net/u011331731/article/details/106320216</a> 促使消费者退出</p>
+<p>c++内存模型: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/647137725">https://zhuanlan.zhihu.com/p/647137725</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">curl -X &#x27;POST&#x27;   &#x27;http://10.141.1.48:5000/generate&#x27;   -H &#x27;accept: application/json&#x27;   -H &#x27;Content-Type: application/json&#x27;   -d &#x27;&#123;</span><br><span class="line">  &quot;prompt&quot;: &quot;写一首李白的诗&quot;,</span><br><span class="line">  &quot;instance_id&quot;: -1,</span><br><span class="line">  &quot;sequence_start&quot;: true,</span><br><span class="line">  &quot;sequence_end&quot;: true,</span><br><span class="line">  &quot;stream&quot;: false,</span><br><span class="line">  &quot;stop&quot;: false,</span><br><span class="line">  &quot;request_output_len&quot;: 512,</span><br><span class="line">  &quot;top_p&quot;: 0.8,</span><br><span class="line">  &quot;top_k&quot;: 40,</span><br><span class="line">  &quot;temperature&quot;: 0.8,</span><br><span class="line">  &quot;repetition_penalty&quot;: 1,</span><br><span class="line">  &quot;ignore_eos&quot;: false</span><br><span class="line">&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="6-Coroutine-Thread-Process"><a href="#6-Coroutine-Thread-Process" class="headerlink" title="6.Coroutine &amp; Thread &amp; Process"></a>6.Coroutine &amp; Thread &amp; Process</h4><p>并发：由一个处理器快速交替执行多个任务，只是看起来像在“同时执行多个任务”</p>
+<p>并行：由多个处理器分别运行多个任务，各任务间严格同时执行</p>
+<p>io阻塞: <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45393094/article/details/116571687">https://blog.csdn.net/weixin_45393094/article/details/116571687</a></p>
+<p>multiprocess &amp; rpc &amp; zeromq:</p>
+<p>nccl 仿照 demo debug: <a target="_blank" rel="noopener" href="https://discuss.pytorch.org/t/cuda-allocation-lifetime-for-inputs-to-distributed-all-reduce/191573/6">https://discuss.pytorch.org/t/cuda-allocation-lifetime-for-inputs-to-distributed-all-reduce/191573/6</a></p>
+<p>NCCL increased memory: </p>
+<p><a target="_blank" rel="noopener" href="https://github.com/NVIDIA/nccl/issues/964">https://github.com/NVIDIA/nccl/issues/964</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/NVIDIA/nccl/issues/864">https://github.com/NVIDIA/nccl/issues/864</a></p>
+<p>dist.barrier: <a target="_blank" rel="noopener" href="https://blog.csdn.net/Tanqy1997/article/details/124677130">https://blog.csdn.net/Tanqy1997/article/details/124677130</a></p>
+<p>torch 分布式接口: <a target="_blank" rel="noopener" href="https://blog.csdn.net/wzj_sxpi/article/details/115488316">https://blog.csdn.net/wzj_sxpi/article/details/115488316</a></p>
+<p>pyzmq: <a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangphil/article/details/111185008">https://blog.csdn.net/zhangphil/article/details/111185008</a></p>
+<p>pub-sub vs pull-push: <a target="_blank" rel="noopener" href="https://medium.com/@thealmikey/zeromq-with-kotlin-part-2-a-bit-of-push-pull-and-pub-sub-e645108156d0">https://medium.com/@thealmikey/zeromq-with-kotlin-part-2-a-bit-of-push-pull-and-pub-sub-e645108156d0</a></p>
+<p>共享内存: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/376947069">https://www.zhihu.com/question/376947069</a></p>
+<p>mp.managers: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/424011522">https://zhuanlan.zhihu.com/p/424011522</a></p>
+<p>pipe queue: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24883194">https://zhuanlan.zhihu.com/p/24883194</a></p>
+<p>pool: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24883077">https://zhuanlan.zhihu.com/p/24883077</a></p>
+<p>多进程 + async: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/629916103">https://zhuanlan.zhihu.com/p/629916103</a></p>
+<p>pyzmq: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/04660f746a16">https://www.jianshu.com/p/04660f746a16</a></p>
+<p>pipe vs queue vs zmq: <a target="_blank" rel="noopener" href="https://blog.csdn.net/MacwinWin/article/details/110488842">https://blog.csdn.net/MacwinWin/article/details/110488842</a></p>
+<p>pytorch 进程通信: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/518802196">https://zhuanlan.zhihu.com/p/518802196</a></p>
+<p>zeromq rpc对比: <a target="_blank" rel="noopener" href="https://www.smiletoyou.cn/archives/530">https://www.smiletoyou.cn/archives/530</a> </p>
+<p>rpyc踩坑: </p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Riven_h/article/details/117519846">https://blog.csdn.net/Riven_h/article/details/117519846</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/tomerfiliba-org/rpyc/issues/282">https://github.com/tomerfiliba-org/rpyc/issues/282</a></p>
+<p>tcp keep_alive: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28894266">https://zhuanlan.zhihu.com/p/28894266</a></p>
+<p>tcp no_delay: <a target="_blank" rel="noopener" href="https://blog.csdn.net/lclwjl/article/details/80154565">https://blog.csdn.net/lclwjl/article/details/80154565</a></p>
+<p>asyncio:</p>
+<p>动态添加协程: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/59621713">https://zhuanlan.zhihu.com/p/59621713</a></p>
+<p>asyncio lock: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/66050624">https://zhuanlan.zhihu.com/p/66050624</a></p>
+<p>event loop: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/69210021">https://zhuanlan.zhihu.com/p/69210021</a></p>
+<p>值得详细捋一遍 asyncio: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/59671241">https://zhuanlan.zhihu.com/p/59671241</a> wait gather讲得很清晰</p>
+<p>asyncio 示例讲解: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/56084772">https://zhuanlan.zhihu.com/p/56084772</a></p>
+<p>asyncio.sleep(0): <a target="_blank" rel="noopener" href="https://blog.csdn.net/nick131410/article/details/126571558">https://blog.csdn.net/nick131410/article/details/126571558</a></p>
+<p>wait vs gather: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6872bf356af7">https://www.jianshu.com/p/6872bf356af7</a></p>
+<p>coroutine &amp; task: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/45521388">https://zhuanlan.zhihu.com/p/45521388</a></p>
+<p>最简 event loop: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/83627584">https://zhuanlan.zhihu.com/p/83627584</a></p>
+<p>event: <a target="_blank" rel="noopener" href="https://blog.csdn.net/mixintu/article/details/102458809">https://blog.csdn.net/mixintu/article/details/102458809</a></p>
+<p>Task 是协程和 future 的桥梁</p>
+<p>get &#x2F; set_event_loop: <a target="_blank" rel="noopener" href="https://blog.csdn.net/whatday/article/details/106885916">https://blog.csdn.net/whatday/article/details/106885916</a></p>
+<p>loop.run_xxx 家族都是阻塞的，例如 run_until_loop 会等到给定的 coroutine 完成才结束</p>
+<p>run_forever 会永远阻塞直到有人停止该 event loop 为止，所以一个线程里无法同时 run 两个 event loop</p>
+<p>初始情况下，get_event_loop 只会在主线程帮您创建新的 event loop，并且在主线程中多次调用始终返回该 event loop；而在其他线程中调用 get 则会报错，除非您在这些线程里面手动调用过 set</p>
+<p>调用 async def 创建一个协程对象，这是一个类，不执行协程函数</p>
+<p>协程可以通过await执行另一个协程</p>
+<p>async for 用于遍历异步迭代器，并不会并行执行 for 循环，相反，执行 for 循环的调用协程将挂起并在内部等待迭代器产生的每个可等待对象</p>
+<p>asyncio 支持带有子进程（用于执行命令）和流（用于 TCP 套接字编程）的非阻塞 I&#x2F;O</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/601352845">https://zhuanlan.zhihu.com/p/601352845</a></p>
+<p>协程可以包装在 asyncio.Task 对象中独立执行，而不是直接在协程中执行</p>
+<p>Task 对象提供异步执行协程的句柄</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/602204016">https://zhuanlan.zhihu.com/p/602204016</a></p>
+<p>协程只能在事件循环中执行，执行协程的事件循环，管理协程之间的协作多任务处理</p>
+<p>启动协程事件循环的典型方法是通过 asyncio.run() 函数</p>
+<p>此函数接受一个协程并返回协程的值，提供的协程可以用作基于协程的程序的入口点</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/603230877">https://zhuanlan.zhihu.com/p/603230877</a></p>
+<p>事件循环负责管理一个任务列表（协同程序）并尝试在循环的每次迭代中按顺序推进每个任务，以及执行其他任务，如执行回调和处理 I&#x2F;O</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/603230877">https://zhuanlan.zhihu.com/p/603230877</a></p>
+<p>访问事件循环的原因:</p>
+<p>监控任务的进度; 发布任务并从中获取结果; 解雇并忘记一次性任务。</p>
+<p>事件循环可以在程序中用作基于协程任务的线程池的替代方案</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/604041050">https://zhuanlan.zhihu.com/p/604041050</a></p>
+<p>可以通过 create_task() 函数调度协程作为任务独立运行，但它可能不会立即运行</p>
+<p>直到事件循环有机会运行，直到所有其他协程都没有运行并且轮到任务运行时任务才会执行</p>
+<p>task.done()可以用于检测任务是否完成  .cancelled()</p>
+<p>.result()获取任务返回的结果 提前先检查任务是否已完成或是被取消 不然会出现 InvalidStateError</p>
+<p>.exception() 检索未处理的异常 .cancel()取消计划任务</p>
+<p>add_done_callback()向任务里添加回调  remove_done_callback()</p>
+<p>task &#x3D; asyncio.create_task(task_coroutine(), name&#x3D;’MyTask’)<br>set_name()  get_name()</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/606363838">https://zhuanlan.zhihu.com/p/606363838</a></p>
+<p>asyncio.current_task() 获取当前任务，这将为当前正在运行的任务返回一个任务对象，这可能是：</p>
+<ol>
+<li>传递给 asyncio.run() 的主协程</li>
+<li>通过 asyncio.create_task() 在 asyncio 程序中创建和调度的任务</li>
+</ol>
+<p>所有协程都可以作为异步事件循环中的任务进行访问</p>
+<p>asyncio.all_tasks() 获取一组已计划和正在运行的任务</p>
+<p>异步生成器中依次获取值时，可以使用<code>async for</code>来实现</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/607709631">https://zhuanlan.zhihu.com/p/607709631</a></p>
+<p>asyncio.gather(): 允许将一组可等待对象视为单个可等待对象</p>
+<p>一次执行这些任务协程并等待它们全部完成后再继续，例如具有不同数据的相同任务或协程</p>
+<ul>
+<li>通过 await 表达式执行并等待组中的所有可等待对象完成。</li>
+<li>从所有分组的等待对象中获取结果，稍后通过 result() 方法检索。</li>
+<li>要通过 cancel() 方法取消的一组等待对象。</li>
+<li>通过 done() 方法检查组中的所有可等待对象是否已完成。</li>
+<li>仅当组中的所有任务完成时才执行回调函数。</li>
+</ul>
+<p>一旦创建了 Future 对象，它就会在事件循环中自动调度</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/608952664">https://zhuanlan.zhihu.com/p/608952664</a></p>
+<p>asyncio.wait() 函数可用于等待一组异步任务完成</p>
+<p>asyncio 任务是包装协程的 asyncio.Task 类的一个实例</p>
+<p>它允许独立调度和执行协程，Task 实例提供任务句柄以查询状态和获取结果</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">done, pending = await asyncio.wait(tasks)</span><br><span class="line">done, pending = await asyncio.wait(tasks, return_when=asyncio.ALL_COMPLETED)</span><br><span class="line">FIRST_COMPLETED 当第一个任务完成并在完成集中返回时，其余任务不会被取消并继续并发执行</span><br><span class="line">FIRST_EXCEPTION 来等待第一个任务因异常而失败</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/609252710">https://zhuanlan.zhihu.com/p/609252710</a></p>
+<p>asyncio.wait_for() 函数允许调用者等待 asyncio 任务或协程超时完成。如果没有指定超时，wait_for() 函数将等待直到任务完成。如果在任务完成之前指定了超时并超时，那么任务将被取消</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">await asyncio.wait_for(coro, timeout=10)</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/609956166">https://zhuanlan.zhihu.com/p/609956166</a></p>
+<p>asyncio.shield() 保护另一个任务或协程不被取消，它以一个可等待对象作为参数并返回一个 asyncio.Future 对象，然后直接等待 Future 对象或将其传递给另一个任务或协程</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/610881194">https://zhuanlan.zhihu.com/p/610881194</a></p>
+<p>asyncio.to_thread() 在后台创建一个 ThreadPoolExecutor 来执行阻塞调用，仅适用于 IO 绑定任务</p>
+<p>另一种方法是 loop.run_in_executor()</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">loop = asyncio.get_running_loop()</span><br><span class="line">await loop.run_in_executor(None, task)</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/611864797">https://zhuanlan.zhihu.com/p/611864797</a> &amp; <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/612439743">https://zhuanlan.zhihu.com/p/612439743</a></p>
+<p>async for</p>
+<p>上下文: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/613324037">https://zhuanlan.zhihu.com/p/613324037</a></p>
+<p>推导式: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/614335834">https://zhuanlan.zhihu.com/p/614335834</a></p>
+<p>非阻塞子进程: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/615048240">https://zhuanlan.zhihu.com/p/615048240</a></p>
+<p>非阻塞流: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/615916630">https://zhuanlan.zhihu.com/p/615916630</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/619977951">https://zhuanlan.zhihu.com/p/619977951</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/619978329">https://zhuanlan.zhihu.com/p/619978329</a></p>
+<p>asyncio.create_task() 方法安排许多协程在 asyncio 程序中独立运行</p>
+<p>可以通过首先通过 asyncio.all_tasks() 函数获取一组所有正在运行的任务，从该集合中删除自身，然后通过 asyncio.wait() 函数等待剩余的任务来实现</p>
+<p>通过直接等待 asyncio.Task 对象来等待任务完成</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/622324216">https://zhuanlan.zhihu.com/p/622324216</a></p>
+<p>后台运行:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">task = asyncio.create_task(other_coroutine())</span><br></pre></td></tr></table></figure>
+
+<p>在当前协程出于任何原因挂起之前，任务不会开始执行</p>
+<p>可以通过暂停片刻让任务开始运行来帮助解决问题，这可以通过休眠零秒来实现</p>
+<p>等待所有后台任务: 从所有任务中剔除当前任务</p>
+<p>显示任务进度:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def progress(task):</span><br><span class="line">    # report progress of the task</span><br><span class="line">    print(&#x27;.&#x27;, end=&#x27;&#x27;)</span><br><span class="line">task.add_done_callback(progress)</span><br></pre></td></tr></table></figure>
+
+<p>await + coroutine &#x2F; task &#x2F; Future</p>
+<p>await 能够拿到返回值</p>
+<p>协程:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">## 迭代器</span><br><span class="line">for _ in + 可迭代对象</span><br><span class="line">共同 __iter__</span><br><span class="line"></span><br><span class="line">iter(可迭代对象) 得到 迭代器</span><br><span class="line">共同 __next__ __iter__</span><br><span class="line">超过长度得到 stopiteration </span><br><span class="line"></span><br><span class="line">while循环 模拟 for循环迭代</span><br><span class="line">while True: </span><br><span class="line">    try: </span><br><span class="line">    except StopIteration:</span><br><span class="line"></span><br><span class="line">迭代器的__iter__返回self</span><br><span class="line">使得整个迭代过程只需要迭代器就够了，直接让可迭代对象远离了循环</span><br><span class="line">意思就是不用再去遍历列表等容器类型了</span><br><span class="line"></span><br><span class="line">也就是说 一个可迭代对象可以拥有任意多个迭代器</span><br><span class="line">a=[0] b=iter(a) c=iter(a) b==c False 不同内存地址</span><br><span class="line"></span><br><span class="line">迭代器协议：</span><br><span class="line">__iter__返回迭代器自身</span><br><span class="line">__next__每次返回一个迭代数据，如果没有数据则抛出StopIteration异常</span><br><span class="line"></span><br><span class="line">## 生成器</span><br><span class="line">yield 函数没有运行而是返回一个生成器对象</span><br><span class="line">生成器函数内的代码需要通过生成器对象来执行 生成器函数的作用和类差不多</span><br><span class="line">import inspect</span><br><span class="line">print(inspect.isfunction(gen))</span><br><span class="line">print(inspect.isgeneratorfunction(gen)) 含yield的函数就叫生成器函数</span><br><span class="line">print(inspect.isgenerator(g))</span><br><span class="line">生成器对象一定是迭代器，通过next调用，每次next都会返回yield后的结果，函数运行结束(遇到return或默认返回None)抛出StopIteration异常</span><br><span class="line"></span><br><span class="line">## 内部机制</span><br><span class="line">生成器函数并不直接运行，而是借助于生成器对象间接运行</span><br><span class="line">创建生成器对象的同时创建了帧对象，并且由生成器对象保持引用</span><br><span class="line">每次使用next调用生成器就是将生成器引用的帧对象入栈</span><br><span class="line">next返回，也就是遇到yield暂停的时候，就是将帧出栈</span><br><span class="line">直到迭代结束，帧最后一次出栈并且被销毁</span><br><span class="line"></span><br><span class="line">同步 普通函数</span><br><span class="line">调用：构建帧对象并入栈</span><br><span class="line">函数执行结束：帧出栈并销毁</span><br><span class="line"></span><br><span class="line">异步 生成器函数</span><br><span class="line">创建生成器：构建帧对象</span><br><span class="line">（多次）通过next触发执行：帧入栈</span><br><span class="line">（多次）遇到yield：帧出栈（保留）# 在帧出栈的时候可以插入其他任务的执行</span><br><span class="line">迭代结束：帧出栈并销毁</span><br><span class="line"></span><br><span class="line">生成器对象是一个迭代执行生成器函数的迭代器，针对一个包含很多代码的函数，分段执行其中的代码</span><br><span class="line">让一个函数可以多次迭代运行其中的代码才是生成器对象最根本的作用</span><br><span class="line"></span><br><span class="line">def a():</span><br><span class="line">    print(&quot;here&quot;)</span><br><span class="line">    x = (yield) + 1</span><br><span class="line">    print(x)</span><br><span class="line">g = a()</span><br><span class="line">g.send(None) # here 停在yield处没有print的动作</span><br><span class="line">g.send(1) # 2</span><br><span class="line"></span><br><span class="line">结束协程也是靠异常实现的，GeneratorExit，except之后必须接return或者是循环时的break</span><br><span class="line"></span><br><span class="line">事件通常都是通过回调函数来处理的</span><br><span class="line"></span><br><span class="line">## yield from</span><br><span class="line">大大减少了被动协程的编码</span><br><span class="line">最末端遇到阻塞而不得不主动yield的协程叫做主动协程</span><br><span class="line">中间接收到下游传导而不得不跟随着yield的协程叫做被动协程</span><br><span class="line">用yield from统一yield</span><br><span class="line">总结：Task任务驱动器封装 + yield from 完全体改造 + YieldFromable</span><br><span class="line">协程的传染性也就是yield from的必要性；</span><br><span class="line">明白yield是怎么被隐藏的，从而理解协程的调用链末端发生了什么；</span><br><span class="line">理解协程的开端Task存在的必要性</span><br><span class="line">yield为了暂停 task驱动生成器 yield from链接生成器</span><br><span class="line"></span><br><span class="line">看到yield要等同于理解成函数要出栈了，暂时让出函数运行的权力</span><br><span class="line">yield from/await并不会执行一个出栈的过程，而是透传，层层深入直到遇到了yield</span><br><span class="line"></span><br><span class="line">t1 = Task() # 取消while True</span><br><span class="line">t1.run()</span><br><span class="line">Task().run() # 实际上t1的等待时间是留足的，只是说执行空隙为t2所利用</span><br><span class="line">t1.run()</span><br><span class="line"></span><br><span class="line">event_loop是后台的无限循环，负责完成所有任务的调度</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="7-Frontier"><a href="#7-Frontier" class="headerlink" title="7.Frontier"></a>7.Frontier</h4><p>Paper List: <a target="_blank" rel="noopener" href="https://github.com/HuangOwen/Awesome-LLM-Compression">https://github.com/HuangOwen/Awesome-LLM-Compression</a></p>
+<p>扩散模型：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/611082996">https://zhuanlan.zhihu.com/p/611082996</a></p>
+<p>​				   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/609075353">https://zhuanlan.zhihu.com/p/609075353</a></p>
+<p>RetNet: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645974065">https://zhuanlan.zhihu.com/p/645974065</a></p>
+<p>DepGraph: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/619146631">https://zhuanlan.zhihu.com/p/619146631</a></p>
+<p>NeurIPS 2023 | 模型压缩与加速: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/673955376">https://zhuanlan.zhihu.com/p/673955376</a></p>
+<h4 id="8-Triton"><a href="#8-Triton" class="headerlink" title="8.Triton"></a>8.Triton</h4><p>LLVM: <a target="_blank" rel="noopener" href="https://github.com/llvm/llvm-project/issues/63988">https://github.com/llvm/llvm-project/issues/63988</a></p>
+<p>&#x2F;usr&#x2F;bin&#x2F;ld: cannot find -lxx: <a target="_blank" rel="noopener" href="https://blog.csdn.net/kuzma_zhang/article/details/131829943/">https://blog.csdn.net/kuzma_zhang/article/details/131829943/</a></p>
+<p>ninja install 可以 但是加上 sudo 前缀后提示无该命令: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/lfri/p/16277069.html">https://www.cnblogs.com/lfri/p/16277069.html</a></p>
+<p>ninja -C build check-llvm</p>
+<p>CMake hidden by files: conda deactivate   .so文件被隐藏</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/07/16/LLM/" data-id="clquwa4az000m0kwdaocv4tgi" data-title="LLM" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/12/Gemm/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Gemm
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/05/Frontier/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Frontier</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV-models/" rel="tag">CV_models</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Confused/" rel="tag">Confused</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/" rel="tag">Cpp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/" rel="tag">Deploy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Frontier/" rel="tag">Frontier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gemm/" rel="tag">Gemm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HPC/" rel="tag">HPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch-Python/" rel="tag">Pytorch &amp; Python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CV-models/" style="font-size: 10px;">CV_models</a> <a href="/tags/Confused/" style="font-size: 10px;">Confused</a> <a href="/tags/Cpp/" style="font-size: 10px;">Cpp</a> <a href="/tags/Deploy/" style="font-size: 10px;">Deploy</a> <a href="/tags/Frontier/" style="font-size: 10px;">Frontier</a> <a href="/tags/Gemm/" style="font-size: 10px;">Gemm</a> <a href="/tags/HPC/" style="font-size: 10px;">HPC</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/Pytorch-Python/" style="font-size: 10px;">Pytorch & Python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/11/12/Gemm/">Gemm</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/16/LLM/">LLM</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/05/Frontier/">Frontier</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/05/Misc/">Misc</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/05/Cpp/">Cpp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

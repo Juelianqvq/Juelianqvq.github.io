@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>HPC | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="[2022](# 2022) – [1.Vim](# 1.Vim) – [2.HPC](# 2.HPC) [2023](# 2023) – [1.CMake](# 1.CMake) – [2.HPC Xiaopeng](# 2.HPC Xiaopeng)   – [01.CMake](# 01.CMake)   – [02.RAII &amp; 智能指针](# 02.RAII &amp; 智能指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HPC">
+<meta property="og:url" content="http://example.com/2023/04/05/HPC/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[2022](# 2022) – [1.Vim](# 1.Vim) – [2.HPC](# 2.HPC) [2023](# 2023) – [1.CMake](# 1.CMake) – [2.HPC Xiaopeng](# 2.HPC Xiaopeng)   – [01.CMake](# 01.CMake)   – [02.RAII &amp; 智能指针](# 02.RAII &amp; 智能指">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230319164406951.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230319180514192.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230319180743499.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230319183605608.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230319230943640.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230319231432165.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230320224540396.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230320225552955.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230320232629595.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230320235203319.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230320235917427.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230320235936972.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321001621586.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321001633243.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321001651512.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321002249095.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321002257029.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321002350406.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321205208662.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321221431911.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321211011571.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321223707485.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321223934630.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321224423718.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321224633978.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321224919043.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321224941891.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321225250428.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321225905234.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321230045299.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321230131855.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321230139392.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/%E6%88%AA%E5%9B%BE%202023-03-21%2023-11-54.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321232506012.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230321232908158.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322210653200.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322223656390.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322223824279.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322224711139.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322230149362.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322231005167.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322231058509.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322231303874.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322231451419.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322231431208.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322232339235.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322232346033.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322232353986.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230322232446140.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323231203722.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323231216378.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323233738141.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323234653212.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323235039890.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323235215662.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323235225740.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323235303120.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323235320926.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323235404008.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323235510274.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323235651792.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323235853023.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230323235944737.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324000225465.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324000235957.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324213348371.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324213435510.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324213710043.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324214025070.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324214124487.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324214256714.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324221307074.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324224306879.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324232152974.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324232201109.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230324232223332.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230325210317136.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230325210505407.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326133457869.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326134207223.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326134732365.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326134907330.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326140831992.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326141651515.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326141832825.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326141942034.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326141948993.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326143144660.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326143154834.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326143421665.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326154256521.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326154944378.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326161859095.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326162214004.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326162400034.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326162435456.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326163101537.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326163304628.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326163314267.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326163917876.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326163924857.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326164015600.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326164054190.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326165112033.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326173602922.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326174207190.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326190629523.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326191618099.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326191716983.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326192028395.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326192816225.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326194101544.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326200556820.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326200647528.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326201056192.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326201049505.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326202219205.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326202224699.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326202249665.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326202957185.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326203146222.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326203407009.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326212712522.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230326214452110.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230327202559855.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230327211959402.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230327224625008.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230327225236436.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230327225419766.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230327230023185.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230327230137709.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230327232326233.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230328210013994.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230328210926860.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230328211002531.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230328211319834.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230328223626237.png">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/20180318132631477.png">
+<meta property="article:published_time" content="2023-04-05T04:46:44.000Z">
+<meta property="article:modified_time" content="2023-12-29T16:37:25.406Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="HPC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/home/kwx/blog/source/_posts/assets/image-20230319164406951.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-HPC" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/04/05/HPC/" class="article-date">
+  <time class="dt-published" datetime="2023-04-05T04:46:44.000Z" itemprop="datePublished">2023-04-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      HPC
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> [2022](# 2022)</p>
+<p>– [1.Vim](# 1.Vim)</p>
+<p>– [2.HPC](# 2.HPC)</p>
+<p>[2023](# 2023)</p>
+<p>– [1.CMake](# 1.CMake)</p>
+<p>– [2.HPC Xiaopeng](# 2.HPC Xiaopeng)</p>
+<p>  – [01.CMake](# 01.CMake)</p>
+<p>  – [02.RAII &amp; 智能指针](# 02.RAII &amp; 智能指针)</p>
+<p>  – [03.模板元编程与函数式](# 03.模板元编程与函数式)</p>
+<p>  – [04.编译器优化与SIMD指令](# 04.编译器优化与SIMD指令)</p>
+<p>  – [05.多线程](# 05.多线程)</p>
+<p>  – [06.访存优化](# 06.访存优化)</p>
+<p>  – [07.CUDA](# 07.CUDA)</p>
+<p>  – [08.C语言指针](# 08.C语言指针)</p>
+<p>– [3.线程池](# 3.线程池)</p>
+<p>– [4.编译 &amp; 链接](# 4.编译 &amp; 链接)</p>
+<p>– [5.CUDA](# 5.CUDA)</p>
+<h2 id="2022"><a href="#2022" class="headerlink" title="2022"></a>2022</h2><h4 id="1-Vim"><a href="#1-Vim" class="headerlink" title="1.Vim"></a>1.Vim</h4><p>左上下右：hjkl  </p>
+<p>w右跳到下一个单词开头 W还能无视一些符号(破折号)  b 向左    e跳转到下一个单词的末尾</p>
+<p>:w test.txt   :wqa  qa退出所有窗口   ZZ 退出 ZQ不保存退出</p>
+<p>0 $ 行首行尾 ^非空格行首  3$ 下3行的行尾     3- 上3行 + 下 跳到行首</p>
+<p>v(visualize) bve选中单词   u撤销</p>
+<p>x删除 d在normal模式下还会继续等待输入   D &#x3D; d$ 直接删至行尾 </p>
+<p>cw直接删掉并立即进入插入模式 cw&#x3D;dwi c3w cW</p>
+<p>g跳转到第一行 G跳转到最后一行 66G(行尾)66gg(行首)</p>
+<p>&#x2F;kwx向下查找 n跳转到下一个  N往上     ？向上找 n上N下    单词# 向上找 *向下找</p>
+<p>选中当前单词bve viw    c修改   ciw b 修改a&#x3D;x为b&#x3D;x</p>
+<p>f b 查找第一个b ；跳转下一个     cf&#x3D; cfb 当前到&#x3D;(b)全部重命名 包含&#x3D;     ct&#x3D; 不包含&#x3D;</p>
+<p>I# 在^处变为注释    I当前行开头插入 A末尾      i向前插入 a向后插入 insert append</p>
+<p>录制宏：q u xj q 录入u寄存器 5@u反复调用 j向下</p>
+<p>:norm 0x 0行首 即删除行首注释    :norm I重新注释 </p>
+<p>ctrl+u &#x2F; d   上下翻页   ctrl+y &#x2F; e 上下单行</p>
+<p>:s&#x2F;debian&#x2F;ubuntu&#x2F;g多次文本替换    全局替换：ggVG全部选中  或将标记符换成% </p>
+<p>o向下新起一行插入 O向上    5o world自动创建5行world</p>
+<p>D&#x3D;d$ 删除该行后续内容 C&#x3D;c$额外进入insert</p>
+<p>vi&lt;  va&lt; 选中&lt;&gt;内&#x2F;包含&lt;&gt;的内容  “同理</p>
+<p>ciw修改当前word caw会连同当前空格一并修改</p>
+<p>%可以在两头的{}互换   &lt;&lt;减小缩进 &gt;&gt;增大   &#x3D;&#x3D;自动调整缩进</p>
+<p>vi {选中花括号内 a含{}    {上一段落  }下   ()在多个函数之间跳转</p>
+<p>ggvG :s&#x2F;\s*$&#x2F;&#x2F; 去除末尾不该有的空格</p>
+<p>v选择 V选择整行 y复制  yyp 向后复制1行 yyP向前</p>
+<p>dd删除一整行  ddp互换两行   xp交换两个字符的位置</p>
+<p>5s修改当前5个字符    r仅修改当前字符</p>
+<p>:sh g++ tset.cpp &amp;&amp; .&#x2F;a.out   exit &#x2F; ctrl+d         :nnoremap &lt;F8&gt; : sh &lt;CR&gt;</p>
+<p>%可以直接替换当前的文件名   :nnoremap &lt;F5&gt; :wa&lt;CR&gt;::!g++ test.cpp -o a.out &amp;&amp; .&#x2F;a.out&lt;CR&gt;</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">run: hello</span></span><br><span class="line">	./hello</span><br><span class="line"><span class="section">hello: hello.cpp</span></span><br><span class="line">	g++ hello.cpp -o hello</span><br></pre></td></tr></table></figure>
+
+<p>:make    :cw直接进入调错窗口   </p>
+<p>ctrl+i  ctrl+o 历史页面跳转   gf向内跳转</p>
+<p>:ls查看缓冲区    :b1跳转到1号缓冲</p>
+<h4 id="2-HPC"><a href="#2-HPC" class="headerlink" title="2.HPC"></a>2.HPC</h4><p>1.1.1 Protobuffer语法释义：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/419954657">https://zhuanlan.zhihu.com/p/419954657</a></p>
+<p>1.1.2 编解码：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/420385869">https://zhuanlan.zhihu.com/p/420385869</a></p>
+<p>1.1.3 flatbuffer初次使用：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/423382566">https://zhuanlan.zhihu.com/p/423382566</a></p>
+<p>cmake -G “Unix Makefiles” -DCMAKE_BUILD_TYPE&#x3D;Release</p>
+<p>生成flatc，得到net_generated.h </p>
+<p>1.1.4 寻址：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/423382972">https://zhuanlan.zhihu.com/p/423382972</a></p>
+<p>1.3.1 图优化：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/358469896">https://zhuanlan.zhihu.com/p/358469896</a></p>
+<p>arm-neon(single instruction, multiple data)单指令多数据协处理器</p>
+<p>寄存器：32$\times$64-bit D 可组成16$\times$128-bit Q</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/358603760">arm neon指北进阶</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/388683540">ARM汇编入门指南1 “Hello World”</a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">.text</span><br><span class="line">    .file   <span class="string">&quot;main.c&quot;</span></span><br><span class="line">    .globl  main                            <span class="comment">// -- Begin function main</span></span><br><span class="line">    .p2align    <span class="number">2</span></span><br><span class="line">    .type   main,@function</span><br><span class="line">main:                                   <span class="comment">// @main</span></span><br><span class="line"><span class="comment">// %bb.0:</span></span><br><span class="line">    sub sp, sp, #<span class="number">32</span>                     <span class="comment">// =32   申请32bytes的栈空间</span></span><br><span class="line">    stp x29, x30, [sp, #<span class="number">16</span>]             <span class="comment">// 16-byte Folded Spill  将 FP(x29), LR(x30) 保存在栈上</span></span><br><span class="line">    add x29, sp, #<span class="number">16</span>                    <span class="comment">// =16   缩小栈大小16bytes </span></span><br><span class="line">    mov w8, wzr                         <span class="comment">// 将 zero寄存器的值0 移动到 w8 寄存器</span></span><br><span class="line">    stur    wzr, [x29, #<span class="number">-4</span>]             <span class="comment">// 将[x29,#-4]地址的内存重置为0</span></span><br><span class="line">    adrp    x0, .L.str                  <span class="comment">// 将字符串所在的页的基地址加载到x0</span></span><br><span class="line">    add x0, x0, :lo12:.L.str            <span class="comment">// 计算字符串的偏移地址，保存到x0</span></span><br><span class="line">    str w8, [sp, #<span class="number">8</span>]                    <span class="comment">// 4-byte Folded Spill,w8的值保存到[sp,#8]的内存地址上</span></span><br><span class="line">    bl  <span class="built_in">printf</span></span><br><span class="line">    ldr w8, [sp, #<span class="number">8</span>]                    <span class="comment">// 4-byte Folded Reload，加载数值到寄存器</span></span><br><span class="line">    mov w0, w8</span><br><span class="line">    ldp x29, x30, [sp, #<span class="number">16</span>]             <span class="comment">// 16-byte Folded Reload，还原之前保存在栈内存上的FP，LR值到x2fp,lr</span></span><br><span class="line">    add sp, sp, #<span class="number">32</span>                     <span class="comment">// =32</span></span><br><span class="line">    ret</span><br><span class="line">.Lfunc_end0:</span><br><span class="line">    .size   main, .Lfunc_end0-main</span><br><span class="line">                                        <span class="comment">// -- End function</span></span><br><span class="line">    .type   .L.str,@object                  <span class="comment">// @.str</span></span><br><span class="line">    .section    .rodata.str1<span class="number">.1</span>,<span class="string">&quot;aMS&quot;</span>,@progbits,<span class="number">1</span></span><br><span class="line">.L.str:</span><br><span class="line">    .asciz  <span class="string">&quot;Hello World!\n&quot;</span></span><br><span class="line">    .size   .L.str, <span class="number">14</span></span><br><span class="line"></span><br><span class="line">    .ident  <span class="string">&quot;Android (7155654, based on r399163b1) clang version 11.0.5 (https://android.googlesource.com/toolchain/llvm-project 87f1315dfbea7c137aa2e6d362dbb457e388158d)&quot;</span></span><br><span class="line">    .section    <span class="string">&quot;.note.GNU-stack&quot;</span>,<span class="string">&quot;&quot;</span>,@progbits</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/393077446">ARM汇编入门指南2</a></p>
+<p>栈上实例化对象：</p>
+<p>在函数一开始的位置使用sub申请一块新的栈空间，使用STP将x29(sp)和x30(lr)寄存器的值备份到栈内存；函数结束的时候使用ldp将栈上备份的值还原到sp与lr</p>
+<p>2.1.1 ARM汇编基础: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/524208867">https://zhuanlan.zhihu.com/p/524208867</a></p>
+<p>2.2.1 Neon 初步使用：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/524229060">https://zhuanlan.zhihu.com/p/524229060</a></p>
+<p>2.2.2 Neon加速卷积推理： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/524335501">https://zhuanlan.zhihu.com/p/524335501</a></p>
+<p>img2col原理：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Mrhiuser/article/details/52672824">https://blog.csdn.net/Mrhiuser/article/details/52672824</a></p>
+<p>4.2.1 Winograd卷积：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/524344248">https://zhuanlan.zhihu.com/p/524344248</a></p>
+<p>注意看公式(6)及思路3</p>
+<p>4.2.2 ncnn实现winograd: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/524355496">https://zhuanlan.zhihu.com/p/524355496</a></p>
+<p><strong>kernel_transform</strong></p>
+<p>step2 reshape 单个的flatten然后拼接</p>
+<p>step3 reorder：改变了内存排布</p>
+<p>**input_transform **</p>
+<p>step1：重叠部分铺开</p>
+<p>step2：每个tile的同一位置的元素连成”tiles”块</p>
+<p>step3：细看第一张图即可理解，mod8，mod4</p>
+<p>4.3 C4排布加速卷积实现：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/524423507">https://zhuanlan.zhihu.com/p/524423507</a></p>
+<p>nc4hw4：正视图的h及w，侧面就是c，有多少个积木块就是b</p>
+<h2 id="2023"><a href="#2023" class="headerlink" title="2023"></a>2023</h2><h4 id="1-CMake"><a href="#1-CMake" class="headerlink" title="1.CMake"></a>1.CMake</h4><p><a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/CMake-Cookbook/README.md">https://www.bookstack.cn/read/CMake-Cookbook/README.md</a></p>
+<p>在开发过程碰到需要在上级目录中构建，而源代码又分别写在下级目录的情况，同时又要根据不同的情况选择性地添加不同的源代码进行编译，所以考虑将需要编译的源代码放到一个 cmake 列表中。但是 set() 对应生成的变量都是局部变量（即不同的目录下不共用），于是使用 set_property() 命令。</p>
+<p>undefined reference to “main”：-nostartfiles</p>
+<p>undefined symbol：<a target="_blank" rel="noopener" href="https://blog.csdn.net/buknow/article/details/96130049">https://blog.csdn.net/buknow/article/details/96130049</a></p>
+<p>PUBLIC: 在public后面的库会被Link到你的target中，并且里面的符号也会被导出，提供给第三方使用<br>PRIVATE: 在private后面的库仅被link到你的target中，并且终结掉，第三方不能感知你调了啥库INTERFACE: 在interface后面引入的库不会被链接到你的target中，只会导出符号<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/znsoft/article/details/119035578">https://blog.csdn.net/znsoft/article/details/119035578</a> </p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建库 --&gt; 生成可执行文件 --&gt; 链接</span></span><br><span class="line"><span class="keyword">add_library</span>(<span class="keyword">message</span></span><br><span class="line">  STATIC</span><br><span class="line">    <span class="keyword">Message</span>.hpp</span><br><span class="line">    <span class="keyword">Message</span>.cpp</span><br><span class="line">  )</span><br><span class="line"><span class="keyword">add_executable</span>(hello-world hello-world.cpp)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(hello-world <span class="keyword">message</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 寻找 python 解释器，这是一个REQUIRED依赖</span></span><br><span class="line"><span class="keyword">find_package</span>(PythonInterp REQUIRED)</span><br><span class="line"><span class="comment"># Python 头文件和库的模块，称为FindPythonLibs.cmake</span></span><br><span class="line"><span class="keyword">find_package</span>(PythonLibs <span class="variable">$&#123;PYTHON_VERSION_MAJOR&#125;</span>.<span class="variable">$&#123;PYTHON_VERSION_MINOR&#125;</span> EXACT REQUIRED)</span><br><span class="line"><span class="comment"># 执行 python 命令</span></span><br><span class="line"><span class="keyword">execute_process</span>(</span><br><span class="line">  <span class="keyword">COMMAND</span></span><br><span class="line">      <span class="variable">$&#123;PYTHON_EXECUTABLE&#125;</span> <span class="string">&quot;-c&quot;</span> <span class="string">&quot;print(&#x27;Hello, world!&#x27;)&quot;</span></span><br><span class="line">  RESULT_VARIABLE _status</span><br><span class="line">  OUTPUT_VARIABLE _hello_world</span><br><span class="line">  ERROR_QUIET</span><br><span class="line">  OUTPUT_STRIP_TRAILING_WHITESPACE</span><br><span class="line">  )</span><br><span class="line">  </span><br><span class="line"><span class="comment"># PYTHONINTERP_FOUND：是否找到解释器</span></span><br><span class="line"><span class="comment"># PYTHON_EXECUTABLE：Python解释器到可执行文件的路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 软件包没有安装在标准位置时，CMake无法正确定位它们,可使用CLI的-D参数告诉CMake查看特定的位置</span></span><br><span class="line">$ cmake -D PYTHON_EXECUTABLE=/custom/location/python ..</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可执行文件包含Python.h头文件，因此这个目标的include目录必须包含Python的include目录</span></span><br><span class="line"><span class="keyword">target_include_directories</span>(hello-embedded-python</span><br><span class="line">  PRIVATE</span><br><span class="line">      <span class="variable">$&#123;PYTHON_INCLUDE_DIRS&#125;</span></span><br><span class="line">    )</span><br><span class="line"><span class="comment"># 将可执行文件链接到 Python 库</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(hello-embedded-python</span><br><span class="line">  PRIVATE</span><br><span class="line">      <span class="variable">$&#123;PYTHON_LIBRARIES&#125;</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检测 Eigen 库</span></span><br><span class="line">https://www.bookstack.cn/read/CMake-Cookbook/content-chapter3-<span class="number">3.7</span>-chinese.md</span><br></pre></td></tr></table></figure>
+
+<p>其他常用操作：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line">$ cmake --build . -- VERBOSE=<span class="number">1</span>  &lt;==&gt; make 但是能跨平台 不然其他生成器如 Ninja 可能就不奏效了</span><br><span class="line">$ cmake -D CMAKE_CXX_COMPILER=clang++ ..</span><br><span class="line">$ cmake --system-information information.txt</span><br><span class="line">$ cmake -D CMAKE_CXX_FLAGS=<span class="string">&quot;-fno-exceptions -fno-rtti&quot;</span> .. <span class="comment"># 编译项目时，禁用异常和运行时类型标识(RTTI)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">option</span>(USE_LIBRARY <span class="string">&quot;Compile sources into a library&quot;</span> <span class="keyword">OFF</span>) </span><br><span class="line"></span><br><span class="line"><span class="keyword">include</span>(CMakeDependentOption)</span><br><span class="line"><span class="comment"># 相当于 if M_S_L==off: U_L=on</span></span><br><span class="line">cmake_dependent_option(</span><br><span class="line">    MAKE_STATIC_LIBRARY <span class="string">&quot;Compile sources into a static library&quot;</span> <span class="keyword">OFF</span></span><br><span class="line">    <span class="string">&quot;USE_LIBRARY&quot;</span> <span class="keyword">ON</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缓存变量，可通过缓存编辑 默认的构建类型</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">NOT</span> CMAKE_BUILD_TYPE)</span><br><span class="line">    <span class="keyword">set</span>(CMAKE_BUILD_TYPE Release CACHE <span class="keyword">STRING</span> <span class="string">&quot;Build type&quot;</span> FORCE)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"><span class="keyword">message</span>(STATUS <span class="string">&quot;Build type: $&#123;CMAKE_BUILD_TYPE&#125;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印编译器标志</span></span><br><span class="line"><span class="keyword">message</span>(<span class="string">&quot;C++ compiler flags: $&#123;CMAKE_CXX_FLAGS&#125;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置编译选项 可以是链接库也可以是可执行文件</span></span><br><span class="line"><span class="keyword">target_compile_options</span>(geometry</span><br><span class="line">  PRIVATE</span><br><span class="line">    <span class="variable">$&#123;flags&#125;</span></span><br><span class="line">  ) </span><br><span class="line"><span class="comment"># PRIVATE，编译选项会应用于给定的目标，不会传递给与目标相关的目标</span></span><br><span class="line"><span class="comment"># INTERFACE，只应用于指定目标，并传递给与目标相关的目标</span></span><br><span class="line"><span class="comment"># PUBLIC，应用于指定目标和使用它的目标</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设定语言标准</span></span><br><span class="line"><span class="keyword">set_target_properties</span>(animals</span><br><span class="line">  PROPERTIES</span><br><span class="line">    CXX_STANDARD <span class="number">14</span></span><br><span class="line">    CXX_EXTENSIONS <span class="keyword">OFF</span>  <span class="comment"># 只启用ISO C++标准的编译器标志，而不使用特定编译器的扩展</span></span><br><span class="line">    CXX_STANDARD_REQUIRED <span class="keyword">ON</span>  <span class="comment"># 如果off 就先从 c++20 17往下找</span></span><br><span class="line">    POSITION_INDEPENDENT_CODE <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 控制流</span></span><br><span class="line"><span class="keyword">list</span>(</span><br><span class="line">  APPEND sources_with_lower_optimization</span><br><span class="line">    geometry_circle.cpp</span><br><span class="line">    geometry_rhombus.cpp</span><br><span class="line">  )</span><br><span class="line"><span class="keyword">message</span>(STATUS <span class="string">&quot;Setting source properties using IN LISTS syntax:&quot;</span>)</span><br><span class="line"><span class="keyword">foreach</span>(_source IN LISTS sources_with_lower_optimization)</span><br><span class="line">  <span class="keyword">set_source_files_properties</span>(<span class="variable">$&#123;_source&#125;</span> PROPERTIES COMPILE_FLAGS -O2)</span><br><span class="line">  <span class="keyword">message</span>(STATUS <span class="string">&quot;Appending -O2 flag for $&#123;_source&#125;&quot;</span>)</span><br><span class="line">  <span class="keyword">get_source_file_property</span>(_flags <span class="variable">$&#123;_source&#125;</span> COMPILE_FLAGS)</span><br><span class="line">  <span class="keyword">message</span>(STATUS <span class="string">&quot;Source $&#123;_source&#125; has the following extra COMPILE_FLAGS: $&#123;_flags&#125;&quot;</span>)</span><br><span class="line"><span class="keyword">endforeach</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(CMAKE_SYSTEM_NAME <span class="keyword">STREQUAL</span> <span class="string">&quot;Linux&quot;</span>)</span><br><span class="line">  <span class="keyword">target_compile_definitions</span>(hello-world PUBLIC <span class="string">&quot;IS_LINUX&quot;</span>)</span><br><span class="line">elif()</span><br><span class="line"><span class="keyword">else</span>()</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(CMAKE_CXX_COMPILER_ID <span class="keyword">MATCHES</span> Intel)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(CMAKE_SIZEOF_VOID_P <span class="keyword">EQUAL</span> <span class="number">8</span>)</span><br><span class="line">  <span class="keyword">target_compile_definitions</span>(arch-dependent PUBLIC <span class="string">&quot;IS_64_BIT_ARCH&quot;</span>)</span><br><span class="line"><span class="keyword">elseif</span>(CMAKE_HOST_SYSTEM_PROCESSOR <span class="keyword">MATCHES</span> <span class="string">&quot;x86_64&quot;</span>)</span><br><span class="line">  <span class="keyword">message</span>(STATUS <span class="string">&quot;x86_64 architecture detected&quot;</span>)</span><br><span class="line">  </span><br><span class="line"><span class="comment"># cmake_host_system_information 查询运行CMake的主机系统的系统信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 寻找CheckCXXCompilerFlag.cmake标准模块文件</span></span><br><span class="line"><span class="keyword">include</span>(CheckCXXCompilerFlag)</span><br><span class="line"><span class="comment"># 检查 -march=native编译器标志是否工作</span></span><br><span class="line">check_cxx_compiler_flag(<span class="string">&quot;-march=native&quot;</span> _march_native_works)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印模块</span></span><br><span class="line"><span class="keyword">include</span>(CMakePrintHelpers)</span><br><span class="line">cmake_print_variables(_status _hello_world)</span><br><span class="line"></span><br><span class="line"><span class="comment"># pkg-config检测外部库</span></span><br><span class="line"><span class="keyword">find_package</span>(PkgConfig REQUIRED QUIET)  <span class="comment"># 传递QUIET参数，只有在找不到 pkg-config时，CMake才会报错</span></span><br><span class="line">pkg_search_module(</span><br><span class="line">  ZeroMQ</span><br><span class="line">  REQUIRED</span><br><span class="line">      libzeromq libzmq lib0mq</span><br><span class="line">  IMPORTED_TARGET</span><br><span class="line">  )</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">TARGET</span> PkgConfig::ZeroMQ)</span><br><span class="line">    <span class="keyword">message</span>(STATUS <span class="string">&quot;Found ZeroMQ&quot;</span>)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单元测试</span></span><br><span class="line"><span class="keyword">find_package</span>(PythonInterp REQUIRED)</span><br><span class="line"><span class="keyword">find_program</span>(BASH_EXECUTABLE NAMES bash REQUIRED)</span><br><span class="line"></span><br><span class="line"><span class="keyword">enable_testing</span>()  <span class="comment"># 测试这个目录和所有子文件夹</span></span><br><span class="line"><span class="keyword">add_test</span>(  <span class="comment"># 设置测试名称和运行指令</span></span><br><span class="line">  NAME cpp_test</span><br><span class="line">  <span class="keyword">COMMAND</span> $&lt;TARGET_FILE:cpp_test&gt;  <span class="comment"># 生成器表达式，是在生成构建系统生成时的表达式</span></span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 动态分析检测内存泄露</span></span><br><span class="line"><span class="keyword">find_program</span>(MEMORYCHECK_COMMAND NAMES valgrind)</span><br><span class="line"><span class="keyword">set</span>(MEMORYCHECK_COMMAND_OPTIONS <span class="string">&quot;--trace-children=yes --leak-check=full&quot;</span>)</span><br><span class="line">$ ctest -T memcheck --parallel <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件操作</span></span><br><span class="line"><span class="keyword">add_custom_target</span>(unpack-eigen  <span class="comment"># 构建没有输出的命令</span></span><br><span class="line">  ALL  <span class="comment"># 目标始终被执行</span></span><br><span class="line">  <span class="keyword">COMMAND</span></span><br><span class="line">      <span class="variable">$&#123;CMAKE_COMMAND&#125;</span> -E tar xzf <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/eigen-eigen-<span class="number">5</span>a0156e40feb.tar.gz</span><br><span class="line">  <span class="keyword">COMMAND</span></span><br><span class="line">      <span class="variable">$&#123;CMAKE_COMMAND&#125;</span> -E rename eigen-eigen-<span class="number">5</span>a0156e40feb eigen-<span class="number">3.3</span>.<span class="number">4</span></span><br><span class="line">  WORKING_DIRECTORY</span><br><span class="line">      <span class="variable">$&#123;CMAKE_CURRENT_BINARY_DIR&#125;</span></span><br><span class="line">  COMMENT</span><br><span class="line">      <span class="string">&quot;Unpacking Eigen3 in $&#123;CMAKE_CURRENT_BINARY_DIR&#125;/eigen-3.3.4&quot;</span></span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 探究编译器是否支持某种特性</span></span><br><span class="line"><span class="keyword">try_compile</span>(</span><br><span class="line">  omp_taskloop_test_1</span><br><span class="line">      <span class="variable">$&#123;CMAKE_CURRENT_BINARY_DIR&#125;</span>/omp_try_compile  <span class="comment"># 用于保存编译成功与否的状态</span></span><br><span class="line">  SOURCES</span><br><span class="line">      <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/taskloop.cpp</span><br><span class="line">  <span class="keyword">LINK_LIBRARIES</span></span><br><span class="line">      OpenMP::OpenMP_CXX</span><br><span class="line">  )</span><br><span class="line"><span class="keyword">message</span>(STATUS <span class="string">&quot;Result of try_compile: $&#123;omp_taskloop_test_1&#125;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">include</span>(CheckCXXSourceCompiles)  <span class="comment"># 使用check_cxx_source_compiles函数，需要包含CheckCXXSourceCompiles.cmake模块文件</span></span><br><span class="line"><span class="keyword">file</span>(READ <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/taskloop.cpp _snippet)  <span class="comment"># 复制源文件的内容，file(READ ...)命令读取内容到一个变量中，试图编译和连接这个变量</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_REQUIRED_LIBRARIES OpenMP::OpenMP_CXX)  <span class="comment"># 对于下一步正确调用编译器是必需的,使用导入的OpenMP::OpenMP_CXX目标，它还将设置正确的编译器标志和包含目录:</span></span><br><span class="line">check_cxx_source_compiles(<span class="string">&quot;$&#123;_snippet&#125;&quot;</span> omp_taskloop_test_2)</span><br><span class="line"><span class="keyword">unset</span>(CMAKE_REQUIRED_LIBRARIES)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 探究编译器标志</span></span><br><span class="line"><span class="keyword">list</span>(APPEND CXX_BASIC_FLAGS <span class="string">&quot;-g3&quot;</span> <span class="string">&quot;-O1&quot;</span>)  <span class="comment"># 声明列表CXX_BASIC_FLAGS，其中包含构建项目时始终使用的编译器标志-g3和-O1:</span></span><br><span class="line"><span class="keyword">include</span>(CheckCXXCompilerFlag)</span><br><span class="line">check_cxx_compiler_flag(<span class="variable">$&#123;ASAN_FLAGS&#125;</span> asan_works)  <span class="comment"># 调用check_cxx_compiler_flag来确保编译器理解ASAN_FLAGS变量中的标志</span></span><br><span class="line"><span class="keyword">unset</span>(CMAKE_REQUIRED_FLAGS)</span><br><span class="line"><span class="keyword">if</span>(asan_works)  <span class="comment"># 如果编译器理解这些选项，将变量转化为一个列表，分号替换空格</span></span><br><span class="line">    <span class="keyword">string</span>(REPLACE <span class="string">&quot; &quot;</span> <span class="string">&quot;;&quot;</span> _asan_flags <span class="variable">$&#123;ASAN_FLAGS&#125;</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 探究可执行命令</span></span><br><span class="line"><span class="keyword">include</span>(CheckCSourceRuns)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将cmake子目录添加到CMake模块搜索的路径列表中,告诉cmake去哪里查找宏</span></span><br><span class="line"><span class="keyword">list</span>(APPEND CMAKE_MODULE_PATH <span class="string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/cmake&quot;</span>)</span><br><span class="line"><span class="keyword">include</span>(colors)</span><br><span class="line">显式</span><br><span class="line"><span class="keyword">include</span>(cmake/colors.cmake)</span><br></pre></td></tr></table></figure>
+
+<p>Setuptools：</p>
+<p>–package_dir 告诉setuptools哪些目录下的文件被映射到哪个源码包</p>
+<p>package_dir &#x3D; {‘’: ‘lib’}，表示“root package”中的模块都在lib 目录中</p>
+<h4 id="2-HPC-Xiaopeng"><a href="#2-HPC-Xiaopeng" class="headerlink" title="2.HPC Xiaopeng"></a>2.HPC Xiaopeng</h4><p><a target="_blank" rel="noopener" href="https://github.com/parallel101/course">https://github.com/parallel101/course</a></p>
+<h5 id="01-CMake"><a href="#01-CMake" class="headerlink" title="01.CMake"></a>01.CMake</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmake -Bbuild --dry-run</span><br><span class="line">-DCMAKE_CXX_COMPILER=g++ -DCMAKE_CXX_STANDARD=17 -C build # change 目录</span><br></pre></td></tr></table></figure>
+
+<p>“”优先搜索当前目录，&lt;&gt;可以用””代替，反之不然，所以&lt;&gt;是为了避免当前目录下的错误文件被引入</p>
+<p>为了避免引用subdirectory中头文件时#include “”相对路径的改写，可使用target_include_directories；甚至可直接使用&lt;&gt;，因为该方法会被视为与系统路径等价</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 子模块的头文件处理</span></span><br><span class="line"><span class="keyword">add_executable</span>(a.out main.cpp)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(a.out PUBLIC hellolib)</span><br><span class="line">target_include_libraries(a.out PUBLIC hellolib)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可进一步做如下处理：定义hellolib的头文件搜索路径，引用PUBLIC的可执行文件时，CMake会自动添加这个路径</span></span><br><span class="line"><span class="keyword">add_library</span>(hellolib STATIC hello.cpp)</span><br><span class="line"><span class="keyword">target_include_directories</span>(hellolib PUBLIC .)</span><br><span class="line"></span><br><span class="line"><span class="comment">#CMake引用系统中预安装的第三方库</span></span><br><span class="line"><span class="keyword">find_package</span>(XX REQUIRED)</span><br></pre></td></tr></table></figure>
+
+<h5 id="02-RAII-智能指针"><a href="#02-RAII-智能指针" class="headerlink" title="02.RAII &amp; 智能指针"></a>02.RAII &amp; 智能指针</h5><h5 id="Resource-Acquisition-Is-Initialization"><a href="#Resource-Acquisition-Is-Initialization" class="headerlink" title="Resource Acquisition Is Initialization"></a>Resource Acquisition Is Initialization</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sum = std::<span class="built_in">reduce</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), <span class="number">0</span>, std::plus&#123;&#125;)</span><br><span class="line">    </span><br><span class="line"><span class="meta"># c++ 20 引入区间</span></span><br><span class="line">std::vector v = &#123;<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">-2</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> &amp;&amp;vi: v</span><br><span class="line">     | std::views::<span class="built_in">filter</span>([] (<span class="keyword">auto</span> &amp;&amp;x) &#123; <span class="keyword">return</span> x &gt;= <span class="number">0</span>; &#125;)</span><br><span class="line">     | std::views::<span class="built_in">transform</span>([] (<span class="keyword">auto</span> &amp;&amp;x) &#123; <span class="keyword">return</span> <span class="built_in">sqrtf</span>(x); &#125;)</span><br><span class="line">    ) &#123;</span><br><span class="line">    std::cout &lt;&lt; vi &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdexcept&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">std::ofstream <span class="title">fout</span><span class="params">(<span class="string">&quot;a.txt&quot;</span>)</span></span>;</span><br><span class="line">    fout &lt;&lt; <span class="string">&quot;有一种病\n&quot;</span>;</span><br><span class="line">    <span class="keyword">throw</span> std::<span class="built_in">runtime_error</span>(<span class="string">&quot;中道崩殂&quot;</span>);</span><br><span class="line">    fout &lt;&lt; <span class="string">&quot;叫 JavaBean\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="built_in">test</span>();</span><br><span class="line">    &#125; <span class="built_in">catch</span> (std::exception <span class="type">const</span> &amp;e) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;捕获异常：&quot;</span> &lt;&lt; e.<span class="built_in">what</span>() &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230319164406951.png" alt="image-20230319164406951" style="zoom:67%;" />
+
+<p>std::to_string(80)<br>explicit 需要显式，不能用&#x3D;做隐式构造<br>使用static_cast<int>(3.14f) 而非 int(3.14f)<br>使用reinterpret_cast&lt;void *&gt;(0xb800)而非(void *)0xb8000<br>后者是：如果硬要让int与指针有一定关联，不让编译器去做安全检查</p>
+<p>通过指定struct为函数返回值类型，return 初始化列表可以解决函数多返回值<br>std::tuple前后顺序没有名字<br>C++中所有对象都是深拷贝，只有shared&#x2F;weak&#x2F;默认是浅拷贝，unique是禁止拷贝</p>
+<p>一些规则：<a target="_blank" rel="noopener" href="https://github.com/isocpp/CppCoreGuidelines">https://github.com/isocpp/CppCoreGuidelines</a></p>
+<p>默认的编译器生成的拷贝构造是指针的浅拷贝，所以&#x3D;delete，避免双重free</p>
+<p>浅拷贝那个只是复制地址，没有分配内存</p>
+<p>vector的resize其实就是种原子操作，让两个操作封装成一个</p>
+<p>三五法则：（可以将拷贝构造函数声明为 explicit）</p>
+<p>如果一个类定义了析构函数，必须同时定义或删除拷贝构造函数和拷贝赋值函数，否则出错。</p>
+<p>如果一个类定义了拷贝构造函数，必须同时定义或删除拷贝赋值函数，否则出错，删除可导致低效。</p>
+<p>如果一个类定义了移动构造函数，必须同时定义或删除移动赋值函数，否则出错，删除可导致低效。</p>
+<p>如果一个类定义了拷贝构造或拷贝赋值函数，必须最好同时定义移动构造或移动赋值函数，否则低效。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int x = 1 # 拷贝构造</span><br><span class="line">x = 2 # 拷贝赋值</span><br><span class="line">拷贝赋值（先销毁现有的1再重新构造2） ≈ 析构 + 拷贝构造（直接再未初始化的内存上构造2）</span><br><span class="line">移动构造 ≈ 拷贝构造 + 析构 + 默认构造</span><br><span class="line">内存的销毁重新分配可以通过 realloc，就地利用当前现有的m_data，避免重新分配</span><br></pre></td></tr></table></figure>
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230319180514192.png" alt="image-20230319180514192" style="zoom:67%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230319180743499.png" alt="image-20230319180743499" style="zoom:67%;" />
+
+<p>时间复杂度：copy: O(n)  move&#x2F;swap: O(1)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::move(t)  (T &amp;&amp;)t</span><br><span class="line">std::as_const(t)  (T const &amp;)t</span><br><span class="line">v2= &#123;&#125; 调用默认构造函数与移动赋值函数</span><br></pre></td></tr></table></figure>
+
+<p>如果有移动赋值函数，可以删除拷贝赋值函数：因为没有了拷贝赋值，v2&#x3D;v1会被编译器解读为v2&#x3D;List(v1)，相当于就地构造的临时对象，从而变成了移动语义</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230319183605608.png" alt="image-20230319183605608" style="zoom:67%;" />
+
+<p>new C 随机初始化，new C( ) 零初始化</p>
+<p>p &#x3D; nullptr 等价于 p.reset()</p>
+<p>unique_ptr 函数传参：如果func实际并不需要夺走资源的占有权，只是调用了指针的某个成员函数，并没有接管对象生命周期的大权，直接用p.get( )获取<strong>原始指针</strong>；如果需要接管，则使用std::move(p)，这时候p,get( )是null，因为移动会清除原有对象（防止重复释放）</p>
+<p>shared_ptr：p.use_count( )  </p>
+<p>解决循环引用：weak_ptr，p.expired( )判断弱引用是否失效，p.lock( )生成强引用shared_ptr</p>
+<p>智能指针作为类的成员变量时，整个类也就变成了浅拷贝，或者unique_ptr禁止拷贝</p>
+<p>unique_ptr：该对象仅仅属于我</p>
+<p>原始指针：该对象不属于我，但它释放前我必然被释放</p>
+<p>shared_ptr：该对象由多个对象共享时，或该对象仅属于我，但有使用weak_ptr的需要</p>
+<p>weak_ptr：对象不属于我，且它释放后我仍可能不被释放</p>
+<p>管理资源（资源往往不能被复制）的类，删除拷贝，使用智能指针进行管理</p>
+<p>const引用可以避免不必要的拷贝（实际传递的是一个指针），如果函数参数传递的是值，可能也会触发拷贝</p>
+<p>基础类型（比如 int，float）或 原始指针（比如 int *，Object *）按值传递：void doSomethingWith(Object *ptr);</p>
+<p>（指针64位，float32位）</p>
+<p>数据容器类型（比如 vector，string）或 自定义的可拷贝的类 按常引用传递：int sumArray(std::vector<int> const &amp;arr);</p>
+<p>如果是智能指针 且需要生命周期控制权，按值传递：void addObject(std::shared_ptr<Object> obj);</p>
+<p>如果是智能指针 但不需要生命周期，则通过 .get() 获取原始指针后，按值传递：void modifyObject(Object *obj)</p>
+<h5 id="03-模板元编程与函数式"><a href="#03-模板元编程与函数式" class="headerlink" title="03.模板元编程与函数式"></a>03.模板元编程与函数式</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span> = <span class="type">int</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>模板参数可以作为编译器常量</p>
+<p>模板内部实现不加static或者inline的话，不会内联，会生成弱符号，就是编译器会对相同的多个弱符号里取其一</p>
+<p>constexpr保证是编译期求完值的，等号右边必须是编译期常量表达式(如 std::min)，而非运行时常量</p>
+<p>模板的惰性：延迟编译</p>
+<p>分离模板的定义：需要在看得到模板内部函数定义的cpp里增加模板的显式声明</p>
+<p>auto根据等号右边的值自动推导，且不能用于类成员</p>
+<p>函数没有return语句时，auto自动推断为void</p>
+<p>如果声明和实现分离了，那就不能声明为auto</p>
+<p>引用的本质无非是指针，试图修改一个引用时，实际就是修改了原来的对象</p>
+<p>函数中的static只有在进入了函数才会做初始化而非一加载程序就初始化</p>
+<p>右值int &amp;&amp;能退化为 const &amp;，但不能退化为int &amp;</p>
+<p>decltype(变量名&#x2F;表达式) 获取变量定义时&#x2F;表达式的类型</p>
+<p>区分：int * const |  const int * | int const *</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::cout &lt;&lt; std::is_same_v&lt;<span class="type">int</span> <span class="type">const</span>, <span class="type">const</span> <span class="type">int</span>&gt; &lt;&lt; <span class="string">&quot;\n&quot;</span></span><br><span class="line">std::cout &lt;&lt; std::is_same_v&lt;std::<span class="type">remove_const_t</span>&lt;<span class="type">int</span> <span class="type">const</span>&gt;, <span class="type">int</span>&gt; &lt;&lt; <span class="string">&quot;\n&quot;</span></span><br><span class="line">std::cout &lt;&lt; std::is_same_v&lt;std::<span class="type">decay_t</span>&lt;<span class="type">int</span> <span class="type">const</span>&gt;, <span class="type">int</span>&gt; &lt;&lt; <span class="string">&quot;\n&quot;</span>  # 退化<span class="type">const</span>，&amp;,<span class="type">int</span>[] 退化为<span class="type">int</span> *</span><br></pre></td></tr></table></figure>
+
+<p>sfinae：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/100554291">https://zhuanlan.zhihu.com/p/100554291</a></p>
+<p>type_trait：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/gtarcoder/p/4807670.html">https://www.cnblogs.com/gtarcoder/p/4807670.html</a></p>
+<p>万能推导：</p>
+<p>decltype(auto) p &#x3D; func( )会自动推导为func( )的返回类型，与decltype(func( )) p &#x3D; func( )等价，在代理模式中用于完美转发函数返回值：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">decltype</span>(<span class="keyword">auto</span>) <span class="title">at</span><span class="params">(<span class="type">size_t</span> i)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> m_internal_class.<span class="built_in">at</span>(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>typedef int (*PFunc) (int) 等价于 using PFunc &#x3D; int(*) (int)</p>
+<p>用 decltype(T1{} * T2{}) 算出 T1 和 T2 类型相加以后的结果，并做为返回的 vector 容器中的数据类型</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># before</span></span><br><span class="line"><span class="keyword">typename</span> std::decay&lt;<span class="type">int</span>&gt;::type</span><br><span class="line">std::same&lt;<span class="type">int</span>, <span class="type">int</span>&gt;::value</span><br><span class="line"></span><br><span class="line"><span class="meta"># now</span></span><br><span class="line">std::<span class="type">decay_t</span>&lt;<span class="type">int</span>&gt;</span><br><span class="line">std::is_same_v&lt;<span class="type">int</span>, <span class="type">int</span>&gt;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="keyword">using</span> <span class="type">decay_t</span> = <span class="keyword">typename</span> std::decay&lt;<span class="type">int</span>&gt;::type</span><br></pre></td></tr></table></figure>
+
+<p>函数作为参数也就是传入了函数的起始地址</p>
+<p>函数可以引用定义位置所有的变量的特性在函数式编程中叫做闭包</p>
+<p>[&amp;]传入的是可写入的变量，是可变引用</p>
+<p>lambda表达式：传递const引用以避免拷贝开销，此外最好把模板参数的Func声明为Func const &amp;以避免不必要的拷贝</p>
+<p>lambda表达式的返回值永远是匿名的，所以要用auto来推导</p>
+<p>需要注意：lambda对象的生命周期不超过它捕获的所有引用的寿命</p>
+<p>lambda表达式避免使用模板参数可以用std::function（把所有( )的函数变成虚函数），它的开销与虚函数一致，因其实现需要用到虚函数，std::function&lt;int&lt;float, char *&gt;&gt;</p>
+<p>未知类型 std::any，代替 C 的 void*   ;   某种类型 std::optional，代替 C 的类型指针</p>
+<p>回调函数 std::function，代替 C 的函数指针  ;  某些类型 std::variant，代替 union</p>
+<p>可以将lambda表达式的参数声明为auto，基本和template<class T>等价</p>
+<p>auto const &amp; 等价于 T const &amp;</p>
+<p>带auto的lambda表达式，和模板函数一样，同样会有惰性、多次编译的特性</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230319230943640.png" alt="image-20230319230943640" style="zoom:67%;" />
+
+<p>化简auto：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230319231432165.png" alt="image-20230319231432165" style="zoom:67%;" />
+
+<p>结构化绑定还可以应用于任意类</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span> &#123;</span><br><span class="line">	<span class="type">int</span> x;</span><br><span class="line">	<span class="type">float</span> y;</span><br><span class="line">&#125;;</span><br><span class="line">A a = &#123;<span class="number">1</span>, <span class="number">1.1</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> [x, y] = a;</span><br></pre></td></tr></table></figure>
+
+<p>返回bool的std::tuple可以用std::optional替代：</p>
+<p>value_or( )指定缺失值：printf(“成功 ! “, ret.value_or( 1.0f ))， ret.value( )会检测是否为空</p>
+<p>有值时可以用*ret，optional里的类型是结构体的话，也可以用ret-&gt;xxx访问结构体的属性</p>
+<p>if (opt) 等价于 if (ret.has_value( ))</p>
+<p>std::optional是更安全的指针，std::variant就是更安全的Union：std::variant&lt;int, float&gt; v &#x3D; 3</p>
+<p>判断当前是那个类型：std::holds_alternative<int>(v) or v.index( ) &#x3D;&#x3D; 0</p>
+<p>判断是否是指针：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::cout &lt;&lt; std::is_pointer_v&lt;std::<span class="type">nullptr_t</span>&gt; &lt;&lt; <span class="string">&quot;\n&quot;</span>  # False</span><br></pre></td></tr></table></figure>
+
+<p>std::visit会自动用相应的类型调用 lambda，lambda 中往往是个重载函数</p>
+<p>std::visit、std::variant 的这种模式称为静态多态，和虚函数、抽象类的动态多态相对</p>
+<p>静态多态的优点是：性能开销小，存储大小固定。缺点是：类型固定，不能运行时扩充</p>
+<h5 id="04-编译器优化与SIMD指令"><a href="#04-编译器优化与SIMD指令" class="headerlink" title="04.编译器优化与SIMD指令"></a>04.编译器优化与SIMD指令</h5><p>编译器就是从源代码生成汇编语言</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230320224540396.png" alt="image-20230320224540396" style="zoom:67%;" />
+
+<p>RIP是当前执行的代码地址</p>
+<p>MMX YMM XMM都是用于存储浮点数的寄存器</p>
+<p>SSE Media Registers：128位宽 &#x3D; 4个float &#x2F; 2个double</p>
+<p>32位eax与64位rax：共用前32位，即eax与rax的低32位是共用的</p>
+<p>同理，eax与ax，ax&#x3D;ah + al</p>
+<p>AVX用的ZMM， AVX512 YMM (256位) ，SSE用的XMM (128位)</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230320225552955.png" alt="image-20230320225552955" style="zoom:8-%;" />
+
+<p>gcc -fomit-frame-pointer -fverbose-asm -S main.cpp  &#x2F;tmp&#x2F;main.S</p>
+<p>movl %edi, -4(%rsp) 相当于 *(rsp - 4) &#x3D; edi</p>
+<p>函数前6个参数，分别通过edi, esi, edx, ecx, r8d, r9d传入</p>
+<p>imul 第一个参数edi 第二个参数esi  返回值eax  32位—-&gt; 64位 rdi rsi imulq</p>
+<p>lea 用于加载表达式地址，而非把表达式的值给取出来，即 leal (%rdi, %rsi) , %eax  &lt;&#x3D;&gt;  eax &#x3D; &amp;*(rdi + rsi) </p>
+<p>lea 可以执行任意一次函数 leal(%rdi, %rsi, 8)  rdi + rsi * 8</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">func</span><span class="params">(<span class="type">int</span>* a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a[b];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">movslq %esi, %rsi  指针是<span class="number">64</span>位的，<span class="type">int</span>是<span class="number">32</span>位的，所以要先把<span class="type">int</span>转化为<span class="number">64</span>位，esi -&gt; <span class="function">rsi</span></span><br><span class="line"><span class="function"><span class="title">movl</span> <span class="params">(%rdi, %rsi, <span class="number">4</span>)</span>, %eax  <span class="meta"># int大小是4，所以偏移量也要乘以4才能访问到正确的地址</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"># 可以改进为：</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">func</span><span class="params">(<span class="type">int</span>* a, std::<span class="type">size_t</span> b)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> a[b];</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta"># std::size_t在64位系统上相当于uint64_t,32位就是uint32_t，从而不需要movslq，而且也能处理数组大超出INT_MAX的情况，推荐始终用size_t表示数组大小和索引</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">func</span><span class="params">(<span class="type">float</span> a, <span class="type">float</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line">addss %xmm1, %xmm0  只对最低位进行加法</span><br><span class="line">ss矢量化失败，ps成功</span><br><span class="line">addss 一个<span class="type">float</span>加法，addsd 一个<span class="type">double</span>，addps 四个<span class="type">float</span> addpd，两个<span class="type">double</span></span><br></pre></td></tr></table></figure>
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230320232629595.png" alt="image-20230320232629595" style="zoom:67%;" />
+
+<p>存储在堆上妨碍优化：vector, map, set, string, function, any, smart pointers</p>
+<p>栈上利于优化：array, bitset, pair, tuple, optional, variant</p>
+<p>存储在栈上无法动态扩充大小</p>
+<p>最简单的判断方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">size_of</span>(vector&lt;array&gt;)  <span class="number">24</span> 存的只是一个指针以及vector大小</span><br><span class="line"><span class="built_in">size_of</span>(array&lt;<span class="type">float</span>, <span class="number">32</span>&gt;)  =  <span class="number">32</span> * <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>constexpr强迫编译器进行常量折叠，在编译期求值，不过constexpr无法用于非constexpr的容器，例如vector, map, set, string等</p>
+<p>外部函数：同一个文件内只有声明没有实现</p>
+<p>调用外部函数：call指令   编译器优化：call变jmp</p>
+<p>call _Z5otheri@PLT  @PLT(procedure linkage table)函数链接表</p>
+<p>链接器会查找其他.o文件中是否定义了这个符号，如果定义了就把@PLT替换为它的地址</p>
+<p>局部可见函数 static：编译器不生成other函数直接进行inline了</p>
+<p><a target="_blank" rel="noopener" href="https://godbolt.org/">https://godbolt.org/</a></p>
+<p>指针别名：__restrict关键字向编译器保证指针之间不会发生重叠</p>
+<p>所有非const指针都声明__restrict</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void func(int *__restrict a, int *__restrict b, int *__restrict c) &#123;</span><br><span class="line">    *c = *a;</span><br><span class="line">    *c = *b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>禁止优化：volatile，适用于benchmark测速对比，可以用于非指针</p>
+<p>volatile在*前，restrict在*后</p>
+<p>两个int32可以合并为1个int64，4个int32可以合并为一个__m128</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span>* a)</span></span>&#123;</span><br><span class="line">    a[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    a[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    a[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line">    a[<span class="number">3</span>] = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230320235203319.png" alt="image-20230320235203319" style="zoom:67%;" />
+
+<p>movups：move unaligned packed single，u代表(%rdi)的地址不一定对齐到16字节</p>
+<p>moveaps：aligned</p>
+<p>8个int32合并为一个__m256，但是编译器不能保证所有64位电脑都支持ymm只能保证都支持xmm</p>
+<p>所以还需：gcc -march&#x3D;native -O3</p>
+<p>paddd:：4个int的加法</p>
+<p>movdqa：加载4个int</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span>* a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1024</span>; i++) &#123;</span><br><span class="line">        a[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230320235917427.png" alt="image-20230320235917427" style="zoom:80%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230320235936972.png" alt="image-20230320235936972" style="zoom:67%;" />
+
+<p>边界特判法：对边界做特殊处理，大部分矢量化  cmpl</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> *a, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">	n = n / <span class="number">4</span> * <span class="number">4</span>;  # 编译器会发现 n % <span class="number">4</span> = <span class="number">0</span> 从而不会生成边界特判的分支</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		a[i] = i; </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假定指针是16字节对齐的：assume_aligned，movups -&gt; movaps</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> *a, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">	n = n / <span class="number">4</span> * <span class="number">4</span>;</span><br><span class="line">	a = (<span class="type">int</span> *)__builtin_assume_aligned(a, <span class="number">16</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		a[i] = i; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>循环中的矢量化：小心指针别名，OpenMP强制矢量化 </p>
+<p># pragma omp simd   gcc -fopenmp -O3</p>
+<p># pragma GCC ivdep 忽略矢量依赖关系</p>
+<p>循环中的if语句挪到外部，避免在for循环体里调用外部函数，一道同一个文件或者放在头文件并声明为static函数</p>
+<p># pragma GCC unroll 4   循环展开 i++ 变成 i +&#x3D; 4</p>
+<p>结构体大小不是2的整数幂往往会导致SIMD优化失败</p>
+<p>在struct后加上alignas(要对齐的字节数)即可实现同样效果</p>
+<p>结构体的内存布局：</p>
+<p>AOS（Array of Struct）：xyzxyzxyz 必须对齐到2的整数幂才高效</p>
+<p>SOA：xxxyyyzzz 分离存储多个属性，可能无法保证多个数组大小一致，但通常更高效</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321001621586.png" alt="image-20230321001621586" style="zoom:67%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321001633243.png" alt="image-20230321001633243" style="zoom:67%;" />
+
+<p>AOSOA：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321001651512.png" alt="image-20230321001651512" style="zoom:67%;" />
+
+<p>std::vector也有指针别名问题，用#pragma omp simd，__restrict无用</p>
+<p>std::vector也能使用SOA，但要保证三个vector是同样大小</p>
+<p>-ffast-math  数学函数加std前缀 std::abs  std::sqrt</p>
+<p>嵌套循环：直接累加也有指针别名问题</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321002249095.png" alt="image-20230321002249095" style="zoom:67%;" />
+
+<p>方案1：先读到局部变量，累加完毕后再写入</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321002257029.png" alt="image-20230321002257029" style="zoom:67%;" />
+
+<p>方案2：先累加到初始为0的局部变量，再累加到c，精度更高(1000 + 0.001)</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321002350406.png" alt="image-20230321002350406" style="zoom:67%;" />
+
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_BUILD_TYPE Release)  <span class="comment"># 开启-O3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">find_package</span>(OpenMP REQUIRED)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="keyword">target</span> PUBLIC OpenMP::OpenMP_CXX)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_compile_options</span>(<span class="keyword">target</span> PUBLIC -fast-<span class="keyword">math</span> -march=native)</span><br></pre></td></tr></table></figure>
+
+<h5 id="05-多线程"><a href="#05-多线程" class="headerlink" title="05.多线程"></a>05.多线程</h5><p>时间点：std::chrono::steady_clock::time_point</p>
+<p>时间段：std::chrono::milliseconds&#x2F;seconds&#x2F;minutes</p>
+<p>duration_cast 可以在任意的 duration 类型之间转换<br>duration&lt;T, R&gt; 表示用 T 类型表示，且时间单位是 R<br>R 省略不写就是秒，std::milli 就是毫秒，std::micro 就是微秒<br>seconds 是 duration<int64_t> 的类型别名，milliseconds 是 duration&lt;int64_t, std::milli&gt; 的类型别名<br>这里我们创建了 double_ms 作为 duration&lt;double, std::milli&gt; 的别名</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> t0 = std::chrono::steady_clock::<span class="built_in">now</span>();    <span class="comment">// 获取当前时间点</span></span><br><span class="line"><span class="keyword">auto</span> t1 = t0 + std::chrono::<span class="built_in">seconds</span>(<span class="number">30</span>);       <span class="comment">// 当前时间点的30秒后</span></span><br><span class="line"><span class="keyword">auto</span> dt = t1 - t0;                        <span class="comment">// 获取两个时间点的差（时间段）</span></span><br><span class="line"><span class="keyword">using</span> double_ms = std::chrono::duration&lt;<span class="type">double</span>, std::milli&gt;</span><br><span class="line"><span class="type">int64_t</span> sec = std::chrono::<span class="built_in">duration_cast</span>&lt;chrono::seconds&gt;(dt).<span class="built_in">count</span>();  <span class="comment">// 时间差的秒数</span></span><br><span class="line"><span class="type">double</span> ms = std::chrono::<span class="built_in">duration_cast</span>&lt;double_ms&gt;(dt),<span class="built_in">count</span>();</span><br></pre></td></tr></table></figure>
+
+<p>std::this_thread::sleep_for(std::chrono::milliseconds(400))</p>
+<p>std::this_thread::sleep_until(std::chrono::steady_clock::now() + std::chrono::milliseconds(400))</p>
+<p>std::thread的实现依赖于pthread，需要：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(Threads REQUIRED)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(cpptest PUBLIC Threads::Threads)</span><br></pre></td></tr></table></figure>
+
+<p>主线程等待子线程结束再退出：t.join( )</p>
+<p>std::thread自定义了析构函数，删除了拷贝构造&#x2F;赋值函数，但提供了移动构造&#x2F;赋值函数，其析构函数会销毁线程，可以用detach( )分离，也就意味着线程的生命周期不再由当前std::thread对象管理，而是在线程退出后自动销毁自己。</p>
+<p>析构函数不再销毁线程的另一种：移动到全局线程池</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321205208662.png" alt="image-20230321205208662" style="zoom:80%;" />
+
+<p>std::async接受一个带返回值的lambda，自身返回一个std::future对象，async调用以后实际是没有在执行的，在后台被挂起悄悄运行</p>
+<p>调用future的get( )，如果此时async里的任务没有完成会等待至完成并获取其返回值</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321221431911.png" alt="image-20230321221431911" style="zoom:80%;" />
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">std::future&lt;<span class="type">int</span>&gt; res = std::<span class="built_in">async</span>([&amp;] &#123;<span class="keyword">return</span> <span class="built_in">download</span>(<span class="string">&quot;hello.zip&quot;</span>)&#125; );</span><br><span class="line"><span class="meta"># res.wait();  也可以等待线程执行完</span></span><br><span class="line"><span class="meta"># ret.wait_for(std::chrono::milliseconds(1000)); 返回 std::future_status::timeout/ready</span></span><br><span class="line"><span class="type">int</span> ret = res.<span class="built_in">get</span>();</span><br><span class="line">std::<span class="built_in">async</span>(std::launch::deferred, [&amp;] &#123;...&#125;)  <span class="comment">// defer不会创建一个线程来执行而是推迟到future的get()被调用时，该特性可以用于惰性求值</span></span><br></pre></td></tr></table></figure>
+
+<p>手动创建线程：std::promise（std::promise是async的底层实现），在线程返回时用set_value( )设置返回值，</p>
+<p>在主线程里，用get_future( )获取其std::future对象，进一步get( )可以等待并获取线程返回值</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321211011571.png" alt="image-20230321211011571" style="zoom:80%;" />
+
+<p>需要拷贝可以用shared_future</p>
+<p>调用std::mutex的lock( )时，会检测mutex是否已经上锁；如果没有锁定就会上锁，如果锁定了就陷入等待直到mutex被另一个线程解锁后才再次上锁</p>
+<p>而调用unlock( )则会进行解锁操作</p>
+<p>std::lock_guard : RAII</p>
+<p>std::unique_lock：希望在析构前提前unlock。额外存储一个flag来表示是否已经被释放，没有则调用unlock( )，否则不调用；</p>
+<p>可以直接调用unlock( )来提前解锁，即便忘了也没关系因为退出作用域的时候它还会自动检查下要不要解锁</p>
+<p>指定std::defer_lock，unique_lock就不会在构造函数中调用mtx.lock( )，需要之后再手动上锁，好处依然是忘了unlock也能自动unlock</p>
+<p>也可以使用无阻塞的try_lock( )，在上锁失败时不会陷入等待，而是直接返回False，成功返回True  try_lock_for&#x2F;until</p>
+<p>unique_lock用std::try_to_lock作为参数，相比无参数会在构造函数时调用try_lock而非lock，之后可以用owns_lock( )判断是否上锁成功</p>
+<p>unique_lock&#x2F;lock_guard用std::adopt_lock作为参数，如果当前已经上锁，但想在析构时解锁</p>
+<p>std::mutex与unique_lock具有同样的接口：鸭子类型</p>
+<p>死锁：执行lock( )失败陷入相互等待</p>
+<p>永远不要同时持有两个锁 &#x2F; 保证双方上锁顺序一致 &#x2F; std::lock同时对多个上锁</p>
+<p>std::scoped_lock：std::lock的RAII，可以同时对多个mutex上锁</p>
+<p>std::recursive_mutex自动判断同一个线程lock( )了多次同一个锁，会让计数器+1，但是会带来性能下降</p>
+<p>多线程同时访问经典案例：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321223707485.png" alt="image-20230321223707485" style="zoom:80%;" />
+
+<p>封装线程安全的vector：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321223934630.png" alt="image-20230321223934630" style="zoom:80%;" />
+
+<p>出错：因为size( )是const函数，而mutex::lock( )是非const的</p>
+<p>逻辑上const而部分成员非const：mutable</p>
+<p>size( )在逻辑上是const的，为了让this为const时仅仅给m_mtx开后门，可修改为mutable …从而 所有成员里只有它不是const的</p>
+<p>读写锁允许：n读取0写入； 1写入0读取； 0读取0写入</p>
+<p>std::shared_mutex 上锁时指定读&#x2F;写需求，负责调度的读写锁会为你判断要不要等待</p>
+<p>push_back需要修改数据，使用lock&#x2F;unlock</p>
+<p>size( )读取数据，可以共享</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321224423718.png" alt="image-20230321224423718" style="zoom:80%;" />
+
+<p>std::shared_lock：RAII lock_shared</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321224633978.png" alt="image-20230321224633978" style="zoom:80%;" />
+
+<p>只需要一次性上锁 + RAII：访问者模式</p>
+<p>合并多次上锁，不然每次循环上锁解锁十分低效，同时还能分离存储与访问</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321224919043.png" alt="image-20230321224919043" style="zoom:80%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321224941891.png" alt="image-20230321224941891" style="zoom:80%;" />
+
+<p>条件变量：等待被唤醒，等待某一条件成真</p>
+<p>cv.wait(lck)将让当前线程陷入等待，在其他线程中调用notify_one( )会唤醒那个陷入等待的线程</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321225250428.png" alt="image-20230321225250428" style="zoom:80%;" />
+
+<p>cv.wait(lck, lambda) lambda表达式返回值为True时才会真正唤醒否则继续等待</p>
+<p>notify_all( )唤醒全部等待中的线程</p>
+<p>t1被notify_all唤醒后，t2不会同时在执行，只有等t1解锁后，才会轮到t2</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321225905234.png" alt="image-20230321225905234" style="zoom:80%;" />
+
+<p>这就是为什么wait( )需要一个unique_lock，因为要保证多个线程被唤醒时只有一个能够被启动，如果不需要，在wait( )返回后调用lck.unlock( )即可</p>
+<p>生产者-消费者模式：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321230045299.png" alt="image-20230321230045299" style="zoom:100%;" />
+
+<p>将队列封装成类：</p>
+<p><img src="/home/kwx/blog/source/_posts/assets/image-20230321230131855.png" alt="image-20230321230131855"></p>
+<p><img src="/home/kwx/blog/source/_posts/assets/image-20230321230139392.png" alt="image-20230321230139392"></p>
+<p>std::condition_variable仅支持std::unique_lock<a href="std::mutex">std::mutex</a>作为wait的参数，其他类型的锁得用std::condition_variable_any</p>
+<p>原子操作：</p>
+<img src="/home/kwx/blog/source/_posts/assets/截图 2023-03-21 23-11-54.png" alt="截图 2023-03-21 23-11-54" style="zoom:67%;" />
+
+<p>可以用mutex上锁，在counter +&#x3D; 1加入lock&#x2F;unlock，但mutex太过重量级，会让线程挂起从而需要通过系统调用进入内核层调度到其他线程执行，有很大的开销，但此处只是小小地修改下int</p>
+<p>atomic：有专门的硬件指令加持 lock xadd %eax, (%rdx)</p>
+<p>对 atomic的 +&#x3D; 等操作会被编译器转换成专门的指令，CPU 识别到该指令时，会锁住内存总线，放弃乱序执行等优化策略（将该指令视为一个同步点，强制同步掉之前所有的内存操作），从而向你保证该操作是原子的（取其不可分割之意），不会加法加到一半另一个线程插一脚进来</p>
+<p>对于程序员，只需把 int 改成 atomic<int> 即可，也不必像 mutex 那样需要手动上锁解锁，因此用起来也更直观</p>
+<p>即更改为 std::atomic<int> counter &#x3D; 0 ； +&#x3D;  ++ &amp;&#x3D; |&#x3D; ^&#x3D; 都有原子性(按位与，按位或，按位异或)</p>
+<p>conuter.fetch_add(1)  &lt;&#x3D;&gt; counter +&#x3D; 1； store( ) &lt;&#x3D;&gt; &#x3D;；  load( ) 用于读取其中的int值</p>
+<p>fetch_add会返回其旧值，int pld &#x3D; atm.fetch_add(val) 除了会导致atm的值增加val外，还会返回atm增加前的值存储到 old</p>
+<p>这可以让它并行地往一个列表里追加数据，追加写入的索引就是fetch_add返回的旧值</p>
+<p>exchange：读取的同时写入， exchange(val)会把val写入原子变量同时返回其旧值</p>
+<p>compare_exchange_strong(old, val)：读取原子变量的值，比较是否与old相等，相等则把val写入原子变量，不相等则把原子变量的值写入旧值old</p>
+<p>此处old传递的是一个引用，因此可以修改它的值</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321232506012.png" alt="image-20230321232506012" style="zoom:80%;" />
+
+<p>compare_exchange_strong的逻辑最为复杂，简称CAS(compare and swap)</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230321232908158.png" alt="image-20230321232908158" style="zoom:80%;" />
+
+<h5 id="06-访存优化"><a href="#06-访存优化" class="headerlink" title="06.访存优化"></a>06.访存优化</h5><p>对于float：</p>
+<p>1次减法 ≈ 1次加法      1次乘法 ≈ 1次加法      1次除法 ≥ 2次加法      </p>
+<p>1次读写 ≈ 32次加法（矢量化成功 SSE）≈ 4次加法（矢量化失败）</p>
+<p>如果循环体内是 a[i] &#x3D; func(a[i])，那么 func 里要包含16次加法，才能和内存的延迟相抵消</p>
+<p>如果是 a[i] &#x3D; func(a[i], b[i])，那就是2次读1次写，总共其实是2次访存，那就要32次加法</p>
+<p>如果有8个核心，则需要16*8&#x3D;128次加法，才能避免内存瓶颈，否则加速比会达不到16</p>
+<p>当然，如果你是AVX  (256位)，则需要32次加法，AVX512，则需要64次加法！</p>
+<p>用了 SIMD 发现没效果，可能是因为代码内存瓶颈而非计算瓶颈。也就是 func 里的运算非常简单，没有64次加法那么多，但是内存读写却实实在在。导致CPU大部分时间浪费在等内存延迟，这时候浮点计算得再快也没有用。</p>
+<p>memory-bound：对 fill 这种纯粹只有访存的循环体，并行没有加速效果</p>
+<p>cpu-bound：sin这种内部需要泰勒展开来计算，每次迭代计算量很大的循环体，并行才有较好的加速效果</p>
+<p>下图是 int 的 add mul，float 的乘加一个速</p>
+<p>L1&#x2F;2&#x2F;3 read 和 Main RAM read 的时间指的是读一个缓存行（64字节）所花费的时间 </p>
+<p>从主内存读取一次float花费 125 &#x2F; 64 * 4 ≈ 8 个 cycle</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322210653200.png" alt="image-20230322210653200" style="zoom:67%;" />
+
+<p>要想利用全部CPU核心，避免mem-bound，需要func里有足够的计算量</p>
+<p>当核心数量越多，CPU计算能力越强，相对之下来不及从内存读写数据，从而越容易mem-bound</p>
+<p>sudo dmidecode -t memory 理论极限带宽 &#x3D; 频率 * 宽度 * 数量 &#x3D; 2667 * 8 * 2 &#x3D; 42467MB&#x2F;s （2块内存，数据宽度64位 8 字节）</p>
+<p>计算实际带宽：搬运多少MB的数据 &#x2F; 耗时（理论也是MB）</p>
+<p>查看高速缓存大小：lscpu</p>
+<p>指令在执行的时候会读写大量数据，不希望在访问数据的时候把指令踢出缓存，否则缓存会重新加载就很慢，所以L1分为数据缓存与指令缓存</p>
+<p>其中数据缓存有 32 KB，6 个物理核心每个都有一个，总共 192 KB，指令缓存也是 192 KB</p>
+<p>二级缓存有 256 KB，6 个物理核心每个都有一个，总共 1.5 MB，三级缓存由各个物理核心共享，总共 12 MB</p>
+<p>要避免memory-bound，数据量尽量足够小，如果能装的进缓存就高效了</p>
+<p>读取缓存的工作机制：</p>
+<p>CPU读取一个地址时，缓存去查找和该地址匹配的条目，找到就返回缓存数据，L3都找不到就向主内存发送请求，等读取到该地址的数据就创建一个新条目</p>
+<p>x86中每个条目存储64字节数据，又称缓存行(cacheline)，当访问0x0048<del>0x0050 4 个字节时，实际会导致40</del>80的64个字节的数据被整个读取到缓存中</p>
+<p>因此要把数据结构的起始地址和大小对齐到 64 字节，不要浪费缓存行的存储空间</p>
+<p>缓存中存储的数据结构：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">CacheEntry</span> &#123;   </span><br><span class="line">    <span class="type">bool</span> valid;   </span><br><span class="line">    <span class="type">uint64_t</span> address;   </span><br><span class="line">    <span class="type">char</span> data[<span class="number">64</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">CacheEntry cache[<span class="number">512</span>];</span><br></pre></td></tr></table></figure>
+
+<p>写入缓存的工作机制：</p>
+<p>当CPU写入一个地址时，缓存会查找和该地址匹配的条目，找到就修改缓存中该地址的数据，找不到则创建一个新条目来存储CPU写的数据，并标记为脏（dirty）</p>
+<p>脏数据表明还没有被写入到内存当中</p>
+<p>当读和写创建的新条目过多，缓存快要塞不下时，它会把最不常用的那个条目移除，这个现象称为失效（invalid）</p>
+<p>如果是读的时候创建的，那可以安全删除；如果是被标记为脏的，则说明是当时打算写入的数据，不一定已经写完，就需要向主内存发送写入请求，等它写入成功才能安全移除这个条目</p>
+<p>如有多级缓存，则一级缓存失效后会丢给二级缓存。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">CacheEntry</span> &#123;</span><br><span class="line">   <span class="type">bool</span> valid, dirty;</span><br><span class="line">   <span class="type">uint64_t</span> address;</span><br><span class="line">   <span class="type">char</span> data[<span class="number">64</span>];</span><br><span class="line">&#125;;</span><br><span class="line">CacheEntry cache[<span class="number">512</span>];</span><br></pre></td></tr></table></figure>
+
+<p>因为CPU和内存之间隔着缓存，而缓存和内存之间传输数据的最小单位是缓存行（64字节）</p>
+<p>16个float是64字节，所以小于64字节的跨步访问，都会导致数据全部被读取出来；而超过64字节的跨步，中间的缓存行没有被读取，从而变快</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322223656390.png" alt="image-20230322223656390" style="zoom: 67%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322223824279.png" alt="image-20230322223824279" style="zoom:67%;" />
+
+<p>如果内部SOA太小，内部循环只有16次(1024 -&gt; 16)连续的读取，16次结束后就会跳跃一段，然后继续连续的读取。这会导致CPU预取机制失效，无法预测下一次要读哪里，等发现跳跃时已经来不及了，从而计算的延迟无法隐藏</p>
+<p>如果每个属性都要访问到，AOS较好：这是因为使用SOA会让CPU不得不同时维护很多条预取赛道（mc_x, mc_y, mc_z），当赛道多了以后每一条赛道的长度就变短了，从而能够周转的余地时间比较少，不利于延迟隐藏。而如果把这三条赛道合并成一条（mc），这样同样的经费（缓存容量）能铺出的赛道（预取）就更长，从而CPU有更长的周转时间来隐藏他内部计算的延迟</p>
+<p>页对齐：4KB </p>
+<p>操作系统管理内存是用分页（page），程序的内存是一页一页贴在地址空间中的，有些地方可能不可访问，或者还没有分配，则把这个页设为不可用状态，访问它就会出错，进入内核模式</p>
+<p>因此硬件出于安全，预取不能跨越页边界，否则可能会触发不必要的 page fault</p>
+<p>因为本来就不能跨页顺序预取，所以被我们切断掉也无所谓，所以我们选用页的大小</p>
+<p>另外，可以用 _mm_alloc 申请起始地址对齐到页边界的一段内存，真正做到每个块内部不出现跨页现象</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322224711139.png" alt="image-20230322224711139" style="zoom: 80%;" />
+
+<p>对于不得不随机访问很小一块的情况，还可以通过 _mm_prefetch 指令手动预取一个缓存行</p>
+<p>这里第一个参数是要预取的地址（最好对齐到缓存行），第二个参数 _MM_HINT_T0 代表预取数据到一级缓存，_MM_HINT_NTA 则是预取到非临时缓冲结构中，可以最小化对缓存的污染，但是必须很快被用上</p>
+<p>延迟隐藏：CPU的预取机制能够在等待a[i+1]的内存数据抵达时，默默地做着a[i]的计算，从而只要计算的延迟小于内存的延迟，延迟就被隐藏起来了，而不必等内存抵达了再算。这就是为什么有些运算量不足32次的程序还是会无法达到mem-bound，手动预取以后才能达到，就是因为硬件预取预测失败，导致不得不等内存抵达了才能算，导致延迟隐藏失败。</p>
+<p>成功：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322230149362.png" alt="image-20230322230149362" style="zoom:50%;" />
+
+<p>写入的粒度太小会造成不必要的读取：这是因为缓存和内存通信的最小单位是缓存行：64字节</p>
+<p>当CPU试图写入4字节时，因为剩下的60字节没有改变，缓存不知道CPU接下来会不会用到那60字节，因此只好从内存读取完整的64字节，修改其中的4字节为CPU给的数据，之后再择机写回。这就导致了虽然没有用到读取数据，但实际上缓存还是从内存读取了，从而浪费了2倍带宽。</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322231005167.png" alt="image-20230322231005167" style="zoom:50%;" />
+
+<p>可以用 _mm_stream_si32 指令<strong>代替直接赋值的写入</strong>，它能够绕开缓存，将一个4字节的写入操作，挂起到临时队列，等凑满64字节后，直接写入内存，从而完全避免读的带宽，可惜它只支持int做参数，要用float还得转换一下指针类型，bitcast一下参数</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322231058509.png" alt="image-20230322231058509" style="zoom:67%;" />
+
+<p>因为 _mm_stream_si32 会绕开缓存，直接把数据写到内存，之后读取的话，反而需要等待 stream 写回执行完成，然后重新读取到缓存，反而更低效</p>
+<p>因此仅当：该数组只有写入，之前完全没有读取过 &amp; 之后没有再读取该数组的地方 才应该用 stream 指令</p>
+<p>4倍矢量化版本：_mm_stream_ps，第二参数是一个__m128 类型，可以配合其他手写的 SIMD 指令使用。不过，_mm_stream_ps 写入的地址必须对齐到 16 字节，否则会产生段错误等异常</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322231303874.png" alt="image-20230322231303874" style="zoom:67%;" />
+
+<p>stream 系列指令写入的地址，必须是连续的，中间不能有跨步，否则无法合并写入，会产生有中间数据读的带宽</p>
+<p>写入1比写入0更慢：写入0被编译器自动优化成了memset，而memset内部利用了stream指令得以更快写入</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322231451419.png" alt="image-20230322231451419" style="zoom:67%;" />
+
+<p>因此可以用stream指令写入1：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322231431208.png" alt="image-20230322231431208" style="zoom:67%;" />
+
+<p>_mm 系列指令出自 &lt;xmmintrin.h&gt; 头文件</p>
+<p><a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html">https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html</a></p>
+<p>循环合并：雅克比迭代</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322232339235.png" alt="image-20230322232339235"  />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322232346033.png" alt="image-20230322232346033"  />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322232353986.png" alt="image-20230322232353986"  />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230322232446140.png" alt="image-20230322232446140"  />
+
+<p>调用malloc时，os并不会实际分配那一块内存，而是将那块内存标记为不可用</p>
+<p>当用户试图访问（写入）这一片内存时，硬件就会触发所谓的缺页中断（page fault），进入操作系统内核，内核会查找当前进程的 malloc 历史记录</p>
+<p>如果发现用户写入的地址是他曾经 malloc 过的地址区间，则执行实际的内存分配，并标记该段内存为“可用”，下次访问就不会再缺页中断了；而如果写入地址根本不是 malloc 过的地址，就抛出段错误</p>
+<p>初始化数组时，内存被写入，所以操作系统这时候才开始实际分配内存</p>
+<p>不初始化的 malloc，第一次往里面赋值时，此时操作系统还没有给这个数组分配内存，所以会触发缺页中断，进入内核给数组分配内存，是内核执行内存分配的这个动作，花费了额外的时间</p>
+<p>而第二次因为内存已经被分配上了，所以再次访问也不会触发缺页中断，所以看起来比第一次快很多</p>
+<p>当一个尚且处于“不可用”的 malloc 过的区间被访问，os不是把整个区间全部分配完毕，而是只把当前写入地址所在的页面（4KB 大小）给分配上,也就是说用户访问 a[0] 以后只分配了 4KB 的内存</p>
+<p>等到用户访问了 a[1024]，也就是触及了下一个页面，os才会继续分配一个 4KB 的页面，这时才 8KB 被实际分配，比如分配了 16GB 内存，但是只访问了它的前 4KB，这样只有一个页被分配，所以非常快</p>
+<p>标准库的new和malloc保证16字节对齐</p>
+<p>x86 特有的 _mm_malloc(n, aalign) 可以分配对齐到任意 a 字节的内存，需要通过 _mm_free 来释放</p>
+<p>临时创建的数组手动池化：声明为static thread_local</p>
+<p>手动扁平化：$a_{m\times n}$ &#x3D;&#x3D;&gt; a[i * m + j]  列主序  [i + j * n] 行主序</p>
+<p>简单来说，哪个索引连续，就是什么主序</p>
+<p>高维数组扁平化：$a_{nz\times ny\times nx}$   a[z][y][x] &#x3D; a[(z * ny + y) * nx + x]  (倒过来看)</p>
+<p>什么序的数组，就用什么序遍历</p>
+<p>插桩：指在结构网格中，从一个点往周围固定范围读取值，并根据一定权重累加，然后修改自身的值</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323231203722.png" alt="image-20230323231203722" style="zoom:67%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323231216378.png" alt="image-20230323231216378" style="zoom: 80%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323233738141.png" alt="image-20230323233738141" style="zoom:80%;" />
+
+<p>由于 Y 方向插桩的内存读取模式，有 nblur 次跳跃，每次跳跃的距离是 nx(x &lt; nx)，从而缓存容量需要有 nx*nblur 那么大才能利用全部的缓存</p>
+<p>因此可以用循环分块（loop tiling），将外部两层循环变为 blockSize 为跨步的，而内部则在区间 [xBase, xBase + blockSize) 上循环</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323234653212.png" alt="image-20230323234653212" style="zoom:80%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323235039890.png" alt="image-20230323235039890" style="zoom:67%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323235215662.png" alt="image-20230323235215662" style="zoom:67%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323235225740.png" alt="image-20230323235225740" style="zoom:67%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323235303120.png" alt="image-20230323235303120" style="zoom:80%;" />
+
+<p>使用预取和直写后都变得更加慢了：</p>
+<p>写入了b污染了L1，预取效果不好；</p>
+<p>直写的时间点过于分散了，中间夹杂着加法的运算导致写入挂起队列指令太长，CPU放弃了合并的直写</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323235320926.png" alt="image-20230323235320926" style="zoom: 80%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323235404008.png" alt="image-20230323235404008" style="zoom:80%;" />
+
+<p>把 res 变成数组暂时存一下，最后再一次性用 stream 写入，stream 需要时空上集中一起效果才比较好</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323235510274.png" alt="image-20230323235510274" style="zoom:80%;" />
+
+<p>把一次写入4字节的 _mm_stream_si32 换成了一次写入16字节的 _mm_stream_ps</p>
+<p>把 res 换成了 __m128 的数组，并用 _mm 系列指令读取 a 和计算加法</p>
+<p>但是注意到这里 res[offset] 的访问，一次只有其中一个被用上，不能很好的利用寄存器资源</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323235651792.png" alt="image-20230323235651792" style="zoom:80%;" />
+
+<p>为了充分填满寄存器，把 t 循环和 offset 循环交换一下，把 offset 换到内层循环去，这样至少能让四个寄存器同时在进行加法运算</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323235853023.png" alt="image-20230323235853023" style="zoom:80%;" />
+
+<p>注意到 offset 循环只有 4 的大小，所以加一下 unroll 指令让编译器自动循环展开吧</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230323235944737.png" alt="image-20230323235944737" style="zoom:80%;" />
+
+<p>m128 一次处理四个float，改成 m256 一次处理八个float</p>
+<p>不过因为res有四个寄存器，4*4*8&#x3D;128字节，所以 _mm_prefetch 需要预取两个缓存行才行</p>
+<p>这里 blockSize 和 32 似乎一样了，所以 xBase 也可以直接去掉了</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230324000225465.png" alt="image-20230324000225465" style="zoom:80%;" />
+
+<p>预取的地址太靠近了，可能还是会让CPU陷入等待，无法隐藏计算的延迟。再稍微往前调一点点试试看。提前量不能太多，否则需要很大的缓存大小，否则到时候读的太多又得赶到二级缓存；也不能太少，否则等计算到那里的时候数据来不及取出，导致延迟无法隐藏</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230324000235957.png" alt="image-20230324000235957" style="zoom:80%;" />
+
+<p>矩阵转置：</p>
+<p>循环是 YX 序的，虽然 b(x, y) 也是 YX 序的没问题，但是 a(y, x) 相当于一个 XY 序的二维数组，从而在内存看来访存是跳跃的，违背了空间局域性</p>
+<p>因为每次跳跃了 nx，所以只要缓存容量小于 nx 就无法命中</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230324213348371.png" alt="image-20230324213348371" style="zoom:80%;" />
+
+<p>优化：循环分块  YXyx序</p>
+<p>只需块的大小 blockSize^2 小于缓存容量，即可保证全部命中</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230324213435510.png" alt="image-20230324213435510" style="zoom:80%;" />
+
+<p>莫顿码：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1461134">https://cloud.tencent.com/developer/article/1461134</a></p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230324213710043.png" alt="image-20230324213710043" style="zoom:67%;" />
+
+<p><img src="/home/kwx/blog/source/_posts/assets/image-20230324214025070.png" alt="image-20230324214025070"></p>
+<p>循环莫顿序：按照Z字型曲线遍历，有效利用多级缓存</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230324214124487.png" alt="image-20230324214124487" style="zoom:80%;" />
+
+<p>按照Z曲线遍历，首先只需要一个一维循环，其循环变量就是莫顿码，区间范围则是 [0, nx*ny&#x2F;blockSize^2)</p>
+<p>然后，通过莫顿解码，获取 X，Y 分量，这样就是Z字型曲线遍历的了，可以打印 xBase, yBase 出来看一看</p>
+<p>缺点：nx和ny必须是二的幂次方，否则需要一些特殊判断防止越界。</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230324214256714.png" alt="image-20230324214256714" style="zoom:85%;" />
+
+<p>矩阵乘法：</p>
+<p>a(i, j)始终在一个地址不动 对于缓存是好 对于cpu是坏事 因为这就意味着串行着在同一个变量上做加法</p>
+<p>而串行着做加法，cpu是无法做指令级并行的，相当于一直串行着做标量处理</p>
+<p>b(i, j)每次跳跃 n 间隔的访问（对缓存不友好），c(t, j) 连续的顺序访问（好）</p>
+<p>因为存在不连续的 b 和一直不动的 a，导致矢量化失败，一次只能处理一个标量，CPU也无法启动指令级并行（ILP）</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230324221307074.png" alt="image-20230324221307074" style="zoom:80%;" />
+
+<p>寄存器分块：特点是跨越t循环，跨越到里面来的</p>
+<p>之前的a在大小为n的t循环中都是同一个地址，这是没法使用指令集并行的，对cpu来说就是reduction，也就是不断往同一个地址累加，没法并行</p>
+<p>寄存器分块后，从0到32不再是同一个地址</p>
+<p>分析访存规律：a(i, j) 连续 32 次顺序访问（好），b(i, t) 连续 32 次顺序访问（好），c(t, j) 32 次在一个地址不动（一般）</p>
+<p>这样就消除不连续的访问了，从而内部的 i 循环可以顺利矢量化，且多个循环体之间没有依赖关系，CPU得以启动指令级并行，缓存预取也能正常工作</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230324224306879.png" alt="image-20230324224306879" style="zoom:80%;" />
+
+<p>小内核卷积：寄存器分块，跳跃了l和k</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230324232152974.png" alt="image-20230324232152974" style="zoom:80%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230324232201109.png" alt="image-20230324232201109" style="zoom:80%;" />
+
+<p>最内层unroll：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230324232223332.png" alt="image-20230324232223332" style="zoom:80%;" />
+
+<p>伪共享：</p>
+<p>如果多个核心同时访问的地址非常接近，这时候会变得很慢！这是因为 CPU 之间通信的最小单位也是 缓存行（64 字节），如果两个核心访问到了的同一缓存行，假设一个核心修改了该缓存行的前32字节，另一个修改了后32字节，同时写回的话，结果要么是只有前32字节，要么是只有后32字节，而不能两个都正确写入。所以CPU为了安全起见，同时只能允许一个核心写入同一地址的缓存行。从而导致读写这个变量的速度受限于三级缓存的速度，而不是一级缓存的速度。</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230325210317136.png" alt="image-20230325210317136" style="zoom:80%;" />
+
+<p>消除错误共享只需要把每个核心写入的地址尽可能分散开。比如这里我们把每个核心访问的地方跨越了 16KB，这样CPU就知道每个核心之间不会发生冲突，从而可以放心地放在一级缓存里，不用担心会不会和其他核心共用了一个缓存行了。</p>
+<p>错误共享只会发生在写入的情况，如果多个核心同时读取两个很靠近的变量，是不会产生冲突的，也没有性能损失</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230325210505407.png" alt="image-20230325210505407" style="zoom:80%;" />
+
+<h5 id="07-CUDA"><a href="#07-CUDA" class="headerlink" title="07.CUDA"></a>07.CUDA</h5><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> (CMAKE_BUILD_TYPE Release)</span><br><span class="line"><span class="keyword">project</span>(hellocuda LANGUAGES CXX CUDA)</span><br><span class="line"><span class="keyword">add_executable</span>(main main.cu)</span><br></pre></td></tr></table></figure>
+
+<p>兼容C++17</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sctdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cuda_runtime.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">__device__ <span class="type">void</span> <span class="title">say_hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello, world!\n&quot;</span>);</span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">// device不能直接从main调用，而是必须从另一个global或device调用，也就是说global是从CPU到GPU可以调用，</span></span><br><span class="line"><span class="comment">// 而device是GPU内部的调用，因此也不需要三个尖括号，可以有返回值</span></span><br><span class="line"></span><br><span class="line"><span class="function">__device__ __inline__ <span class="type">void</span> <span class="title">say_hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello, world!\n&quot;</span>);</span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">// inline在C++中的效果是声明一个函数为weak符号，和性能优化上的内联无关</span></span><br><span class="line"><span class="comment">// 优化意义上的内联是指把函数体直接嵌入到调用者那里去</span></span><br><span class="line"><span class="comment">// CUDA编译器提供的__inline__不论CPU/GPU都能使用，GCC中是__attribute__((&quot;inline&quot;))</span></span><br><span class="line"><span class="comment">// CUDA还提供__forceinline__来强制一个函数内联，GCC中是__attribute__((&quot;always_inline&quot;))</span></span><br><span class="line"><span class="comment">// 此外还有__noinline__来禁止内联优化</span></span><br><span class="line"></span><br><span class="line"><span class="function">__global__ <span class="type">void</span> <span class="title">kernel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// printf(&quot;Hello, world!\n&quot;);</span></span><br><span class="line">    <span class="built_in">say_hello</span>();</span><br><span class="line">&#125;  <span class="comment">// 定义kernel，前面加上__gloabal__修饰符，即可让它在GPU上执行，不能有返回值</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    kernel&lt;&lt;&lt;<span class="number">1</span>, <span class="number">1</span>&gt;&gt;&gt;();  # 调用时，要使用三重尖括号</span><br><span class="line">    <span class="built_in">cudaDeviceSynchronize</span>();  # 让CPU陷入等待，等GPU完成队列的所有任务后返回</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 即host可以调global，global可以调device，device可以调device</span></span><br><span class="line"><span class="comment">// __device__将函数定义在GPU上，__host__将函数定义在CPU上 __host__可以省略，默认就是host，包括main函数</span></span><br><span class="line"><span class="comment">// __host__ __device__连用，同时定义在CPU和GPU上</span></span><br><span class="line"><span class="comment">// global是GPU的第一件事</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">const</span> <span class="type">char</span>* <span class="title">cuthead</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> p + <span class="number">1</span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">// constexpr通常都是一些可以内联的函数，数学计算之类，想让constexpr修饰的函数自动变成__host__ __device__</span></span><br><span class="line"><span class="comment">// 当然constexpr里没法调用printf，也不能用_syncthreads之类的GPU特有的函数，因此也不能完全替代 __host__ 和 __device__</span></span><br><span class="line"><span class="comment">// 用CMake的生成器表达式来实现只对.cu文件开启此选项，不然给到GCC就出错了</span></span><br><span class="line"><span class="built_in">target_compile_options</span>(main PUBLIC $&lt;$&lt;COMPILE_LANGUAGE:CUDA&gt;:--expt-relaxed-<span class="keyword">constexpr</span>&gt;)</span><br><span class="line">    </span><br><span class="line"><span class="function">__host__ __device__ <span class="type">void</span> <span class="title">say_hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __CUDA_ARCH__  <span class="comment">// 是一个版本号</span></span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;Hello, world from GPU!\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="built_in">pritnf</span>(<span class="string">&quot;Hello, world from CPU!\n&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// CUDA编译器具有多段编译的特点，第一次提取出host送给GCC生成CPU部分的指令码，第二次提取出global和device交给NVCC生成GPU部分的指令码</span></span><br><span class="line"><span class="comment">// 最后寻找三重尖括号的位置，把CPU编译好的那一份给link到GPU指令码的那一份</span></span><br><span class="line"><span class="comment">// 编译期指定的版本 &lt;= 运行时显卡的版本</span></span><br><span class="line"><span class="built_in">set</span>(CMAKE_CUDA_ARCHITECTURES <span class="number">75</span>)  <span class="comment">// 会自动转换成 --gpu-code 等编译 flag，20系是75</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// threadIdx.x获取当前线程的编号，blockDim.x获取每个block里的线程数量，从而也就是板块的大小</span></span><br><span class="line"><span class="comment">// 板块编号 blockIdx.x，板块总数gridDim.x</span></span><br><span class="line"><span class="function">__global__ <span class="type">void</span> <span class="title">kernel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Thread %d of %d\n&quot;</span>, threadIdx.x, blockDim.x)</span><br><span class="line">&#125; <span class="comment">// &lt;&lt;&lt;block数量，每个block的thread数量&gt;&gt;&gt;  也就是 &lt;&lt;&lt;gridDim, blockDim&gt;&gt;&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function">__global__ <span class="type">void</span> <span class="title">kernel</span><span class="params">()</span> </span>&#123;  <span class="comment">// 扁平化</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> tid = blockDim.x * blockIdx.x + threadIdx.x;  <span class="comment">// 总的线程编号</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> tnum = blockDim.x * gridDim.x;  <span class="comment">// 总的线程数量</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Flattened Thread %d of %d\n&quot;</span>, tid, tnum);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 线程是并行的最小单位</span></span><br><span class="line"><span class="comment">// 实际上一维的 &lt;&lt;&lt;m, n&gt;&gt;&gt; 不过是 &lt;&lt;&lt;dim3(m, 1, 1), dim3(n, 1, 1)&gt;&gt;&gt; 的简写而已。</span></span><br><span class="line"><span class="comment">// 从 Kelper 架构开始，__global__ 里可以调用另一个 __global__，也就是说核函数可以调用另一个核函数，且其三重尖括号里的板块数和线程数可以动态指定，无需先传回到 CPU 再进行调用，这是 CUDA 特有的能力</span></span><br><span class="line"><span class="comment">// 常用于这种情况：需要从 GPU 端动态计算出 blockDim 和 gridDim，而又不希望导回数据到 CPU 导致强制同步影响性能。</span></span><br><span class="line"><span class="comment">// 这种模式被称为动态并行（dynamic parallelism），同样需要开启 CUDA_SEPARABLE_COMPILATION</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 全局有效</span></span><br><span class="line"><span class="built_in">set</span>(CMAKE_CUDA_SEPARABLE_COMPILATION ON)</span><br><span class="line"><span class="built_in">add_executable</span>(main main.cu)</span><br><span class="line"><span class="comment">// 只对main程序启用</span></span><br><span class="line"><span class="built_in">set_property</span>(TARGET main PROPERTY CUDA_SEPERABLE_COMPILATION ON)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/home/kwx/blog/source/_posts/assets/image-20230326133457869.png" alt="image-20230326133457869" style="zoom: 80%;" />把一个kernel里算出来的值直接喂到另一个kernel里面，无需同步</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326134207223.png" alt="image-20230326134207223" style="zoom:80%;" />
+
+<p>异步，所以不可能从kernel里通过返回值获取GPU数据，因为kernel返回时核函数并没有在GPU执行，所以必须是void，std::thread同理</p>
+<p>CUDA的函数，如cudaDeviceSynchronize( )出错时不会直接终止程序，也不会抛出C++异常，而是返回一个错误代码</p>
+<p>错误代码类型其实就是个enum，相当于int</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326134732365.png" alt="image-20230326134732365" style="zoom:80%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326134907330.png" alt="image-20230326134907330" style="zoom:67%;" />
+
+<p>使用封装好了的&#x2F;opt&#x2F;cuda&#x2F;samples&#x2F;common&#x2F;inc&#x2F;helper_cuda.h  helper_string.h</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add_executable(main main.cu)</span><br><span class="line">target_include_directories(main PUBLIC include)</span><br></pre></td></tr></table></figure>
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326140831992.png" alt="image-20230326140831992" style="zoom:67%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326141651515.png" alt="image-20230326141651515" style="zoom: 67%;" />
+
+<p>访问不到CPU堆栈上的变量？原因就是GPU使用独立的显存（设备内存device），不能访问CPU内存（主机内存host）所以要使用cudaMalloc</p>
+<p>同理，CPU也访问不了GPU的内存地址，直接段错误</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326141832825.png" alt="image-20230326141832825" style="zoom:67%;" />
+
+<p>注意cudaMalloc的返回值已经用来表示错误代码，所以返回指针只能通过&amp;pret二级指针</p>
+<p>也就是先分配个指针，然后取指针的指针，来分配GPU内存</p>
+<p>跨GPU&#x2F;CPU拷贝：cudaMemcpy会自动同步！拷贝方向往左边，最后参数又是从左往右</p>
+<p><img src="/home/kwx/blog/source/_posts/assets/image-20230326141942034.png" alt="image-20230326141942034"></p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326141948993.png" alt="image-20230326141948993" style="zoom:80%;" />
+
+<p>所以上面synchronize可以删除，GPU的性能是通过大吞吐量来掩盖延迟，如果没有塞满，就可能影响性能</p>
+<p>cudaMallocManaged：统一内存地址技术（Unified Memory）</p>
+<p>分配出来的地址不论在CPU&#x2F;GPU上都是一模一样的； 自动拷贝（当从CPU访问时），不需要再写memcpy，但也因此需要加上synchornize；并非完全没有开销</p>
+<p>分配数组：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326143144660.png" alt="image-20230326143144660" style="zoom:67%;" />
+
+<p>多个线程并行赋值：刚才单线程for循环是串行的，可以用threadIdx.x作为i索引，这样就实现了每个线程给数组的一个元素赋值</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326143154834.png" alt="image-20230326143154834" style="zoom:67%;" />
+
+<p>技巧：网格跨步循环（grid-stride loop）</p>
+<p>分配太大的n给三尖括号，GPU可能会吃不消，因此可以让传入的参数大一点，小线程自动分配数组赋值</p>
+<p>无论调用者指定了多少个线程（blockDim），都能自动根据给定的 n 区间循环，不会越界，也不会漏掉几个元素</p>
+<p>这样一个 for 循环非常符合 CPU 上常见的 parallel for 的习惯，又能自动匹配不同的 blockDim，看起来非常方便</p>
+<p><img src="/home/kwx/blog/source/_posts/assets/image-20230326143421665.png" alt="image-20230326143421665"></p>
+<p>向上取整：int nblocks &#x3D; (n + nthreads - 1) &#x2F; nthreads 解决边角料</p>
+<p>但因为向上取整会多出一些线程，所以要在kernel内判断当前i是否超过了n（实际应为&gt;&#x3D;n），超过就要提前退出，防止越界</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326154256521.png" alt="image-20230326154256521" style="zoom:80%;" />
+
+<p>边角料的另一种处理方法，网格跨步循环：thread + block ，利用扁平化的线程数量和线程编号实现动态大小</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326154944378.png" alt="image-20230326154944378" style="zoom:80%;" />
+
+<p>指定32block，每个block线程数128，跨步的大小就是网格的大小</p>
+<p>就是每个数组元素都是跨步赋值的，抵达数组长度就结束了</p>
+<p>无论调用者指定每个板块多少线程（blockDim），总共多少板块（gridDim）。都能自动根据给定的 n 区间循环，不会越界，也不会漏掉几个元素</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;T, std::allocator T&gt;  <span class="comment">// 负责在CPU上分配和释放内存，初始化T对象等等，也就是调用了malloc跟free</span></span><br><span class="line"><span class="function">T* <span class="title">allocate</span><span class="params">(<span class="type">size_t</span> n)</span>  <span class="comment">// 分配长度为n类型为T的数组，返回其起始地址</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">deallocate</span><span class="params">(T *p, <span class="type">size_t</span> n)</span> <span class="comment">// 释放长度为n，起始地址为p，类型为T的数组</span></span></span><br></pre></td></tr></table></figure>
+
+<p>魔改抽象的std::allocator接口重用vector：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326161859095.png" alt="image-20230326161859095" style="zoom:80%;" />
+
+<p>std::is_pod_v：判断T是不是C语言类型(int, float以及这些基础类型组成的结构体)</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326162214004.png" alt="image-20230326162214004" style="zoom:80%;" />
+
+<p>避免初始化为0：因为vector在初始化的时候(or resize)会调用所有元素的无参构造函数，对int来说就是零初始化，然而这个初始化是在CPU上做的，所以要禁用它</p>
+<p>可以通过给 allocator 添加 construct 成员函数，来魔改 vector 对元素的构造</p>
+<p>默认情况下他可以有任意多个参数，而如果没有参数则说明是无参构造函数，因此只需要判断是不是有参数，然后是不是传统的 C 语言类型（plain-old-data），如果是，则跳过其无参构造，从而避免在 CPU 上低效的零初始化</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326162400034.png" alt="image-20230326162400034" style="zoom:80%;" />
+
+<p>核函数可以是一个模板函数：arr.data( )返回数组中第一个元素的指针</p>
+<p>T是自动推导的，而n是从尖括号里指定的</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326162435456.png" alt="image-20230326162435456" style="zoom:80%;" />
+
+<p>核函数可以接受函子(functor)，实现函数式编程</p>
+<p>定义了个MyFunctor，里面有个device的operator( )成员函数，即为函子(仿函数)，也就是具有operator( )的任何东西，可以通过对象将其调用</p>
+<p>这里的 Func 不可以是 Func const &amp;，那样会变成一个指向 CPU 内存地址的指针，从而出错， CPU 向 GPU 的传参必须按值传</p>
+<p>做参数的这个函数必须是一个有着成员函数 operator( ) 类型，即 functor 类，而不能是独立的函数，否则报错，这个函数必须标记为 __device__，即 GPU 上的函数，否则会变成 CPU 上的函数</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326163101537.png" alt="image-20230326163101537" style="zoom:80%;" />
+
+<p>函子可以是lambda表达式：</p>
+<p>可以直接写 lambda 表达式，不过必须在 [] 后，() 前，插入 <strong>device</strong> 修饰符，而且需要开启 –extended-lambda 开关，device就是在GPU上调用</p>
+<p>为了只对 .cu 文件开启这个开关，可以用 CMake 的生成器表达式，限制 flag 只对 CUDA 源码生效，这样混合其他 .cpp 文件时也不会发生 gcc 报错的情况</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326163304628.png" alt="image-20230326163304628" style="zoom:80%;" />
+
+<p><img src="/home/kwx/blog/source/_posts/assets/image-20230326163314267.png" alt="image-20230326163314267"></p>
+<p>捕获外部变量：</p>
+<p>虽然arr数组是分配在GPU上的，但是arr的指针本身是分配在cpu main函数的栈上的</p>
+<p>捕获的是指向array的指针的指针，捕获的是一个指向CPU指针的指针，从而这里去访问array会先访问到array在CPU栈上的内存，然后访问到它指向GPU的内存，而栈上的内存GPU是访问不到的</p>
+<p>如果试图用 [&amp;] 捕获变量是会出错的，毕竟这时候捕获到的是堆栈（CPU内存）上的变量 arr 本身，而不是 arr 所指向的内存地址（GPU内存）</p>
+<p>那如果按值捕获呢？绝大多数C++都是深拷贝（除了智能指针和原始指针），这样只会把vector整个拷贝到GPU上，而不是浅拷贝其起始地址指针</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326163917876.png" alt="image-20230326163917876" style="zoom:80%;" />
+
+<p><img src="/home/kwx/blog/source/_posts/assets/image-20230326163924857.png" alt="image-20230326163924857"></p>
+<p>正确的做法是先获取 arr.data() 的值到 arr_data 变量，然后用 [&#x3D;] 按值捕获 arr_data，函数体里面也通过 arr_data 来访问 arr</p>
+<p>因为 data() 返回一个起始地址的原始指针，而原始指针是浅拷贝的，所以可以拷贝到 GPU 上让它访问，这样和之前作为核函数参数是一样的，相当于打包到结构体func，不过是作为 Func 结构体统一传入了（原始指针是C语言类型）</p>
+<p><img src="/home/kwx/blog/source/_posts/assets/image-20230326164015600.png" alt="image-20230326164015600"></p>
+<p>或者在 [] 里这样直接写自定义捕获的表达式也是可以的，这样就可以用同一变量名</p>
+<p>让闭包里的arr这个变量成为指向arr的指针，从而浅拷贝，也就不需要在外面再写个arr.data( )了</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326164054190.png" alt="image-20230326164054190" style="zoom:80%;" />
+
+<p><img src="/home/kwx/blog/source/_posts/assets/image-20230326165112033.png" alt="image-20230326165112033"></p>
+<p>开启了 –use_fast_math 选项，那么所有对 sinf 的调用都会自动被替换成 __sinf</p>
+<p>–ftz&#x3D;true 会把极小数(denormal)退化为0； –prec-div&#x3D;false 降低除法的精度换取速度；–prec-sqrt&#x3D;false 降低开方的精度换取速度</p>
+<p>–fmad 因为非常重要，所以默认就是开启的，会自动把 a * b + c 优化成乘加(FMA)指令，开启 –use_fast_math 后会自动开启上述所有。</p>
+<p>thrust库</p>
+<p>数组求和结果不对：</p>
+<p>因为 <strong>global</strong> 函数不能返回值，只能通过指针，因此先分配一个大小为 1 的 sum 数组，其中 sum[0] 用来返回数组的和</p>
+<p>这样同步之后就可以通过 sum[0] 看到求和的结果了</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326173602922.png" alt="image-20230326173602922" style="zoom:80%;" />
+
+<p>这是因为 GPU 上的线程是并行执行的，然而 sum[0] +&#x3D; arr[i] 这个操作，实际上被拆分成四步：</p>
+<p>读取 sum[0] 到寄存器A  &#x3D;&#x3D;&gt; 读取 arr[i] 到寄存器B &#x3D;&#x3D;&gt; 让寄存器A的值加上寄存器B的值 &#x3D;&#x3D;&gt; 写回寄存器A到 sum[0]</p>
+<p>假如有两个线程分别在 i&#x3D;0 和 i&#x3D;1，同时执行：</p>
+<p>线程0：读取 sum[0] 到寄存器A（A&#x3D;0）线程1：读取 sum[0] 到寄存器A（A&#x3D;0）</p>
+<p>线程0：读取 arr[0] 到寄存器B（B&#x3D;arr[0]）线程1：读取 arr[1] 到寄存器B（B&#x3D;arr[1]）</p>
+<p>线程0：让寄存器A加上寄存器B（A&#x3D;arr[0]）线程1：让寄存器A加上寄存器B（A&#x3D;arr[1]）</p>
+<p>线程0：写回寄存器A到 sum[0]（sum[0]&#x3D;arr[0]）线程1：写回寄存器A到 sum[0]（sum[0]&#x3D;arr[1]）</p>
+<p>这样一来最后 sum[0] 的值是 arr[1]。而不是我们期望的 arr[0] + arr[1]，即算出来的总和变少了</p>
+<p>所以需要使用原子操作来保证读取&#x2F;加法&#x2F;写会三个操作，中途不会有另一个线程来打扰</p>
+<p>CUDA也提供了atomicAdd，效果和+&#x3D;一样，不过是原子的，第一个参数是个指针，指向要修改的地址；第二个参数是要增加多少</p>
+<p>即：atomicAdd(dst, src) 和 *dst +&#x3D; src 差不多  它会把sum[0]给锁住</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326174207190.png" alt="image-20230326174207190" style="zoom:80%;" />
+
+<p>atomicAdd会返回旧值：可以保存到返回值</p>
+<p>old &#x3D; atomicAdd(dst, src) 其实相当于：old &#x3D; *dst; *dst +&#x3D; src;</p>
+<p>利用这一点可以实现往一个全局的数组 res 里追加数据的效果，其中 sum 起到了记录当前数组大小的作用</p>
+<p>因为返回的旧值就相当于在数组里“分配”到了一个位置一样，不会被别人占据</p>
+<p>sum(1)是分配了初值为0的单元素数组</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326190629523.png" alt="image-20230326190629523" style="zoom:80%;" />
+
+<p>sub，or，and，xor，max，min</p>
+<p>atomicExch：原子写入并读取旧值，Exch是exchange的简写，对标的是std::atomic的exchange函数</p>
+<p>old &#x3D; atomicExch(dst, src) 相当于：old &#x3D; *dst; *dst &#x3D; src</p>
+<p>atomicCAS：原子地判断是否相等，相等则写入，并读取旧值</p>
+<p>old &#x3D; atomicCAS(dst, cmp, src) 相当于：old &#x3D; *dst;if (old &#x3D;&#x3D; cmp)  *dst &#x3D; src</p>
+<p>atomicCAS 的作用在于他可以用来实现任意 CUDA 没有提供的原子读-修改-写回指令，比如这里通过 atomicCAS 实现了整数 atomicAdd 同样的效果</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326191618099.png" alt="image-20230326191618099" style="zoom:80%;" />
+
+<p>里面换成 expect * src，就变成了原子乘法  atomicMul，虽然 CUDA 没提供</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326191716983.png" alt="image-20230326191716983" style="zoom:80%;" />
+
+<p>提升原子操作性能：</p>
+<p>先累加到局部变量 local_sum，最后一次性累加到全局的 sum，这样每个线程就只有一次原子操作，而不是网格跨步循环的那么多次原子操作了</p>
+<p>当然，还需要调小 gridDim * blockDim 使其远小于 n，这样才能够减少原子操作的次数，下图就减少了 4096&#x2F;512&#x3D;8 倍的原子操作</p>
+<p>网格跨步循环执行了4096&#x2F;512&#x3D;8次，每个线程执行8次原子就低效了，因为每次跨网格嘛</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326192028395.png" alt="image-20230326192028395" style="zoom:80%;" />
+
+<p>GPU 是由多个流式多处理器（SM）组成的，每个 SM 可以处理一个或多个板块</p>
+<p>SM 又由多个流式单处理器（SP）组成，每个 SP 可以处理一个或多个线程</p>
+<p>每个 SM 都有自己的一块共享内存，性质类似于 CPU 中的缓存——和主存相比很小，但是很快，用于缓冲临时数据</p>
+<p>通常板块数量总是大于 SM 的数量，这时驱动就会在多个 SM 之间调度你提交的各个板块，正如操作系统在多个 CPU 核心之间调度线程那样</p>
+<p>不过有一点不同，GPU 不会像 CPU 那样做时间片轮换，板块一旦被调度到了一个 SM 上，就会一直执行，直到它执行完退出，这样的好处是不存在保存和切换上下文（寄存器，共享内存等）的开销，毕竟 GPU 的数据量比较大，禁不起这样切换来切换去</p>
+<p>一个 SM 可同时运行多个板块，这时多个板块共用同一块共享内存（每块分到的就少了），而板块内部的每个线程，则是被进一步调度到 SM 上的每个 SP</p>
+<p>无原子解决方案：</p>
+<p>先声明sum为比原数组小1024倍的数组，然后在 GPU 上启动 n &#x2F; 1024 个线程，每个负责原数组中 1024 个数的求和，然后写入到 sum 的对应元素中去</p>
+<p>因为每个线程都写入了不同的地址，所以不存在任何冲突，也不需要原子操作了，每个线程访问到的是sum的不同地方</p>
+<p>然后求出的大小为 n &#x2F; 1024 的数组，已经足够小了，可以直接在 CPU 上完成最终的求和</p>
+<p>也就是 GPU 先把数据尺寸缩减 1024 倍到 CPU 可以接受的范围内，然后让 CPU 完成的思路</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326192816225.png" alt="image-20230326192816225" style="zoom: 80%;" />
+
+<p>先读取到线程局部数组，然后分布缩减，让数据间没有先后依赖</p>
+<p>板块内的所有数组才是并行的</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326194101544.png" alt="image-20230326194101544" style="zoom:80%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326200556820.png" alt="image-20230326200556820" style="zoom:80%;" />
+
+<p>在每个if分支后加上__syncthreads( )强制同步当前板块内的所有线程，这样就能保证之前其他线程的local_sum都已经写入成功了</p>
+<p>线程组32个为一束（warp）：SM 对线程的调度是按照 32 个线程为一组来调度的，0-31号线程为一组，32-63号线程为一组，以此类推</p>
+<p>因此 SM 的调度无论如何都是对一整个线程组（warp）进行的，不可能出现一个组里只有单独一个线程被调走，要么 32 个线程一起调走</p>
+<p>所以 j &lt; 32 之后，就不需要 __syncthreads() 了，因为此时所有访问 local_sum 的线程都在一个组里，反正都是一起调度走，不需要同步</p>
+<p>把 local_sum 数组声明为 volatile 禁止编译器优化</p>
+<p>GPU 线程组（warp）中 32 个线程实际是绑在一起执行的，因此如果出现分支（if）语句时，如果 32 个 cond 中有的为真有的为假，则会导致两个分支都被执行</p>
+<p>为了避免会产生额外的开销，建议 GPU 上的 if 尽可能 32 个线程都处于同一个分支，要么全部真要么全部假，否则实际消耗了两倍时间</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326200647528.png" alt="image-20230326200647528" style="zoom: 67%;" />
+
+<p>使用网格跨步一次性读取多个arr元素：</p>
+<p>可见共享内存中做求和开销还是有点大，之后那么多次共享内存的访问，前面却只有一次全局内存 arr 的访问，是不是太少了</p>
+<p>因此可以通过网格跨步循环增加每个线程访问 arr 的次数，从而超过共享内存部分的时间，当然也别忘了在 main 中增加 gridDim 的大小</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326201056192.png" alt="image-20230326201056192" style="zoom: 67%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326201049505.png" alt="image-20230326201049505" style="zoom:80%;" />
+
+<p>通过模板函数包装一下 BLS（block-local storage）：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326202219205.png" alt="image-20230326202219205" style="zoom:80%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326202224699.png" alt="image-20230326202224699"  />
+
+<p>进一步，当数组非常大，缩减后的数组可以继续递归地用 GPU 求和</p>
+<p>同样是缩并到一定小的程度开始就切断(cutoff)，开始用 CPU 串行求和</p>
+<p><a target="_blank" rel="noopener" href="https://developer.download.nvidia.cn/assets/cuda/files/reduction.pdf">https://developer.download.nvidia.cn/assets/cuda/files/reduction.pdf</a></p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326202249665.png" alt="image-20230326202249665" style="zoom:80%;" />
+
+
+
+<p>1个GPU由多个SM组成，每个SM一次可以执行32个线程，在板块中的1024个线程中反复切来切去来隐藏内存的延迟，每个线程都是有寄存器</p>
+<p>对于使用寄存器较少、访存为主的核函数（例如矢量加法），使用大 blockDim 为宜；反之（例如光线追踪）使用小 blockDim，但也不宜太小</p>
+<p>线程有线程局部内存，板块有共享内存，kernel有全局显存</p>
+<p>矩阵转置：</p>
+<p>一行一行用行主序去访问，out是行，但in是用行主序去访问列主序，CPU上是循环分块</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326202957185.png" alt="image-20230326202957185" style="zoom:80%;" />
+
+<p>需要使用二维的 blockDim 和 gridDim，然后在核函数里分别计算 x 和 y 的扁平化线程编号就行了！它会自动变成循环分块一样的效果，有利于缓存局域性</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326203146222.png" alt="image-20230326203146222" style="zoom:80%;" />
+
+<p>共享内存和板块的L1内存是一样快的，可以手动把内容读到缓存里做完转置再写到外面来</p>
+<p>上面对 in 的读取是存在跨步的，而 GPU 喜欢连续的顺序读取，这样跨步就不高效了，但是矩阵转置，无论是 in 还是 out 必然有一个是需要跨步的，怎么办？</p>
+<p>因此可以先通过把 in 分块，按块跨步地读，而块内部则仍是连续地读——从低效全局的内存读到高效的共享内存中，然后在共享内存中跨步地读，连续地写到 out 指向的低效的全局内存中，这样跨步的开销就开在高效的共享内存上，而不是低效的全局内存上，因此会变快</p>
+<p>rx，ry是按块跨步；tmp的读写速度是一级缓存的速度</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326203407009.png" alt="image-20230326203407009" style="zoom:80%;" />
+
+<p>区块：</p>
+<p>GPU 的共享内存，实际上是 32 块内存条通过并联组成的（有点类似 CPU 的双通道内存条），每个 bank 都可以独立地访问，每个时钟周期都可以读取一个 int</p>
+<p>然后，他们把地址空间分为 32 分，第 i 根内存条，负责 addr % 32 &#x3D;&#x3D; i 的那几个 int 的存储，这样交错存储，可以保证随机访问时，访存能够尽量分摊到 32 个区块，这样速度就提升了 32 倍</p>
+<p>比如：<strong>shared</strong> int arr[1024]; 那么 arr[0] 是存储在 bank 0，arr[1] 是 bank 1……arr[32] 又是 bank 0，arr[33] 又是 bank 1</p>
+<p><img src="/home/kwx/blog/source/_posts/assets/image-20230326212712522.png" alt="image-20230326212712522"></p>
+<p>但这种设计有一个问题：如果多个线程同时访问到了同一个 bank 的话，就需要排队</p>
+<p>假设线程0-3同时访问了 bank 0，但是同一个 bank 是需要排队，也就是串行访问的，所以线程0-3实际上没有真正并行起来，慢了4倍</p>
+<p>bank 是按照 addr % 32 来划分的，也就是说 arr[0] 和 arr[32] 是同属于 bank 0 的，如果两个线程同时访问了 arr[0] 和 arr[32] 就会出现 bank conflict 导致必须排队影响性能</p>
+<p>解决区块冲突：把 tmp 这个二维数组从 32x32 变成 33x32</p>
+<p>通常总以为把数组大小对齐到二的幂次是好事，但对共享内存对齐地划分 bank 这种独特的特性来说，有时故意不对齐反而是好事</p>
+<p>这样线程 0 访问的就是 arr[0] 位于 bank 0，线程 1 访问的就是 arr[33] 位于 bank 1，线程 2 访问的就是 arr[66] 位于 bank 2，正好变成了一个线程访问一个 bank，没有冲突，不需要排队，从而可以并行访问</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230326214452110.png" alt="image-20230326214452110" style="zoom:80%;" />
+
+<p>13.vector</p>
+<p>sizeof(vector)得到24，3个指针</p>
+<p>第一个指针指向堆上的地址，这个地址是vector的起始地址，从起始地址开始才是它真正存储的元素</p>
+<p>指针存在栈上，但是它指向的位置是存在堆上的，因为在栈上是无法动态扩容的</p>
+<p>第二个指针指向的是它的结束位置，知道了开始与结束也就知道了它的长度</p>
+<p>超出长度时[]不会报错，因为追求高效，因为它不会用if语句来检查长度</p>
+<p>用at( )函数来自动检测索引是否越界，也可以像[]一样写入，因为返回的是int&amp;</p>
+<p>std::execution::par来实现并行</p>
+<p>vector<int> a{4}：长度为1只有一个4的数组</p>
+<p>vector<int> a(4)：长度为4的全0数组 ( )才能保证调用它的显式构造函数</p>
+<p>在类里的时候，就需要vector<int> a &#x3D; vector<int>(4)不能只写vector<int>(4)</p>
+<p>运算符重载打印vector类型：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230327202559855.png" alt="image-20230327202559855" style="zoom: 67%;" />
+
+<p>clear配合resize</p>
+<p>pop_back( )删除数组末尾的数，没有返回值</p>
+<p>a.back( )获取最后一个元素</p>
+<p>data( )获取首地址指针，等价于&amp;a[0]，下一个元素的地址只需要指针+1即可</p>
+<p>p[i]相等于 *(p + i)，因此可以把data( )返回的首地址指针当一个数组来访问</p>
+<p>指针没有拷贝构造，拷贝的是个引用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; a = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="type">int</span>* p = a.<span class="built_in">data</span>();</span><br><span class="line">cout &lt;&lt; p[<span class="number">0</span>] &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">cout &lt;&lt; p[<span class="number">2</span>] &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>data( )返回的首地址指针配合size( )唯一确定一个动态数组</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; a = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="type">int</span>* p = a.<span class="built_in">data</span>();</span><br><span class="line"><span class="type">int</span> n = a.<span class="built_in">size</span>();</span><br><span class="line"><span class="built_in">memset</span>(p, <span class="number">-1</span>, <span class="built_in">sizeof</span>(<span class="type">int</span>) * n);  <span class="comment">// memset只认char*</span></span><br></pre></td></tr></table></figure>
+
+<p>弱应用的生命周期必须要比主对象的短，不然会出现空悬指针</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span>* p;</span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; a = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">        p = a.<span class="built_in">data</span>();</span><br><span class="line">        cout &lt;&lt; p[<span class="number">0</span>] &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; p[<span class="number">0</span>] &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 延续生命周期</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span>* p;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; holder;</span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; a = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">        p = a.<span class="built_in">data</span>();</span><br><span class="line">        cout &lt;&lt; p[<span class="number">0</span>] &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        holder = std::<span class="built_in">move</span>(a);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; p[<span class="number">0</span>] &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当resize 的目标长度大于原有容量时，就需要重新分配一段更大的连续内存，并把原数组长度的部分移动过去，多出来的部分则用 0 来填充，导致元素的地址有所改变，从而之前 data 返回的指针以及所有的迭代器对象都会失效</p>
+<p>push_back也一样，其就相当于resize(+1)并写入这个元素</p>
+<p>resize(n)的逻辑是扩容至max(n, capacity * 2)</p>
+<p>第三个指针是capacity，需要和size分离</p>
+<p>capacity函数查询已经分配的内存大小，也就是实际的最大容量</p>
+<p>而size( )返回的其实是已经存储了数据的数组长度</p>
+<p>可以发现当resize指定的新长度超过capacity时，就会重新分配一段更大容量的内存来存储数组，只有这时才会移动元素的位置(data指针失效)</p>
+<p>size总是&lt;&#x3D;容量，size内都已经过初始化，size到capacity都未经初始化</p>
+<p>resize已经初始化到0，reserve只是调用了new，未经初始化</p>
+<p>reserve(12)再reserve(0)是没用的，它只能扩容不能减容，所以需要shrink_to_fit，释放多余容量，但会造成一次内存的重新分配，也就是一次移动</p>
+<p>shrink_to_fit为什么要分配内存？</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="built_in">malloc</span>(<span class="number">100</span>)</span><br><span class="line"><span class="comment">// free(p + 10) 是不行的 得如下：</span></span><br><span class="line">q = <span class="built_in">malloc</span>(<span class="number">10</span>)</span><br><span class="line"><span class="built_in">memcpy</span>(q, p)</span><br><span class="line"><span class="built_in">free</span>(p)</span><br></pre></td></tr></table></figure>
+
+<p>clear只是大小清零，标记为0，但是capacity还在那里</p>
+<p>tools：mallochook 追踪所有的内存分配和释放</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230327211959402.png" alt="image-20230327211959402" style="zoom: 67%;" />
+
+<p>push_back 在容量不足的时候就可以一次性扩容两倍，只需重新分配 logn 次，移动元素 2n-1 次</p>
+<p>所以需要配合reserve，暂时固定容量，就不会一次次扩容两倍，避免重新分配内存和移动元素，更高效</p>
+<p>迭代器模式：</p>
+<p>注意到 vector 和 string 的底层都是连续的稠密数组，他们都有 data() 和 size() 函数，因此可改用首地址指针和数组长度做参数：print(char const *a, size_t n)</p>
+<p>这样 print 在无需知道容器具体类型的情况下，只用最简单的接口（首地址指针）就完成了遍历和打印的操作</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230327224625008.png" alt="image-20230327224625008" style="zoom:67%;" />
+
+<p>stride跨步访问</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230327225236436.png" alt="image-20230327225236436" style="zoom: 67%;" />
+
+<p>尾地址指针所指向的地方是无效的内存 a + a.size()，尾地址指针减1才是真正的末尾元素指针 a + a.size() - 1，因为如果用 a + a.size() - 1 也就是 &amp;a.back() 作为尾地址指针，将无法表示数组长度为 0 的情况</p>
+<p>首指针、尾指针设置为模板参数：</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230327225419766.png" alt="image-20230327225419766" style="zoom:67%;" />
+
+<p>首指针和尾指针的组合的确能胜任 vector 这种连续数组，但是对于 list 这种不连续的内存的容器就没辙了，list 没有 data() 这个成员函数，因为它根本就不连续</p>
+<p>然而 list 却提供了 begin() 和 end() 函数，他们会返回两个 list<char>::iterator 对象，这是一个特殊定义过的类型，其具有 !&#x3D; 和 ++ 以及 * 这些运算符的重载，所以用起来就像普通的指针一样</p>
+<p>而这些运算符重载，却会把 ++ 对应到链表的 curr &#x3D; curr-&gt;next 上，用起来就像普通的指针，但内部却通过运算符重载适配不同容器的特殊类，就是迭代器(iterator)，迭代器是 STL 中容器和算法之间的桥梁</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230327230023185.png" alt="image-20230327230023185" style="zoom:67%;" />
+
+<img src="/home/kwx/blog/source/_posts/assets/image-20230327230137709.png" alt="image-20230327230137709" style="zoom: 67%;" />
+
+<p>尽可能使用++p，因为p++后置自增需要先保存旧的迭代器，然后自增自己，再返回就迭代器比较低效</p>
+<p>++p 会返回自增后的值 p + 1，这和 p +&#x3D; 1 完全一样，同样因为返回的是一个左值引用所以还可以继续自增比如 ++++p；p++ 会返回自增前的值 p，但是执行完以后 p 却又是 p + 1 了，非常迷惑</p>
+<p>迭代器实际上还可以用 [] 运算符访问， b[i] 就和 *(b + i) 等价</p>
+<p>迭代器对象和容器本身的主要区别就在于：迭代器不掌握生命周期，从而迭代器的拷贝是平凡的浅拷贝，方便传参；缺点是迭代器是一个对原容器的弱引用，如果原容器解构或发生内存重分配，迭代器就会失效</p>
+<p>insert 函数的第一个参数是要插入的位置（用迭代器表示），第二个参数则是要插入的值，这个函数的复杂度是 O(n)，n 是从插入位置 pos 到数组末尾 end 的距离</p>
+<p>它会插入位置后方的元素整体向后移动一格，是比较低效的，因此为了高效，我们尽量只往尾部插入元素；如果需要高效的头部插入，可以考虑用 deque 容器，它有高效的 push_front 函数替代</p>
+<p>insert 在容量不足时，同样会造成重新分配以求扩容，会移动其中所有元素，这时所有之前保存的迭代器都会失效</p>
+<p>a.insert(插入位置, 重复多少次, 插入的值)</p>
+<p>花括号类型就是std::initializer_list<int></p>
+<p>insert还可以批量插入来自另一个不同类型的容器，例如 list<int>，只要元素类型相等，且符合迭代器规范；可以自由选择对方容器的一个子区间（通过迭代器加减法）内的元素来插入，而不是死板地只能全部插入</p>
+<p>template <class It> ，这里 的It 可以是其他容器的迭代器类型</p>
+<p>iterator insert(const_iterator pos, It beg, It end)</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230327232326233.png" alt="image-20230327232326233" style="zoom:67%;" />
+
+<p>除了构造函数外，assign 这个成员函数也能在后期把元素覆盖进去，和 insert 不同的是，它会把旧有的数组完全覆盖掉，变成一个新的数组</p>
+<p>a.assign(beg, end) 基本和 a &#x3D; vector<int>(beg, end) 等价，唯一的区别是后者会重新分配内存，而前者会保留原来的容量不会释放掉；a.assign(n, val) 基本和 a &#x3D; vector<int>(n, val) 等价，区别同理</p>
+<p>explicit显式的，就是需要圆括号</p>
+<p>a.assign({x, y, …}) 和 a &#x3D; {x, y, …} 完全等价，都会保留原来的容量，和 a &#x3D; vector<int>{x, y, …} 就不等价，这个会重新分配内存</p>
+<p>erase 函数可以删除指定位置的一个元素（通过迭代器指定）</p>
+<p>erase 的复杂度最坏情况是删第一个元素 O(n)，删最后一个元素复杂度为 O(1)，因为 erase 会移动 pos 之后的那些元素</p>
+<p>a.erase(a.begin() + 1, a.begin() + 3) 删除了 a 的第二和第三个元素，相当于del a[1:3]，注意 C++ 的 insert 和 erase 都是就地操作的</p>
+<p>a.erase(a.begin() + n, a.end()) 就和 a.resize(n) 等价，前提是 n 小于 a.size()，返回删除后最后一个元素之后那个位置的迭代器</p>
+<h5 id="08-C语言指针"><a href="#08-C语言指针" class="headerlink" title="08.C语言指针"></a>08.C语言指针</h5><p>计算机的位数决定了内存地址的大小，指针的本质就是内存地址，64位系统上的指针就是64位</p>
+<p>sizeof(intptr_t) &#x3D; sizeof(void*) &#x3D; sizeof(uintptr_t)</p>
+<p>主流操作系统上，size_t &lt;&#x3D;&#x3D;&gt; uintptr_t</p>
+<p>原码、反码、补码：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/118432554">https://zhuanlan.zhihu.com/p/118432554</a></p>
+<p>指数位(e)是 +127 以后表示的</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230328210013994.png" alt="image-20230328210013994" style="zoom:67%;" />
+
+<p>大端字节序：big-endian<img src="/home/kwx/blog/source/_posts/assets/image-20230328210926860.png" alt="image-20230328210926860" style="zoom:50%;" /></p>
+<p>小端：little  x86 arm</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230328211002531.png" alt="image-20230328211002531" style="zoom: 50%;" />
+
+<p>可以通过 &amp; 运算符获取一个变量的指针（地址）</p>
+<p>可以通过 * 运算符访问指针指向的变量（左值）</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230328211319834.png" alt="image-20230328211319834" style="zoom: 50%;" />
+
+<p>可见，指针无非是一个 64 位整数，这个整数表示的是指针所指向变量在内存中的起始地址（第一个字节所在的门牌号），甚至可以把 int* 强制转换成 unsigned long 类型，来打印出这个门牌号的整数值</p>
+<p>nullptr 的类型是 std::nullptr_t，它可以隐式转换为任意类型的指针</p>
+<p>a[2] 就是 *(a + 2) 的简写而已</p>
+<p>指针加法的特殊性：加 n 实际上是加了 n*sizeof(T)</p>
+<p>使用 size_t 表示数组长度</p>
+<p>malloc只分配字节，使用 malloc(n * 4) 来分配 int 数组，T *a &#x3D; (T*)malloc(n * sizeof(T))</p>
+<p>C 语言特性：函数声明为 T [] 类型的参数，实际上是 T * 类型</p>
+<p>如果函数参数类型形如func(int arr[])，func(int arr[6])，那么其实就等价于：func(int* arr)</p>
+<p>也就是说，给函数参数传入一个数组，实际上等同于传入它的首地址指针，本质上属于按引用传递</p>
+<p>字符常量其实就是对应的 ASCII 码，ASCII 字符对照表就是把字符对应到 0~127 的整数，方便用计算机存储</p>
+<img src="/home/kwx/blog/source/_posts/assets/image-20230328223626237.png" alt="image-20230328223626237" style="zoom:50%;" />
+
+<h4 id="3-线程池"><a href="#3-线程池" class="headerlink" title="3.线程池"></a>3.线程池</h4><p>简易线程池：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/356904887">https://zhuanlan.zhihu.com/p/356904887</a></p>
+<p>for(;;) vs while(1)：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44395686/article/details/103409425">https://blog.csdn.net/weixin_44395686/article/details/103409425</a></p>
+<p>notify_one&#x2F;all：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43743711/article/details/115803461">https://blog.csdn.net/weixin_43743711/article/details/115803461</a></p>
+<p>lock：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/91062516">https://zhuanlan.zhihu.com/p/91062516</a></p>
+<p>Event Pool：<a target="_blank" rel="noopener" href="https://github.com/chloro-pn/event_pool">https://github.com/chloro-pn/event_pool</a></p>
+<p>Hipe：<a target="_blank" rel="noopener" href="https://github.com/CodingHanYa/Hipe">https://github.com/CodingHanYa/Hipe</a></p>
+<h4 id="4-编译-链接"><a href="#4-编译-链接" class="headerlink" title="4.编译 &amp; 链接"></a>4.编译 &amp; 链接</h4><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/595527528">https://zhuanlan.zhihu.com/p/595527528</a></p>
+<p>VMA是进程地址空间中的一个连续虚拟内存区域，可以是代码、数据、堆或栈等。LMA代表加载内存地址，是可执行文件中一个段（section）在可执行文件被加载到内存时的实际内存地址。</p>
+<p>在可执行文件被加载到内存时，操作系统将可执行文件中的各个段映射到进程的虚拟地址空间中的相应VMA中。因此，VMA和LMA之间的差异可以帮助操作系统在不同的进程之间共享相同的代码和数据，从而实现更有效的内存管理。</p>
+<p>重定向是指，编译器将源代码编译成目标文件后，链接器将目标文件中的符号（如函数、变量等）与其他目标文件或库文件中的符号进行匹配，并将这些符号的引用地址重定向到它们在可执行文件或共享库中的实际地址上。</p>
+<p>重定向是必要的，因为编译时源代码中的符号引用地址是未知的，需要在链接时才能确定。另外，不同的目标文件和库文件可能定义了相同名称的符号，因此需要链接器进行符号解析和匹配。</p>
+<p>重定向涉及到的操作包括符号表的合并、重定向表的生成、符号地址的计算和填充等，这些都是链接器的核心功能。通过重定向，链接器可以将多个目标文件和库文件链接成一个可执行文件或共享库，从而实现代码的重用和共享。</p>
+<p>偏移量是指目标文件中的代码和数据相对于该文件的起始位置的偏移量。当目标文件被加载到内存中时，操作系统需要使用该偏移量将目标文件中的符号地址映射到实际的内存地址。</p>
+<p>偏移量通常在目标文件中被编码为一个相对于起始位置的固定偏移量或一个基地址，也可以是一个相对于其他符号地址的相对偏移量。在链接时，链接器会计算和记录每个符号的偏移量，然后生成重定向表，以便在目标文件被加载到内存中时能够正确地将符号地址转换为实际的内存地址。</p>
+<p>符号表它用于记录程序中所有的函数、变量和其他标识符的信息，包括它们的名称、类型、大小、位置等等。</p>
+<p>在编译过程中，编译器会将每个源文件中定义的符号都加入到该源文件的符号表中。在链接过程中，链接器会将所有源文件中的符号表合并成一个全局符号表，并根据符号的类型和作用域进行分类和排列。</p>
+<p>符号表的主要作用是为了实现程序的符号解析。在程序执行时，当一个函数或变量被引用时，程序需要通过符号表来查找该符号的定义和位置，从而正确地完成符号的引用和调用。符号表还可以用于程序的优化和调试，例如在调试信息中，符号表可以用来标记源代码的行号、函数名等信息，方便调试器进行源代码级别的调试。</p>
+<p>在符号表中，每个符号都有一个唯一的名称，通常是由源代码中的标识符经过一定规则转换而来的。同时，每个符号还有一个类型，例如函数、变量、常量，以及一个作用域，例如局部 or 全局作用域等。</p>
+<p>在链接过程中，符号表也被用于实现符号的重定向和解析。当程序引用一个外部定义的符号时，链接器需要在符号表中查找该符号的定义和位置，并将引用指向正确的地址。同时，如果符号在多个源文件中被定义或引用，链接器还需要对符号进行重定向和解析，以保证符号在程序中的唯一性和正确性。</p>
+<p>text段是指存储程序的指令代码的段落，通常是只读的，不能被修改。当可执行文件或共享库被加载到内存中时，操作系统将text段映射到进程的代码段中，程序的执行流程就是从该段的代码开始执行。因此，text段是程序的核心部分，包含程序的主要逻辑和算法。</p>
+<p>data段是指存储程序的全局变量、静态变量和常量的段落，通常是可读写的。当可执行文件或共享库被加载到内存中时，操作系统将data段映射到进程的数据段中，程序可以读取和修改该段的变量和常量。因此，data段是程序的重要数据存储区域，包含程序的状态和运行时数据。</p>
+<p>bss段（Block Started by Symbol）是一个特殊的数据段，用于存储程序中未初始化的全局变量和静态变量。在可执行文件或共享库被加载到内存中时，bss段中的数据会被初始化为0或空值。因为bss段的数据都是0或空值，所以在目标文件中并不需要为它们分配实际的存储空间，只需要记录它们的大小即可。</p>
+<p>rodata段（Read-Only Data）是一个只读数据段，用于存储程序中的常量、字符串等只读数据。在可执行文件或共享库被加载到内存中时，rodata段会被映射到进程的只读数据段中，程序可以读取但不能修改其中的数据。因为rodata段的数据是只读的，所以在目标文件中也不需要为它们分配实际的存储空间，只需要记录它们的大小和内容即可。</p>
+<p>debug段是用于存储调试信息的段落，包括源代码、符号表、调用栈信息等。在目标文件中，debug段的内容通常是以特定的调试格式进行存储，链接器可以根据这些格式将调试信息提取出来，并将它们与目标文件或共享库进行关联。在实际的调试过程中，调试器可以使用这些调试信息来进行源代码级别的调试、查看变量的值等操作。</p>
+<p>plt段和got段：plt段（Procedure Linkage Table）和got段（Global Offset Table）是在使用共享库时才会涉及到的两个段落。plt段用于存储动态链接库中导出函数的入口地址，在可执行文件或共享库被加载到内存中时，操作系统会根据需要动态加载并解析plt段中的函数地址。got段用于存储可执行文件或共享库中对动态链接库中导入函数的引用地址，在程序运行时，操作系统会根据需要将got段中的引用地址重定向到动态链接库中对应函数的实际地址上。</p>
+<h4 id="5-CUDA"><a href="#5-CUDA" class="headerlink" title="5.CUDA"></a>5.CUDA</h4><p>ncu参数: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/666242337">https://zhuanlan.zhihu.com/p/666242337</a></p>
+<p>google test: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/664667816">https://zhuanlan.zhihu.com/p/664667816</a></p>
+<p>算术强度: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/664670489">https://zhuanlan.zhihu.com/p/664670489</a></p>
+<p>CUDA 计算 内存 调度 模型: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/664662628">https://zhuanlan.zhihu.com/p/664662628</a></p>
+<p>加速数据传输: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/188246455">https://zhuanlan.zhihu.com/p/188246455</a></p>
+<p>GPU学习路线: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/617724036/answer/3180044878">https://www.zhihu.com/question/617724036/answer/3180044878</a></p>
+<p>Code：<a target="_blank" rel="noopener" href="https://github.com/godweiyang/NN-CUDA-Example">https://github.com/godweiyang/NN-CUDA-Example</a></p>
+<p>CUDA算子教程及运行时间分析：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/358220419">https://zhuanlan.zhihu.com/p/358220419</a></p>
+<p>自定义CUDA算子的三种方式：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/358778742">https://zhuanlan.zhihu.com/p/358778742</a></p>
+<p>自定义反向传播：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/359524837">https://zhuanlan.zhihu.com/p/359524837</a></p>
+<p>简化版：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/545221832">https://zhuanlan.zhihu.com/p/545221832</a></p>
+<p>.h：声明启动； .cu：实现启动，启动内含具体func 传的是数组</p>
+<p>.cpp：pytorch tensor转化为数组（调用启动函数） + pybind </p>
+<p>.py：调用</p>
+<p>自定义autograd：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/544383900">https://zhuanlan.zhihu.com/p/544383900</a></p>
+<p>显存：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/462191421">https://zhuanlan.zhihu.com/p/462191421</a></p>
+<p>常用技巧：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/584501634">https://zhuanlan.zhihu.com/p/584501634</a></p>
+<p>CPU&#x2F;GPU矩阵乘运算：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/573271688">https://zhuanlan.zhihu.com/p/573271688</a> 二维矩阵共享内存值得细看</p>
+<p>Cx是所有线程的分组个数，Cy是分组后多余的线程数，while是为了提供跳出条件</p>
+<p>主要是线程数可以不等于矩阵元素个数，因此做映射时会有多出来的</p>
+<p>共享内存这块：所以每次运算将A矩阵的i行放入到共享内存中，保证第i行数据不会反复从Global中加载，从而提升运算速度，while是用来保证thread的数量与矩阵A的宽度不相等时，数据多算或少算</p>
+<p>cudaError_t cudaMalloc(void** devPtr, size_t size)  </p>
+<p>第一个参数传递的是存储在cpu内存中的指针变量的地址，cudaMalloc在执行完成后，向这个地址中写入了一个地址值（此地址值是GPU显存里的）。</p>
+<p>cudaMalloc原型理解：<a target="_blank" rel="noopener" href="https://blog.csdn.net/bendanban/article/details/8151335">https://blog.csdn.net/bendanban/article/details/8151335</a></p>
+<p>CUDA编程笔记1：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/462589739">https://zhuanlan.zhihu.com/p/462589739</a></p>
+<p><strong>一个典型的CUDA程序实现流程：</strong></p>
+<ol>
+<li>把数据从CPU内存拷贝到GPU内存。</li>
+<li>调用核函数对存储在GPU内存中的数据进行操作。</li>
+<li>将数据从GPU内存传送回到CPU内存。</li>
+</ol>
+<p><strong>cudaMemcpy负责主机和设备之间的数据传输</strong></p>
+<p><code>cudaMemcpy</code>是<strong>同步执行</strong>的，也就是CPU会等待copy，直到完成后再继续执行。 <strong>这里的同步是隐性的！</strong>并且<strong>内存拷贝将会占据大量时间</strong>，往往耗时的不是计算，而是内存拷贝</p>
+<p>CPU的缓存是不可以编程直接控制的，<strong>但GPU的共享内存是可以编程直接控制</strong></p>
+<p><strong>一个进程对应的多个线程</strong>。GPU进程往往由CPU创建，也就是说每个GPU进程都对应着一个CPU进程。<strong>代表就是核函数kernel，调用kernel也就是创建了一个GPU进程</strong></p>
+<p><code>threadIdx</code>作用：<strong>使用线程索引建立数组索引</strong></p>
+<p>代码中<strong>总共有32个线程同时并行执行，每一个线程取得数组中的一对元素进行相加</strong></p>
+<p>CUDA编程笔记2：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/462944262">https://zhuanlan.zhihu.com/p/462944262</a></p>
+<p>在软件层面上：</p>
+<ul>
+<li><p><strong>一个GPU进程或者说核函数kernel</strong>对应着<strong>一个线程网格Grid；</strong></p>
+</li>
+<li><p><strong>一个线程网格Grid</strong>可以被组织成<strong>多个线程块Block；</strong></p>
+</li>
+<li><p><strong>一个线程块Block</strong>可以被组织成<strong>多个线程thread</strong>。</p>
+</li>
+<li><p>一般Block中的thread数量要为wrapsize的整数倍</p>
+</li>
+<li><p>一般Grid中的Block数量要为GPU的SM数量的整数倍</p>
+</li>
+<li><p>一般在一定范围内Block的数量越多并行越多（但太多也会适得其反）</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">cpuSecond</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">struct</span> <span class="title class_">timeval</span> tp;</span><br><span class="line">  <span class="built_in">gettimeofday</span>(&amp;tp,<span class="literal">NULL</span>);</span><br><span class="line">  <span class="keyword">return</span>((<span class="type">double</span>)tp.tv_sec+(<span class="type">double</span>)tp.tv_usec*<span class="number">1e-6</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>CUDA编程笔记3：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/462991566">https://zhuanlan.zhihu.com/p/462991566</a></p>
+<p>GPU是一大堆<strong>SM（流式多处理器）</strong>组成的<strong>阵列</strong>，还包括DRAM组成的全局机载内存，Giga Thread引擎（一个全局调度器，用来分配线程块到SM上）</p>
+<p>一个线程块只能分配到一个SM上，<strong>尽可能地把线程块均分到SM上</strong></p>
+<p><strong>线程网格中的线程块数量应该要为显卡的SM数量的整数倍</strong></p>
+<p>SM是GPU的核心，一个SM包括</p>
+<ul>
+<li>32个CUDA核心<strong>（SP，GPU真正的运算器）</strong></li>
+<li>16个LD&#x2F;ST单元（load&#x2F;store）用来计算源地址和目的地址</li>
+<li>4个SFU（Special function units）特殊计算单元，比如用来执行sin、cos等</li>
+<li>两个线程束调度器（warp scheduler），每个线程调度器负责16个CUDA核心</li>
+<li>一级缓存</li>
+<li>共享内存</li>
+</ul>
+<p>每个SP包括一个浮点数计算单元和整数计算单元，在这里每个时钟周期执行一个整数或是浮点数指令</p>
+<p>线程块中的线程数量是不确定的，所以不能直接以线程块为处理单位，于是引入了线程束概念：每32个（warpsize&#x3D;32）线程为一组，被称为线程束warp，<strong>有多少个线程束调度器就能同时执行多少个线程束</strong></p>
+<p>线程束是<strong>并行处理的基本单元</strong>，线程束中的<strong>所有线程同时执行相同的指令！</strong></p>
+<p>线程束的执行方式被称为<strong>单指令多线程</strong></p>
+<ul>
+<li>每个线程都有自己的指令地址计数器</li>
+<li>每个线程都有自己的寄存器状态</li>
+<li>每个线程可以有一个独立的执行路径（单指令多数据，那么全部执行，那么全部不执行，不支持if语句。而单指令多线程可以部分执行）</li>
+</ul>
+<p>一个线程块有80个线程，那么它会分为4个线程束，共计3*32&#x3D;96。<strong>多出来的16个线程不活跃的，但记住即使这些线程未被使用， 它们仍然消耗SM的资源</strong>， 如寄存器</p>
+<p>由于线程束是<strong>单指令多线程</strong>的执行，所以不支持16个线程执行if语句块，另外16个线程执行else语句块。那么当发生线程束分化时，线程束中16个线程执行if，冻结另外16个线程；然后，16个线程执行else，冻结另外16个线程。if语句变成了两步走，线程束分化会导致性能明显地下降</p>
+<p><strong>GPU不适合做逻辑复杂的控制密集型任务</strong>，像if、for、while语句</p>
+<p>为什么需要Block：</p>
+<p>通信：shared memory是块内thread通信的基本方式</p>
+<p>同步：<strong>同一个线程块中每个线程都必须等待直至该线程块中所有其他线程都已经达到这个同步点</strong>。 而Block之间，除结束核函数外是无法同步的</p>
+<p>可扩展性：<strong>CUDA在不同SM数量的GPU上都可以运行</strong></p>
+<p>CUDA编程笔记4：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/463052196">https://zhuanlan.zhihu.com/p/463052196</a></p>
+<ul>
+<li>寄存器和本地内存为<strong>每一个线程私有</strong>，生命周期与线程一致，随线程释放而释放</li>
+</ul>
+<p>​       寄存器放不下，会放本地内存，以及编译期无法确定值的数组与占用较多内存的变量</p>
+<ul>
+<li>共享内存为每一个<strong>线程块</strong>中的<strong>所有线程共享</strong>，相当于L1 cache，但是L1 cache不可编程</li>
+</ul>
+<p>​       常用于块内线程通信，同一个block中的thread通过共享内存来通信</p>
+<ul>
+<li>全局内存、常量内存、纹理内存被<strong>GPU设备上的所有线程共享</strong></li>
+</ul>
+<p>​        每一个SM中都配备着专用的常量内存，只可读不可写；</p>
+<p>​        …纹理内存是针对2D空间局部性的优化策略</p>
+<p>​        cudaMalloc分配的就是全局内存，<code>__device__</code>修饰全局变量</p>
+<p>​        cache缓存不可编程，由硬件自动实现缓存机制。</p>
+<p>GPU的缓存分为以下几种：</p>
+<ul>
+<li>L1 cache（per-SM）</li>
+<li>L2 cache（per-device）</li>
+<li>只读的constant cache（per-SM）</li>
+<li>只读的texture cache（per-SM）</li>
+</ul>
+<p>每个SM都配置着L1 cache，所有SM共享一个L2 cache。二者都是用来缓存local和global memory的。</p>
+<p>CPU memory的load&#x2F;store都可以被cache。但GPU上，只有load操作会被cache，store则不会。</p>
+<p>每个SM都配备一个只读constant cache和texture cache来提升性能。</p>
+<p>​        </p>
+<p>手把手教学：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/595851188">https://zhuanlan.zhihu.com/p/595851188</a></p>
+<p>cu里写启动函数(启动里完成计算)，以及sum的实现；</p>
+<p>cpp写四部分：一个是必要的check宏定义，一个是启动函数的声明，一个是与python的接口（传入pytorch的Tensor做启动），一个是pybind11</p>
+<p>Code：<a target="_blank" rel="noopener" href="https://github.com/Yuppie898988/CudaDemo">https://github.com/Yuppie898988/CudaDemo</a></p>
+<p>入门极简教程： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34587739">https://zhuanlan.zhihu.com/p/34587739</a></p>
+<p>kernel是在device上线程中并行执行的函数</p>
+<p>函数执行环境标识符：</p>
+<p><code>__global__</code>修饰核函数，GPU上执行，CPU端调用，返回值必须是void，并且需要在调用时指定block数&amp;线程数。异步，代表函数没执行完就返回了控制权，所以测量核函数的时间需要同步操作才能获得准确的结果。</p>
+<p><code>__device__</code>GPU端调用，GPU端执行，编译器内被编译为内联函数</p>
+<p><code>__host__</code>主机端执行主机端调用，也就是常规的C&#x2F;C++函数</p>
+<p>只有device与host能同时使用，会同时为主机端和设备端编译，使用__CUDA_ARCH__这个宏来区分</p>
+<p><code>__restrict__</code>修饰符用于限定和约束指针，表明指针是访问一个数据对象的唯一且初始的方式，即告诉编译器，所有修改该指针所指向内存中内容的操作都必须通过该指针来修改，而不能通过其它途径（其它变量或指针）来修改。</p>
+<p>Python &amp; CUDA &amp; C++ 混合编程：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/460991440">https://zhuanlan.zhihu.com/p/460991440</a></p>
+<p>配套Code：<a target="_blank" rel="noopener" href="https://github.com/HsLOL/ExtensionOPs/tree/master/demo">https://github.com/HsLOL/ExtensionOPs/tree/master/demo</a></p>
+<p>ncrelu cpp：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/350651297">https://zhuanlan.zhihu.com/p/350651297</a></p>
+<p>ncrelu cuda：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/350849116">https://zhuanlan.zhihu.com/p/350849116</a>  没看懂启动函数</p>
+<p>lambda：<a target="_blank" rel="noopener" href="https://blog.csdn.net/asdasdde/article/details/116268964">https://blog.csdn.net/asdasdde/article/details/116268964</a></p>
+<p>mixconv：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/352451047">https://zhuanlan.zhihu.com/p/352451047</a> 没能看懂</p>
+<p>Block &amp; Grid：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/tiao_god/article/details/107181883">https://blog.csdn.net/tiao_god/article/details/107181883</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43715171/article/details/121794135">https://blog.csdn.net/qq_43715171/article/details/121794135</a></p>
+<p>图示，很清晰： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/544864997">https://zhuanlan.zhihu.com/p/544864997</a></p>
+<p>测试是否能跟上：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7047666754515894286">https://juejin.cn/post/7047666754515894286</a></p>
+<p><img src="/home/kwx/blog/source/_posts/assets/20180318132631477.png" alt="20180318132631477"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/05/HPC/" data-id="clquwa4bg000r0kwd4d1j7rd1" data-title="HPC" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HPC/" rel="tag">HPC</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/04/05/Cpp/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Cpp
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/05/Pytorch%20&%20Python/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Pytorch &amp; Python</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV-models/" rel="tag">CV_models</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Confused/" rel="tag">Confused</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/" rel="tag">Cpp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/" rel="tag">Deploy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Frontier/" rel="tag">Frontier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gemm/" rel="tag">Gemm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HPC/" rel="tag">HPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch-Python/" rel="tag">Pytorch &amp; Python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CV-models/" style="font-size: 10px;">CV_models</a> <a href="/tags/Confused/" style="font-size: 10px;">Confused</a> <a href="/tags/Cpp/" style="font-size: 10px;">Cpp</a> <a href="/tags/Deploy/" style="font-size: 10px;">Deploy</a> <a href="/tags/Frontier/" style="font-size: 10px;">Frontier</a> <a href="/tags/Gemm/" style="font-size: 10px;">Gemm</a> <a href="/tags/HPC/" style="font-size: 10px;">HPC</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/Pytorch-Python/" style="font-size: 10px;">Pytorch & Python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/11/12/Gemm/">Gemm</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/16/LLM/">LLM</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/05/Frontier/">Frontier</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/05/Misc/">Misc</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/05/Cpp/">Cpp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
