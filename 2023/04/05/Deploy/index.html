@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Deploy | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="[2022](# 2022) – [1.ONNX](# 1.ONNX) – [2.TensorRT](# 2.TensorRT) – [3.HAWP](# 3.HAWP) – [4.Nvidia Orin](# 4.Nvidia Orin) 20221.ONNXonnxsurgeon: https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;664242857 custom op onnx ex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deploy">
+<meta property="og:url" content="http://example.com/2023/04/05/Deploy/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[2022](# 2022) – [1.ONNX](# 1.ONNX) – [2.TensorRT](# 2.TensorRT) – [3.HAWP](# 3.HAWP) – [4.Nvidia Orin](# 4.Nvidia Orin) 20221.ONNXonnxsurgeon: https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;664242857 custom op onnx ex">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-04-05T04:28:31.000Z">
+<meta property="article:modified_time" content="2023-11-12T08:44:54.241Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Deploy">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Deploy" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/04/05/Deploy/" class="article-date">
+  <time class="dt-published" datetime="2023-04-05T04:28:31.000Z" itemprop="datePublished">2023-04-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Deploy
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>[2022](# 2022)</p>
+<p>– [1.ONNX](# 1.ONNX)</p>
+<p>– [2.TensorRT](# 2.TensorRT)</p>
+<p>– [3.HAWP](# 3.HAWP)</p>
+<p>– [4.Nvidia Orin](# 4.Nvidia Orin)</p>
+<h2 id="2022"><a href="#2022" class="headerlink" title="2022"></a>2022</h2><h4 id="1-ONNX"><a href="#1-ONNX" class="headerlink" title="1.ONNX"></a>1.ONNX</h4><p>onnxsurgeon: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/664242857">https://zhuanlan.zhihu.com/p/664242857</a></p>
+<p>custom op onnx export ：<a target="_blank" rel="noopener" href="https://github.com/onnx/tutorials/blob/master/PyTorchCustomOperator/README.md">https://github.com/onnx/tutorials/blob/master/PyTorchCustomOperator/README.md</a></p>
+<p>打印node：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011622208/article/details/122260965">https://blog.csdn.net/u011622208/article/details/122260965</a></p>
+<p>add node attribute: <a target="_blank" rel="noopener" href="https://github.com/onnx/onnx/issues/3546">https://github.com/onnx/onnx/issues/3546</a></p>
+<p>tutorial: <a target="_blank" rel="noopener" href="https://github.com/onnx/tutorials/blob/master/PyTorchCustomOperator/README.md">https://github.com/onnx/tutorials/blob/master/PyTorchCustomOperator/README.md</a></p>
+<h4 id="2-TensorRT"><a href="#2-TensorRT" class="headerlink" title="2.TensorRT"></a>2.TensorRT</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import pycuda.autoinit</span><br></pre></td></tr></table></figure>
+
+<p>builder,engine,context简介：<a target="_blank" rel="noopener" href="https://blog.csdn.net/tengxunbc/article/details/116613328">https://blog.csdn.net/tengxunbc/article/details/116613328</a></p>
+<p>[defaultAllocator.cpp::deallocate] Cuda Runtime (invalid argument)：<a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT/issues/2052">https://github.com/NVIDIA/TensorRT/issues/2052</a></p>
+<p>Error Code 1: Myelin (Compiled against cuBLASLt 10.2.2.0 but running against cuBLASLt 11.4.2.0.)：<a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT/issues/1945">https://github.com/NVIDIA/TensorRT/issues/1945</a></p>
+<p>最简python推理：<a target="_blank" rel="noopener" href="https://blog.csdn.net/JianguoChow/article/details/122684310">https://blog.csdn.net/JianguoChow/article/details/122684310</a></p>
+<p>简单ResNet50：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/395590559">https://zhuanlan.zhihu.com/p/395590559</a></p>
+<p>动态：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/548006090">https://zhuanlan.zhihu.com/p/548006090</a></p>
+<p>​           <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/387853124">https://zhuanlan.zhihu.com/p/387853124</a></p>
+<p>​           <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/299845547">https://zhuanlan.zhihu.com/p/299845547</a> （相应评论区）</p>
+<p>C++接口解读：<a target="_blank" rel="noopener" href="https://blog.csdn.net/hjxu2016/article/details/109288673">https://blog.csdn.net/hjxu2016/article/details/109288673</a></p>
+<p>int8量化配置撰写可参考：<a target="_blank" rel="noopener" href="https://github.com/ihongxx/Resnet50_TensorRT">https://github.com/ihongxx/Resnet50_TensorRT</a></p>
+<p>YOLOv5 trt：<a target="_blank" rel="noopener" href="https://github.com/PICOPON/yolov5_engine">https://github.com/PICOPON/yolov5_engine</a></p>
+<p>​                       <a target="_blank" rel="noopener" href="https://github.com/ihongxx/Yolov5_TensorRt">https://github.com/ihongxx/Yolov5_TensorRt</a></p>
+<p>YOLOv7 &amp; others trt：<a target="_blank" rel="noopener" href="https://github.com/shouxieai/tensorRT_Pro">https://github.com/shouxieai/tensorRT_Pro</a></p>
+<p>bilibili：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Xw411f7FW?p=4&vd_source=8683b4f3e93da577cf9216975b225ee5">https://www.bilibili.com/video/BV1Xw411f7FW?p=4&amp;vd_source=8683b4f3e93da577cf9216975b225ee5</a></p>
+<p>TensorRT Plug-in：<a target="_blank" rel="noopener" href="https://github.com/wang-xinyu/tensorrtx">https://github.com/wang-xinyu/tensorrtx</a></p>
+<p>TensorRT 简易：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/547624036">https://zhuanlan.zhihu.com/p/547624036</a></p>
+<p>async vs sync：<a target="_blank" rel="noopener" href="https://gist.github.com/CasiaFan/c8a380aabdc08e1fdcf6310c78431106">https://gist.github.com/CasiaFan/c8a380aabdc08e1fdcf6310c78431106</a></p>
+<p>dynamic输入trt报错：<a target="_blank" rel="noopener" href="https://blog.csdn.net/XCCCCZ/article/details/123009816">https://blog.csdn.net/XCCCCZ/article/details/123009816</a></p>
+<h4 id="3-HAWP"><a href="#3-HAWP" class="headerlink" title="3.HAWP"></a>3.HAWP</h4><p>modes：<a target="_blank" rel="noopener" href="https://jetsonhacks.com/2017/03/25/nvpmodel-nvidia-jetson-tx2-development-kit/">https://jetsonhacks.com/2017/03/25/nvpmodel-nvidia-jetson-tx2-development-kit/</a></p>
+<p>clock：<a target="_blank" rel="noopener" href="https://docs.nvidia.com/jetson/archives/r34.1/DeveloperGuide/text/SD/Clocks.html?highlight=clock%20frequency">https://docs.nvidia.com/jetson/archives/r34.1/DeveloperGuide/text/SD/Clocks.html?highlight=clock%20frequency</a></p>
+<p>SpeedUp：<a target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/t/extremely-slow-inference-in-tensorrt-for-live-semantic-segmentation-model/204266/7">https://forums.developer.nvidia.com/t/extremely-slow-inference-in-tensorrt-for-live-semantic-segmentation-model/204266/7</a></p>
+<p>lower under continuous：<a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT/issues/2042">https://github.com/NVIDIA/TensorRT/issues/2042</a></p>
+<p>​                                               <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT/issues/2107">https://github.com/NVIDIA/TensorRT/issues/2107</a></p>
+<p>Synchronize：<a target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/t/understanding-stream-synchronization-with-trt-inference/143810">https://forums.developer.nvidia.com/t/understanding-stream-synchronization-with-trt-inference/143810</a></p>
+<p>execute_async：<a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT/issues/930">https://github.com/NVIDIA/TensorRT/issues/930</a></p>
+<p>Cupy：<a target="_blank" rel="noopener" href="https://github.com/cupy/cupy/issues/6104">https://github.com/cupy/cupy/issues/6104</a></p>
+<h4 id="4-Nvidia-Orin"><a href="#4-Nvidia-Orin" class="headerlink" title="4.Nvidia Orin"></a>4.Nvidia Orin</h4><p>Docker：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/553091318">https://zhuanlan.zhihu.com/p/553091318</a></p>
+<p>Deepstream：<a target="_blank" rel="noopener" href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_Overview.html">https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_Overview.html</a></p>
+<p>​                          <a target="_blank" rel="noopener" href="https://github.com/marcoslucianops/DeepStream-Yolo">https://github.com/marcoslucianops/DeepStream-Yolo</a></p>
+<p>Jetson-inference：<a target="_blank" rel="noopener" href="https://github.com/dusty-nv/jetson-inference">https://github.com/dusty-nv/jetson-inference</a></p>
+<p>trt whl zoo：<a target="_blank" rel="noopener" href="https://blog.csdn.net/kunhe0512/article/details/124993478">https://blog.csdn.net/kunhe0512/article/details/124993478</a></p>
+<p>查看 jetpack version：sudo apt-cache show nvidia-jetpack</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/05/Deploy/" data-id="clqv3uogz00032wwdd0ly2uha" data-title="Deploy" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Deploy/" rel="tag">Deploy</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/04/05/Pytorch%20&%20Python/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Pytorch &amp; Python
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/06/27/assets/Confused/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Confused</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV-models/" rel="tag">CV_models</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Confused/" rel="tag">Confused</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/" rel="tag">Cpp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deploy/" rel="tag">Deploy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Frontier/" rel="tag">Frontier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HPC/" rel="tag">HPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pytorch-Python/" rel="tag">Pytorch &amp; Python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CV-models/" style="font-size: 10px;">CV_models</a> <a href="/tags/Confused/" style="font-size: 10px;">Confused</a> <a href="/tags/Cpp/" style="font-size: 10px;">Cpp</a> <a href="/tags/Deploy/" style="font-size: 10px;">Deploy</a> <a href="/tags/Frontier/" style="font-size: 10px;">Frontier</a> <a href="/tags/HPC/" style="font-size: 10px;">HPC</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/Pytorch-Python/" style="font-size: 10px;">Pytorch & Python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/07/16/LLM/">LLM</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/05/Frontier/">Frontier</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/05/Misc/">Misc</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/05/Cpp/">Cpp</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/05/HPC/">HPC</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
