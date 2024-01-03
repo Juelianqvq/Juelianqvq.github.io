@@ -772,7 +772,7 @@ MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4Ox
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-03 20:26:51" itemprop="dateModified" datetime="2024-01-03T20:26:51+08:00">2024-01-03</time>
+                <time title="Modified: 2024-01-03 21:30:38" itemprop="dateModified" datetime="2024-01-03T21:30:38+08:00">2024-01-03</time>
               </span>
 
           
@@ -882,6 +882,9 @@ MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4Ox
 <p>帧移：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38699252/article/details/109240468">https://blog.csdn.net/qq_38699252/article/details/109240468</a></p>
 <p>分帧 帧移 加窗 滤波 降噪 合成：<a target="_blank" rel="noopener" href="https://blog.csdn.net/shixin_0125/article/details/99844048">https://blog.csdn.net/shixin_0125/article/details/99844048</a></p>
 <p>ISTFT： <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/280648561/answer/2521849999">https://www.zhihu.com/question/280648561/answer/2521849999</a></p>
+<p>LSTM一致性:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># LSTM逐行一致性</span><br><span class="line">W_ii = self.rnn2.weight_ih_l0.reshape(4, 96, 96)[0, ...]</span><br><span class="line">W_hi = self.rnn2.weight_hh_l0.reshape(4, 96, 96)[0, ...]</span><br><span class="line">b_ii = self.rnn2.bias_ih_l0.reshape(4, 96)[0, ...]</span><br><span class="line">b_hi = self.rnn2.bias_hh_l0.reshape(4, 96)[0, ...]</span><br><span class="line">it = torch.sigmoid(x1 @ W_ii.t() + b_ii + h2_in @ W_hi.t() + b_hi)</span><br><span class="line"></span><br><span class="line">W_if = self.rnn2.weight_ih_l0.reshape(4, 96, 96)[1, ...]</span><br><span class="line">W_hf = self.rnn2.weight_hh_l0.reshape(4, 96, 96)[1, ...]</span><br><span class="line">b_if = self.rnn2.bias_ih_l0.reshape(4, 96)[1, ...]</span><br><span class="line">b_hf = self.rnn2.bias_hh_l0.reshape(4, 96)[1, ...]</span><br><span class="line">ft = torch.sigmoid(x1 @ W_if.t() + b_if + h2_in @ W_hf.t() + b_hf)</span><br><span class="line"></span><br><span class="line">W_ig = self.rnn2.weight_ih_l0.reshape(4, 96, 96)[2, ...]</span><br><span class="line">W_hg = self.rnn2.weight_hh_l0.reshape(4, 96, 96)[2, ...]</span><br><span class="line">b_ig = self.rnn2.bias_ih_l0.reshape(4, 96)[2, ...]</span><br><span class="line">b_hg = self.rnn2.bias_hh_l0.reshape(4, 96)[2, ...]</span><br><span class="line"></span><br><span class="line">tanh_in = x1 @ W_ig.t() + b_ig + h2_in @ W_hg.t() + b_hg</span><br><span class="line">gt = torch.tanh(tanh_in)</span><br><span class="line"></span><br><span class="line">W_io = self.rnn2.weight_ih_l0.reshape(4, 96, 96)[3, ...]</span><br><span class="line">W_ho = self.rnn2.weight_hh_l0.reshape(4, 96, 96)[3, ...]</span><br><span class="line">b_io = self.rnn2.bias_ih_l0.reshape(4, 96)[3, ...]</span><br><span class="line">b_ho = self.rnn2.bias_hh_l0.reshape(4, 96)[3, ...]</span><br><span class="line">ot = torch.sigmoid(x1 @ W_io.t() + b_io + h2_in @ W_ho.t() + b_ho)</span><br><span class="line">ft_ct = ft * c2_in</span><br><span class="line">ct = ft * c2_in + it * gt</span><br><span class="line">ht = ot * torch.tanh(ct)</span><br></pre></td></tr></table></figure>
+
 <h4 id="6-Docker-VSCode"><a href="#6-Docker-VSCode" class="headerlink" title="6.Docker &amp; VSCode"></a>6.Docker &amp; VSCode</h4><p>Error response from daemon: could not select device driver: <a target="_blank" rel="noopener" href="https://blog.csdn.net/li4692625/article/details/123015840">https://blog.csdn.net/li4692625/article/details/123015840</a></p>
 <p>修改ssh默认端口: <a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1253389">https://developer.aliyun.com/article/1253389</a></p>
 <p>vscode 修复Remote-SSH XHR failed: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45654306/article/details/132047411">https://blog.csdn.net/qq_45654306/article/details/132047411</a>  </p>
@@ -2354,7 +2357,7 @@ MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4Ox
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-30 23:09:39" itemprop="dateModified" datetime="2023-12-30T23:09:39+08:00">2023-12-30</time>
+                <time title="Modified: 2024-01-03 21:31:37" itemprop="dateModified" datetime="2024-01-03T21:31:37+08:00">2024-01-03</time>
               </span>
 
           
@@ -2375,9 +2378,10 @@ MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4Ox
 <p>[2023](# 2023)</p>
 <p> – [1.Profiler](# 1.Profiler)</p>
 <p> – <a href="#2.Pytorch">2.Pytorch</a></p>
-<p> – [3.LSTM](# 3.LSTM)</p>
-<p> – [4.Python](# 4.Python)</p>
-<p> – [5.Python扩展](# 5.Python扩展)</p>
+<p> – [3.Python](# 3.Python)</p>
+<p> – [4.Python扩展](# 4.Python扩展)</p>
+<p>[2024](# 2024)</p>
+<p> – <a href="#1.Pytorch">1.Pytorch</a></p>
 <h2 id="2022"><a href="#2022" class="headerlink" title="2022"></a>2022</h2><h4 id="1-Pytorch"><a href="#1-Pytorch" class="headerlink" title="1.Pytorch"></a>1.Pytorch</h4><p>EMA： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/479898259">https://zhuanlan.zhihu.com/p/479898259</a></p>
 <p>torch.fx.wrap：<a target="_blank" rel="noopener" href="https://vimsky.com/examples/usage/python-torch.fx.wrap-pt.html">https://vimsky.com/examples/usage/python-torch.fx.wrap-pt.html</a></p>
 <p>torch.finfo: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43844342/article/details/116209999">https://blog.csdn.net/qq_43844342/article/details/116209999</a></p>
@@ -2461,7 +2465,6 @@ MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4Ox
 <p>8.with语句开始运行时，会在上下文管理器对象上调用__enter__方法，</p>
 <p>​    with语句结束后，会调用__exit__方法，以此扮演finally子句的角色</p>
 <h4 id="3-Python"><a href="#3-Python" class="headerlink" title="3.Python"></a>3.Python</h4><p>递归导入模块 importlib：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/565665251">https://zhuanlan.zhihu.com/p/565665251</a></p>
-<p>__call__：<a target="_blank" rel="noopener" href="http://c.biancheng.net/view/2380.html">http://c.biancheng.net/view/2380.html</a></p>
 <p>Python颜色：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37844142/article/details/108282190">https://blog.csdn.net/qq_37844142/article/details/108282190</a></p>
 <p>Python魔法函数：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/344951719">https://zhuanlan.zhihu.com/p/344951719</a></p>
 <p>copy &amp; deepcopy：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sodalife/article/details/89461030">https://blog.csdn.net/sodalife/article/details/89461030</a></p>
@@ -2506,7 +2509,6 @@ MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4Ox
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flag = torch.lt(x.<span class="built_in">sum</span>(), <span class="number">0</span>)</span><br><span class="line"><span class="keyword">return</span> flag * (x + <span class="number">1</span>) + (<span class="number">1</span> - flag) * (x - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 
 <p>gather &amp; scatter_: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/187401278">https://zhuanlan.zhihu.com/p/187401278</a></p>
-<p>torch.cuda.memory_allocated(0): <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35531985/article/details/109033921">https://blog.csdn.net/qq_35531985/article/details/109033921</a></p>
 <p>底层代码走读：<a target="_blank" rel="noopener" href="https://www.zhihu.com/column/c_1475072340581617664">https://www.zhihu.com/column/c_1475072340581617664</a></p>
 <p>clone copy detach data：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/393041305">https://zhuanlan.zhihu.com/p/393041305</a></p>
 <p>pad：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jorg_zhao/article/details/105295686">https://blog.csdn.net/jorg_zhao/article/details/105295686</a></p>
@@ -2537,19 +2539,7 @@ MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4Ox
 <p>apply, _apply： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/340453841">https://zhuanlan.zhihu.com/p/340453841</a></p>
 <p>einsum： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/361209187">https://zhuanlan.zhihu.com/p/361209187</a></p>
 <p>​                  <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/44954540">https://zhuanlan.zhihu.com/p/44954540</a></p>
-<h4 id="3-LSTM"><a href="#3-LSTM" class="headerlink" title="3.LSTM"></a>3.LSTM</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># LSTM逐行一致性</span></span><br><span class="line">W_ii = self.rnn2.weight_ih_l0.reshape(<span class="number">4</span>, <span class="number">96</span>, <span class="number">96</span>)[<span class="number">0</span>, ...]</span><br><span class="line">W_hi = self.rnn2.weight_hh_l0.reshape(<span class="number">4</span>, <span class="number">96</span>, <span class="number">96</span>)[<span class="number">0</span>, ...]</span><br><span class="line">b_ii = self.rnn2.bias_ih_l0.reshape(<span class="number">4</span>, <span class="number">96</span>)[<span class="number">0</span>, ...]</span><br><span class="line">b_hi = self.rnn2.bias_hh_l0.reshape(<span class="number">4</span>, <span class="number">96</span>)[<span class="number">0</span>, ...]</span><br><span class="line">it = torch.sigmoid(x1 @ W_ii.t() + b_ii + h2_in @ W_hi.t() + b_hi)</span><br><span class="line"></span><br><span class="line">W_if = self.rnn2.weight_ih_l0.reshape(<span class="number">4</span>, <span class="number">96</span>, <span class="number">96</span>)[<span class="number">1</span>, ...]</span><br><span class="line">W_hf = self.rnn2.weight_hh_l0.reshape(<span class="number">4</span>, <span class="number">96</span>, <span class="number">96</span>)[<span class="number">1</span>, ...]</span><br><span class="line">b_if = self.rnn2.bias_ih_l0.reshape(<span class="number">4</span>, <span class="number">96</span>)[<span class="number">1</span>, ...]</span><br><span class="line">b_hf = self.rnn2.bias_hh_l0.reshape(<span class="number">4</span>, <span class="number">96</span>)[<span class="number">1</span>, ...]</span><br><span class="line">ft = torch.sigmoid(x1 @ W_if.t() + b_if + h2_in @ W_hf.t() + b_hf)</span><br><span class="line"></span><br><span class="line">W_ig = self.rnn2.weight_ih_l0.reshape(<span class="number">4</span>, <span class="number">96</span>, <span class="number">96</span>)[<span class="number">2</span>, ...]</span><br><span class="line">W_hg = self.rnn2.weight_hh_l0.reshape(<span class="number">4</span>, <span class="number">96</span>, <span class="number">96</span>)[<span class="number">2</span>, ...]</span><br><span class="line">b_ig = self.rnn2.bias_ih_l0.reshape(<span class="number">4</span>, <span class="number">96</span>)[<span class="number">2</span>, ...]</span><br><span class="line">b_hg = self.rnn2.bias_hh_l0.reshape(<span class="number">4</span>, <span class="number">96</span>)[<span class="number">2</span>, ...]</span><br><span class="line"></span><br><span class="line">tanh_in = x1 @ W_ig.t() + b_ig + h2_in @ W_hg.t() + b_hg</span><br><span class="line">gt = torch.tanh(tanh_in)</span><br><span class="line"></span><br><span class="line">W_io = self.rnn2.weight_ih_l0.reshape(<span class="number">4</span>, <span class="number">96</span>, <span class="number">96</span>)[<span class="number">3</span>, ...]</span><br><span class="line">W_ho = self.rnn2.weight_hh_l0.reshape(<span class="number">4</span>, <span class="number">96</span>, <span class="number">96</span>)[<span class="number">3</span>, ...]</span><br><span class="line">b_io = self.rnn2.bias_ih_l0.reshape(<span class="number">4</span>, <span class="number">96</span>)[<span class="number">3</span>, ...]</span><br><span class="line">b_ho = self.rnn2.bias_hh_l0.reshape(<span class="number">4</span>, <span class="number">96</span>)[<span class="number">3</span>, ...]</span><br><span class="line">ot = torch.sigmoid(x1 @ W_io.t() + b_io + h2_in @ W_ho.t() + b_ho)</span><br><span class="line">ft_ct = ft * c2_in</span><br><span class="line">ct = ft * c2_in + it * gt</span><br><span class="line">ht = ot * torch.tanh(ct)</span><br></pre></td></tr></table></figure>
-
-<p>LSTM：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/139617364">https://zhuanlan.zhihu.com/p/139617364</a></p>
-<p>​             <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32085405">https://zhuanlan.zhihu.com/p/32085405</a></p>
-<p>output和h的关系：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sdnuwjw/article/details/111221937">https://blog.csdn.net/sdnuwjw/article/details/111221937</a></p>
-<p>LSTM直观图示：<a target="_blank" rel="noopener" href="https://blog.csdn.net/songhk0209/article/details/71134698">https://blog.csdn.net/songhk0209/article/details/71134698</a></p>
-<p>C源码：<a target="_blank" rel="noopener" href="https://blog.csdn.net/kuweicai/article/details/118702575">https://blog.csdn.net/kuweicai/article/details/118702575</a></p>
-<p>一个完整的LSTM是由很多LSTMcell操作组成的，LSTMcell的数量，取决于layers的大小；每个LSTMcell运行的次数取决于length的大小</p>
-<p>自定义LSTM：<a target="_blank" rel="noopener" href="https://blog.csdn.net/kuan__/article/details/114652053">https://blog.csdn.net/kuan__/article/details/114652053</a></p>
-<p>​                         <a target="_blank" rel="noopener" href="https://blog.csdn.net/junbaba_/article/details/106135219">https://blog.csdn.net/junbaba_/article/details/106135219</a></p>
-<p>官方示例：<a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/advanced/cpp_extension.html">https://pytorch.org/tutorials/advanced/cpp_extension.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch/blob/353e9f883fed46cf60e5bc808500ff1a8678241e/benchmarks/fastrnns/custom_lstms.py">https://github.com/pytorch/pytorch/blob/353e9f883fed46cf60e5bc808500ff1a8678241e/benchmarks/fastrnns/custom_lstms.py</a></p>
-<h4 id="4-Python"><a href="#4-Python" class="headerlink" title="4.Python"></a>4.Python</h4><p>setuptools详解: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/460233022">https://zhuanlan.zhihu.com/p/460233022</a></p>
+<h4 id="3-Python-1"><a href="#3-Python-1" class="headerlink" title="3.Python"></a>3.Python</h4><p>setuptools详解: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/460233022">https://zhuanlan.zhihu.com/p/460233022</a></p>
 <p>alternative 切换 python 版本: </p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/15948314">https://zhuanlan.zhihu.com/p/15948314</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_17105473/article/details/120909679">https://blog.csdn.net/qq_17105473/article/details/120909679</a></p>
@@ -2575,7 +2565,6 @@ MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4Ox
 <p>可变对象: list dict set  不可变对象: tuple string int float bool</p>
 <p><code>*args, **kwargs</code> 这是一个非常常见的捕获<strong>不定长位置参数</strong>与<strong>不定长关键字参数</strong>的方式</p>
 <p>repr vs str: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/542320058">https://zhuanlan.zhihu.com/p/542320058</a></p>
-<p>any(iterables)，只要可迭代对象中任意包含一个元素为True则返回True</p>
 <p>filter(function or None, iterable) # 可迭代对象(例如序列、字典等)</p>
 <p>猴子补丁: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/577415129">https://zhuanlan.zhihu.com/p/577415129</a></p>
 <p>__slot__: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/578699693">https://zhuanlan.zhihu.com/p/578699693</a></p>
@@ -2587,7 +2576,6 @@ MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4Ox
 <p>types：<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/types.html">https://docs.python.org/zh-cn/3/library/types.html</a></p>
 <p>惰性求值：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/420508064">https://zhuanlan.zhihu.com/p/420508064</a></p>
 <p>Unittest：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/466076772">https://zhuanlan.zhihu.com/p/466076772</a></p>
-<p>class的<code>__enter__</code>与<code>__exit__</code>进行计时操作</p>
 <p><code>__all__</code>：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/54274339%EF%BC%8C%E5%9C%A8%E6%A8%A1%E5%9D%97%E7%BA%A7%E5%88%AB%E6%9A%B4%E9%9C%B2%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%BB%B4%E6%8A%A4%E5%8F%AF%E8%A7%81%E6%80%A7">https://zhuanlan.zhihu.com/p/54274339，在模块级别暴露接口，维护可见性</a></p>
 <p>@contextlib.contextmanager：<a target="_blank" rel="noopener" href="https://blog.csdn.net/l1l1l1l/article/details/92702773">https://blog.csdn.net/l1l1l1l/article/details/92702773</a></p>
 <p>traceback：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yuanfate/article/details/119916008">https://blog.csdn.net/yuanfate/article/details/119916008</a></p>
@@ -2607,7 +2595,7 @@ MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4Ox
 <p>*,**作用： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/mo-nian/p/11842422.html">https://www.cnblogs.com/mo-nian/p/11842422.html</a></p>
 <p>元组逗号作用：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_50218564/article/details/115057043">https://blog.csdn.net/m0_50218564/article/details/115057043</a></p>
 <p>dataclass: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/419778289">https://zhuanlan.zhihu.com/p/419778289</a></p>
-<h4 id="5-Python扩展"><a href="#5-Python扩展" class="headerlink" title="5.Python扩展"></a>5.Python扩展</h4><p>自定义算子参考：<a target="_blank" rel="noopener" href="https://github.com/Abyssaledge/TorchEx/tree/main/torchex">https://github.com/Abyssaledge/TorchEx/tree/main/torchex</a></p>
+<h4 id="4-Python扩展"><a href="#4-Python扩展" class="headerlink" title="4.Python扩展"></a>4.Python扩展</h4><p>自定义算子参考：<a target="_blank" rel="noopener" href="https://github.com/Abyssaledge/TorchEx/tree/main/torchex">https://github.com/Abyssaledge/TorchEx/tree/main/torchex</a></p>
 <p>Pytorch底层算子扩展总结：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/349560723">https://zhuanlan.zhihu.com/p/349560723</a></p>
 <p>ncrelu：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/350651297">https://zhuanlan.zhihu.com/p/350651297</a></p>
 <p>cpp_extension：<a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/advanced/cpp_extension.html">https://pytorch.org/tutorials/advanced/cpp_extension.html</a></p>
@@ -2624,6 +2612,7 @@ MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4Ox
 <p>示例：<a target="_blank" rel="noopener" href="https://github.com/CivilNet/SYSZUXav">https://github.com/CivilNet/SYSZUXav</a>  着重 Python.h说明 + 继承示例 + 函数返回值和传参时候的内存处理</p>
 <p>C++前端介绍：<a target="_blank" rel="noopener" href="https://pytorch.org/cppdocs/frontend.html">https://pytorch.org/cppdocs/frontend.html</a></p>
 <p>安装：<a target="_blank" rel="noopener" href="https://pytorch.org/cppdocs/installing.html">https://pytorch.org/cppdocs/installing.html</a></p>
+<h2 id="2024"><a href="#2024" class="headerlink" title="2024"></a>2024</h2><h4 id="1-pytorch"><a href="#1-pytorch" class="headerlink" title="1.pytorch"></a>1.pytorch</h4><p>分布式训练代码层面: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/483656352">https://zhuanlan.zhihu.com/p/483656352</a></p>
 
       
     </div>
