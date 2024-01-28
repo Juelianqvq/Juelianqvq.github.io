@@ -28,7 +28,7 @@
 <meta property="og:description" content="– [1.LLM](# 1.LLM) – [2.vLLM](# 2.vLLM) – [3.Attention 优化](# 3.Attention 优化) – [4.TensorRT-LLM](# 4.TensorRT-LLM) – [5.lmdeploy](# 5.lmdeploy) – [6.Coroutine &amp; Thread &amp; Process](# 6.Coroutine">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-07-15T16:46:38.000Z">
-<meta property="article:modified_time" content="2024-01-06T16:32:26.518Z">
+<meta property="article:modified_time" content="2024-01-26T15:39:04.337Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="LLM">
 <meta name="twitter:card" content="summary">
@@ -181,7 +181,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-07 00:32:26" itemprop="dateModified" datetime="2024-01-07T00:32:26+08:00">2024-01-07</time>
+                <time title="Modified: 2024-01-26 23:39:04" itemprop="dateModified" datetime="2024-01-26T23:39:04+08:00">2024-01-26</time>
               </span>
 
           
@@ -204,7 +204,7 @@
 <p>– [7.Frontier](# 7.Frontier)</p>
 <p>– [8.Triton](# 8.Triton)</p>
 <p>– [9.CUDA](# 9.CUDA)</p>
-<p>– [10.GPTQ](# 10.GPTQ)</p>
+<p>– [10.Quantization](# 10.Quantization)</p>
 <h4 id="1-LLM"><a href="#1-LLM" class="headerlink" title="1.LLM"></a>1.LLM</h4><p>2023 技术总结: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/675287417">https://zhuanlan.zhihu.com/p/675287417</a></p>
 <p>2024 技术展望: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/637480772/answer/3351110317">https://www.zhihu.com/question/637480772/answer/3351110317</a></p>
 <p>内存带宽和cpu算力简单计算: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/661062002">https://zhuanlan.zhihu.com/p/661062002</a></p>
@@ -275,7 +275,7 @@
 <ul>
 <li><input checked="" disabled="" type="checkbox"> Transformer时空复杂度: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/606514058/answer/3078324182">https://www.zhihu.com/question/606514058/answer/3078324182</a></li>
 </ul>
-<p>Decoder only: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/614722351">https://zhuanlan.zhihu.com/p/614722351</a></p>
+<p>Decoder only 完美回答: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/588325646/answer/3357252612">https://www.zhihu.com/question/588325646/answer/3357252612</a></p>
 <p>hf多卡推理: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/639850033">https://zhuanlan.zhihu.com/p/639850033</a></p>
 <p>split k: <a target="_blank" rel="noopener" href="https://blog.csdn.net/u013701860/article/details/128674224">https://blog.csdn.net/u013701860/article/details/128674224</a></p>
 <ul>
@@ -318,14 +318,41 @@
 </ul>
 <p>​       <a target="_blank" rel="noopener" href="https://discuss.pytorch.org/t/cuda-allocation-lifetime-for-inputs-to-distributed-all-reduce/191573">https://discuss.pytorch.org/t/cuda-allocation-lifetime-for-inputs-to-distributed-all-reduce/191573</a></p>
 <ul>
-<li><input disabled="" type="checkbox"> GPTQ: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/916">https://github.com/vllm-project/vllm/pull/916</a></li>
-<li><input disabled="" type="checkbox"> Prefix Prompt Cache: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2296">https://github.com/vllm-project/vllm/pull/2296</a></li>
-<li><input disabled="" type="checkbox"> CUDA Graph: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1926">https://github.com/vllm-project/vllm/pull/1926</a></li>
-<li><input disabled="" type="checkbox"> Speculative decoding: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2188">https://github.com/vllm-project/vllm/pull/2188</a></li>
-<li><input disabled="" type="checkbox"> Faster and memory-efficient top-p top-k kernel: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2169">https://github.com/vllm-project/vllm/pull/2169</a></li>
-<li><input disabled="" type="checkbox"> Fix the non-blocking behavior of the sampler: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2190">https://github.com/vllm-project/vllm/pull/2190</a></li>
-<li><input disabled="" type="checkbox"> Fast all-reduce: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2192">https://github.com/vllm-project/vllm/pull/2192</a></li>
-<li><input disabled="" type="checkbox"> </li>
+<li><p><input disabled="" type="checkbox"> 
+GPTQ: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/916">https://github.com/vllm-project/vllm/pull/916</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+Prefix Prompt Cache: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2296">https://github.com/vllm-project/vllm/pull/2296</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+CUDA Graph: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1926">https://github.com/vllm-project/vllm/pull/1926</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+Speculative decoding: </p>
+<p><a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2188">https://github.com/vllm-project/vllm/pull/2188</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2424">https://github.com/vllm-project/vllm/pull/2424</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2336">https://github.com/vllm-project/vllm/pull/2336</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+Faster and memory-efficient top-p top-k kernel: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2169">https://github.com/vllm-project/vllm/pull/2169</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+Fix the non-blocking behavior of the sampler: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2190">https://github.com/vllm-project/vllm/pull/2190</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+Fast all-reduce: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2192">https://github.com/vllm-project/vllm/pull/2192</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+Prefix cacheing: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1669">https://github.com/vllm-project/vllm/pull/1669</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+multi-LORA: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/1804">https://github.com/vllm-project/vllm/pull/1804</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+Optimize cuda graph memory: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/pull/2437">https://github.com/vllm-project/vllm/pull/2437</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> </p>
+</li>
 </ul>
 <p>Issues:</p>
 <ul>
@@ -341,6 +368,7 @@
 <li><input disabled="" type="checkbox"> SparQ Attention: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/2039">https://github.com/vllm-project/vllm/issues/2039</a></li>
 <li><input disabled="" type="checkbox"> Slowdown in batch request handling: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/1707">https://github.com/vllm-project/vllm/issues/1707</a></li>
 <li><input disabled="" type="checkbox"> Lookahead decoding: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/1742">https://github.com/vllm-project/vllm/issues/1742</a></li>
+<li><input disabled="" type="checkbox"> Automatic Prefix Caching: <a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm/issues/2614">https://github.com/vllm-project/vllm/issues/2614</a></li>
 <li><input disabled="" type="checkbox"> </li>
 </ul>
 <p>Warp-level Primitives: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/572820783">https://zhuanlan.zhihu.com/p/572820783</a></p>
@@ -427,6 +455,7 @@ MQA GQA: <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_4Ox
 <li><p><input checked="" disabled="" type="checkbox"> 
 Flash decoding: </p>
 <p>感觉没说: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/661478232">https://zhuanlan.zhihu.com/p/661478232</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/66426444">https://zhuanlan.zhihu.com/p/66426444</a></p>
 </li>
 </ul>
 <h4 id="4-TensorRT-LLM"><a href="#4-TensorRT-LLM" class="headerlink" title="4.TensorRT-LLM"></a>4.TensorRT-LLM</h4><p>evaluate 本地下载: <a target="_blank" rel="noopener" href="https://blog.csdn.net/misaki_min/article/details/132650725">https://blog.csdn.net/misaki_min/article/details/132650725</a></p>
@@ -611,13 +640,15 @@ Flash decoding: </p>
 
 
 
-<h4 id="7-Frontier"><a href="#7-Frontier" class="headerlink" title="7.Frontier"></a>7.Frontier</h4><p>Paper List: <a target="_blank" rel="noopener" href="https://github.com/HuangOwen/Awesome-LLM-Compression">https://github.com/HuangOwen/Awesome-LLM-Compression</a></p>
+<h4 id="7-Frontier"><a href="#7-Frontier" class="headerlink" title="7.Frontier"></a>7.Frontier</h4><p>HPC 课程笔记: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/671684145">https://zhuanlan.zhihu.com/p/671684145</a></p>
+<p>Paper List: <a target="_blank" rel="noopener" href="https://github.com/HuangOwen/Awesome-LLM-Compression">https://github.com/HuangOwen/Awesome-LLM-Compression</a></p>
 <p>扩散模型：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/611082996">https://zhuanlan.zhihu.com/p/611082996</a></p>
 <p>​				   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/609075353">https://zhuanlan.zhihu.com/p/609075353</a></p>
 <p>RetNet: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645974065">https://zhuanlan.zhihu.com/p/645974065</a></p>
 <p>DepGraph: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/619146631">https://zhuanlan.zhihu.com/p/619146631</a></p>
 <p>NeurIPS 2023 | 模型压缩与加速: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/673955376">https://zhuanlan.zhihu.com/p/673955376</a></p>
-<h4 id="8-Triton"><a href="#8-Triton" class="headerlink" title="8.Triton"></a>8.Triton</h4><p>MLIR文章汇总: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/141256429">https://zhuanlan.zhihu.com/p/141256429</a></p>
+<h4 id="8-Triton"><a href="#8-Triton" class="headerlink" title="8.Triton"></a>8.Triton</h4><p>Makefile: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/350297509">https://zhuanlan.zhihu.com/p/350297509</a></p>
+<p>MLIR文章汇总: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/141256429">https://zhuanlan.zhihu.com/p/141256429</a></p>
 <p>软链接: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_21386275/article/details/79881543">https://blog.csdn.net/qq_21386275/article/details/79881543</a></p>
 <p>c++filt -n: <a target="_blank" rel="noopener" href="https://blog.csdn.net/K346K346/article/details/88225726">https://blog.csdn.net/K346K346/article/details/88225726</a></p>
 <p>LLVM: <a target="_blank" rel="noopener" href="https://github.com/llvm/llvm-project/issues/63988">https://github.com/llvm/llvm-project/issues/63988</a></p>
@@ -626,14 +657,43 @@ Flash decoding: </p>
 <p>ninja -C build check-llvm</p>
 <p>CMake hidden by files: conda deactivate   .so文件被隐藏</p>
 <p>卸载 sudo make install: <a target="_blank" rel="noopener" href="https://blog.csdn.net/charry_win/article/details/126628169">https://blog.csdn.net/charry_win/article/details/126628169</a></p>
+<p>入门: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/622685131/answer/3217107882">https://www.zhihu.com/question/622685131/answer/3217107882</a></p>
 <p>0.源码编译: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/628022771">https://zhuanlan.zhihu.com/p/628022771</a></p>
-<p>1.Triton DSL: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/628394465">https://zhuanlan.zhihu.com/p/628394465</a></p>
-<h4 id="9-CUDA"><a href="#9-CUDA" class="headerlink" title="9.CUDA"></a>9.CUDA</h4><p>基础: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645330027">https://zhuanlan.zhihu.com/p/645330027</a></p>
+<ul>
+<li><p><input disabled="" type="checkbox"> 
+1.Triton DSL: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/628394465">https://zhuanlan.zhihu.com/p/628394465</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+2.Batch GEMM benchmark: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/629654531">https://zhuanlan.zhihu.com/p/629654531</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+3.Triton-shared: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/672487801">https://zhuanlan.zhihu.com/p/672487801</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+Memory Coalesce: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/670141785">https://zhuanlan.zhihu.com/p/670141785</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+DSL 到 PTX: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/671434808">https://zhuanlan.zhihu.com/p/671434808</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+Layout: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/672720213">https://zhuanlan.zhihu.com/p/672720213</a></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+Triton Ampere WMMA: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/675925978">https://zhuanlan.zhihu.com/p/675925978</a></p>
+</li>
+</ul>
+<h4 id="9-CUDA"><a href="#9-CUDA" class="headerlink" title="9.CUDA"></a>9.CUDA</h4><p>CUDA 全局坐标运算: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/675603584">https://zhuanlan.zhihu.com/p/675603584</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x,y,z三维坐标系，先确定z，x*y是平面面积大小</span><br></pre></td></tr></table></figure>
+
+<p>CUDA 入门技巧方法: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/584501634">https://zhuanlan.zhihu.com/p/584501634</a></p>
+<p>Code: <a target="_blank" rel="noopener" href="https://github.com/ifromeast/cuda_learning">https://github.com/ifromeast/cuda_learning</a></p>
+<p>基础: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645330027">https://zhuanlan.zhihu.com/p/645330027</a></p>
 <p>CUDA内存模型的基本单位是 SP (线程处理器)，每个 SP 都有自己的 register 和 local memory，两者皆只能被自己访问，不同的 SP 之间相互独立</p>
 <p>多个 SP 和一块 smem 构成一个 SM (多核处理器)，其中的 SP 互相并行，smem 可以被线程块内的所有线程访问</p>
 <p>由 SM 和 全局内存构成 GPU，一个 GPU 的所有 SM 共有一块 全局内存，不同线程块的线程都可使用</p>
 <p>以上可以等价表述为：</p>
-<p>每个 thread 都有自己的一份 register 和 local memory 的空间同一个 block 中的每个 thread 则有共享的一份 share memory</p>
+<p>每个 thread 都有自己的一份 register 和 local memory 的空间</p>
+<p>同一个 block 中的每个 thread 则有共享的一份 share memory</p>
 <p>此外，所有的 thread (包括不同 block 的 thread) 都共享一份 global memory</p>
 <p>不同的 grid 则有各自的 global memory</p>
 <p>从软件的角度来讲：</p>
@@ -643,15 +703,19 @@ Flash decoding: </p>
 <p>线程块特点: </p>
 <p>块内的线程通过共享内存、原子操作和屏障同步进行协作</p>
 <p>不同块中的线程不能协作</p>
-<p>线程的索引和线程 ID 之间的关系非常简单：</p>
-<p>对于一维块，它们是相同的；对于大小为 $(Dx, Dy)$ 的二维块，</p>
-<p>索引为 $(x, y)$ 的线程的线程ID为 $(x+y<em>Dx)$； 对于大小为 $(Dx,Dy,Dz)$ 的三维块，索引为 $(x,y,z)$ 的线程的线程 ID 为 $(x + y</em>Dx + z<em>Dx</em>Dy)$</p>
 <p><strong>非常经典的 3 种 torch 自定义 cuda 算子方法</strong></p>
-<p>CUDA 内存体系: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/654027980">https://zhuanlan.zhihu.com/p/654027980</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> CUDA 内存体系: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/654027980">https://zhuanlan.zhihu.com/p/654027980</a></li>
+</ul>
 <p>在核函数中定义的不加任何限定符的变量一般来说就存放于寄存器中</p>
-<p>各种内建变量，如 gridDim、blockDim、blockIdx、 threadIdx 及 warpSize 都保存在特殊的寄存器中，以便高效访问</p>
+<p>各种内建变量 blockDim、threadIdx 及 warpSize 都保存在特殊的寄存器中，以便高效访问</p>
+<p>Reduction 优化: </p>
 <p><strong>V100 A100 H100 L40S 参数比较</strong> </p>
-<h4 id="10-GPTQ"><a href="#10-GPTQ" class="headerlink" title="10.GPTQ"></a>10.GPTQ</h4><p>OBS OBQ 推导: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/656316235">https://zhuanlan.zhihu.com/p/656316235</a></p>
+<ul>
+<li><input disabled="" type="checkbox"> CUDA GEMM: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/657632577">https://zhuanlan.zhihu.com/p/657632577</a></li>
+</ul>
+<h4 id="10-Quantization"><a href="#10-Quantization" class="headerlink" title="10.Quantization"></a>10.Quantization</h4><p>OBS OBQ 推导: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/656316235">https://zhuanlan.zhihu.com/p/656316235</a></p>
+<p>GPTQ 进一步深挖: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/646210009">https://zhuanlan.zhihu.com/p/646210009</a></p>
 <p>LU分解: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/386954541">https://zhuanlan.zhihu.com/p/386954541</a></p>
 <p>Cholesky分解: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/387603571?utm_id=0">https://zhuanlan.zhihu.com/p/387603571?utm_id=0</a></p>
 
@@ -734,7 +798,7 @@ Flash decoding: </p>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-LLM"><span class="nav-number">1.</span> <span class="nav-text">1.LLM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-vLLM"><span class="nav-number">2.</span> <span class="nav-text">2.vLLM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Attention-%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">3.Attention 优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-TensorRT-LLM"><span class="nav-number">4.</span> <span class="nav-text">4.TensorRT-LLM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-lmdeploy"><span class="nav-number">5.</span> <span class="nav-text">5.lmdeploy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Coroutine-Thread-Process"><span class="nav-number">6.</span> <span class="nav-text">6.Coroutine &amp; Thread &amp; Process</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Frontier"><span class="nav-number">7.</span> <span class="nav-text">7.Frontier</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-Triton"><span class="nav-number">8.</span> <span class="nav-text">8.Triton</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-CUDA"><span class="nav-number">9.</span> <span class="nav-text">9.CUDA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-GPTQ"><span class="nav-number">10.</span> <span class="nav-text">10.GPTQ</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-LLM"><span class="nav-number">1.</span> <span class="nav-text">1.LLM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-vLLM"><span class="nav-number">2.</span> <span class="nav-text">2.vLLM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Attention-%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">3.Attention 优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-TensorRT-LLM"><span class="nav-number">4.</span> <span class="nav-text">4.TensorRT-LLM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-lmdeploy"><span class="nav-number">5.</span> <span class="nav-text">5.lmdeploy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Coroutine-Thread-Process"><span class="nav-number">6.</span> <span class="nav-text">6.Coroutine &amp; Thread &amp; Process</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Frontier"><span class="nav-number">7.</span> <span class="nav-text">7.Frontier</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-Triton"><span class="nav-number">8.</span> <span class="nav-text">8.Triton</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-CUDA"><span class="nav-number">9.</span> <span class="nav-text">9.CUDA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-Quantization"><span class="nav-number">10.</span> <span class="nav-text">10.Quantization</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
