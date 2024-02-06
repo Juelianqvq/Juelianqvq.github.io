@@ -28,7 +28,7 @@
 <meta property="og:description" content="https:&#x2F;&#x2F;paperswithcode.com&#x2F;sota&#x2F;object-detection-on-coco?p&#x3D;swin-transformer-v2-scaling-up-capacity-and Attention: https:&#x2F;&#x2F;github.com&#x2F;xmu-xiaoma666&#x2F;External-Attention-pytorch Transformer问题汇总：https:&#x2F;&#x2F;zh">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-06-27T02:30:42.000Z">
-<meta property="article:modified_time" content="2023-04-12T15:18:51.984Z">
+<meta property="article:modified_time" content="2024-02-06T04:52:45.724Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="CV_models">
 <meta name="twitter:card" content="summary">
@@ -181,7 +181,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-04-12 23:18:51" itemprop="dateModified" datetime="2023-04-12T23:18:51+08:00">2023-04-12</time>
+                <time title="Modified: 2024-02-06 12:52:45" itemprop="dateModified" datetime="2024-02-06T12:52:45+08:00">2024-02-06</time>
               </span>
 
           
@@ -348,6 +348,45 @@
 <p>​                   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/361900997">https://zhuanlan.zhihu.com/p/361900997</a></p>
 <p><strong>关键点检测：</strong></p>
 <p>HRNet：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37541097/article/details/124346626">https://blog.csdn.net/qq_37541097/article/details/124346626</a></p>
+<h3 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy"></a>Deploy</h3><h4 id="1-ONNX"><a href="#1-ONNX" class="headerlink" title="1.ONNX"></a>1.ONNX</h4><p>onnxsurgeon: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/664242857">https://zhuanlan.zhihu.com/p/664242857</a></p>
+<p>custom op onnx export ：<a target="_blank" rel="noopener" href="https://github.com/onnx/tutorials/blob/master/PyTorchCustomOperator/README.md">https://github.com/onnx/tutorials/blob/master/PyTorchCustomOperator/README.md</a></p>
+<p>打印node：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011622208/article/details/122260965">https://blog.csdn.net/u011622208/article/details/122260965</a></p>
+<p>add node attribute: <a target="_blank" rel="noopener" href="https://github.com/onnx/onnx/issues/3546">https://github.com/onnx/onnx/issues/3546</a></p>
+<p>tutorial: <a target="_blank" rel="noopener" href="https://github.com/onnx/tutorials/blob/master/PyTorchCustomOperator/README.md">https://github.com/onnx/tutorials/blob/master/PyTorchCustomOperator/README.md</a></p>
+<h4 id="2-TensorRT"><a href="#2-TensorRT" class="headerlink" title="2.TensorRT"></a>2.TensorRT</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import pycuda.autoinit</span><br></pre></td></tr></table></figure>
+
+<p>builder,engine,context简介：<a target="_blank" rel="noopener" href="https://blog.csdn.net/tengxunbc/article/details/116613328">https://blog.csdn.net/tengxunbc/article/details/116613328</a></p>
+<p>[defaultAllocator.cpp::deallocate] Cuda Runtime (invalid argument)：<a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT/issues/2052">https://github.com/NVIDIA/TensorRT/issues/2052</a></p>
+<p>Error Code 1: Myelin (Compiled against cuBLASLt 10.2.2.0 but running against cuBLASLt 11.4.2.0.)：<a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT/issues/1945">https://github.com/NVIDIA/TensorRT/issues/1945</a></p>
+<p>最简python推理：<a target="_blank" rel="noopener" href="https://blog.csdn.net/JianguoChow/article/details/122684310">https://blog.csdn.net/JianguoChow/article/details/122684310</a></p>
+<p>简单ResNet50：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/395590559">https://zhuanlan.zhihu.com/p/395590559</a></p>
+<p>动态：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/548006090">https://zhuanlan.zhihu.com/p/548006090</a></p>
+<p>​           <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/387853124">https://zhuanlan.zhihu.com/p/387853124</a></p>
+<p>​           <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/299845547">https://zhuanlan.zhihu.com/p/299845547</a> （相应评论区）</p>
+<p>C++接口解读：<a target="_blank" rel="noopener" href="https://blog.csdn.net/hjxu2016/article/details/109288673">https://blog.csdn.net/hjxu2016/article/details/109288673</a></p>
+<p>int8量化配置撰写可参考：<a target="_blank" rel="noopener" href="https://github.com/ihongxx/Resnet50_TensorRT">https://github.com/ihongxx/Resnet50_TensorRT</a></p>
+<p>YOLOv5 trt：<a target="_blank" rel="noopener" href="https://github.com/PICOPON/yolov5_engine">https://github.com/PICOPON/yolov5_engine</a></p>
+<p>​                       <a target="_blank" rel="noopener" href="https://github.com/ihongxx/Yolov5_TensorRt">https://github.com/ihongxx/Yolov5_TensorRt</a></p>
+<p>YOLOv7 &amp; others trt：<a target="_blank" rel="noopener" href="https://github.com/shouxieai/tensorRT_Pro">https://github.com/shouxieai/tensorRT_Pro</a></p>
+<p>bilibili：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Xw411f7FW?p=4&vd_source=8683b4f3e93da577cf9216975b225ee5">https://www.bilibili.com/video/BV1Xw411f7FW?p=4&amp;vd_source=8683b4f3e93da577cf9216975b225ee5</a></p>
+<p>TensorRT Plug-in：<a target="_blank" rel="noopener" href="https://github.com/wang-xinyu/tensorrtx">https://github.com/wang-xinyu/tensorrtx</a></p>
+<p>TensorRT 简易：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/547624036">https://zhuanlan.zhihu.com/p/547624036</a></p>
+<p>async vs sync：<a target="_blank" rel="noopener" href="https://gist.github.com/CasiaFan/c8a380aabdc08e1fdcf6310c78431106">https://gist.github.com/CasiaFan/c8a380aabdc08e1fdcf6310c78431106</a></p>
+<p>dynamic输入trt报错：<a target="_blank" rel="noopener" href="https://blog.csdn.net/XCCCCZ/article/details/123009816">https://blog.csdn.net/XCCCCZ/article/details/123009816</a></p>
+<h4 id="3-HAWP"><a href="#3-HAWP" class="headerlink" title="3.HAWP"></a>3.HAWP</h4><p>modes：<a target="_blank" rel="noopener" href="https://jetsonhacks.com/2017/03/25/nvpmodel-nvidia-jetson-tx2-development-kit/">https://jetsonhacks.com/2017/03/25/nvpmodel-nvidia-jetson-tx2-development-kit/</a></p>
+<p>clock：<a target="_blank" rel="noopener" href="https://docs.nvidia.com/jetson/archives/r34.1/DeveloperGuide/text/SD/Clocks.html?highlight=clock%20frequency">https://docs.nvidia.com/jetson/archives/r34.1/DeveloperGuide/text/SD/Clocks.html?highlight=clock%20frequency</a></p>
+<p>SpeedUp：<a target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/t/extremely-slow-inference-in-tensorrt-for-live-semantic-segmentation-model/204266/7">https://forums.developer.nvidia.com/t/extremely-slow-inference-in-tensorrt-for-live-semantic-segmentation-model/204266/7</a></p>
+<p>lower under continuous：<a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT/issues/2042">https://github.com/NVIDIA/TensorRT/issues/2042</a></p>
+<p>​                                               <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT/issues/2107">https://github.com/NVIDIA/TensorRT/issues/2107</a></p>
+<p>Synchronize：<a target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/t/understanding-stream-synchronization-with-trt-inference/143810">https://forums.developer.nvidia.com/t/understanding-stream-synchronization-with-trt-inference/143810</a></p>
+<p>execute_async：<a target="_blank" rel="noopener" href="https://github.com/NVIDIA/TensorRT/issues/930">https://github.com/NVIDIA/TensorRT/issues/930</a></p>
+<p>Cupy：<a target="_blank" rel="noopener" href="https://github.com/cupy/cupy/issues/6104">https://github.com/cupy/cupy/issues/6104</a></p>
+<h4 id="4-Nvidia-Orin"><a href="#4-Nvidia-Orin" class="headerlink" title="4.Nvidia Orin"></a>4.Nvidia Orin</h4><p>Docker：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/553091318">https://zhuanlan.zhihu.com/p/553091318</a></p>
+<p>Deepstream：<a target="_blank" rel="noopener" href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_Overview.html">https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_Overview.html</a></p>
+<p>​                          <a target="_blank" rel="noopener" href="https://github.com/marcoslucianops/DeepStream-Yolo">https://github.com/marcoslucianops/DeepStream-Yolo</a></p>
+<p>Jetson-inference：<a target="_blank" rel="noopener" href="https://github.com/dusty-nv/jetson-inference">https://github.com/dusty-nv/jetson-inference</a></p>
+<p>trt whl zoo：<a target="_blank" rel="noopener" href="https://blog.csdn.net/kunhe0512/article/details/124993478">https://blog.csdn.net/kunhe0512/article/details/124993478</a></p>
+<p>查看 jetpack version：sudo apt-cache show nvidia-jetpack</p>
 
     </div>
 
@@ -428,7 +467,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">图像分类：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#kaggle-%E7%9A%84-%E6%9C%A8%E8%96%AF%E5%8F%B6%E5%88%86%E7%B1%BB-%E4%B8%8D%E5%90%8C%E7%96%BE%E7%97%85%E4%B8%8B%E5%8F%B6%E5%AD%90%E7%9A%84%E7%89%B9%E5%BE%81%EF%BC%88ViT%E5%A4%BA%E5%86%A0%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">kaggle 的 木薯叶分类   不同疾病下叶子的特征（ViT夺冠）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">目标检测：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">语义分割：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%EF%BC%9A"><span class="nav-number">5.</span> <span class="nav-text">实例分割：</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">图像分类：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#kaggle-%E7%9A%84-%E6%9C%A8%E8%96%AF%E5%8F%B6%E5%88%86%E7%B1%BB-%E4%B8%8D%E5%90%8C%E7%96%BE%E7%97%85%E4%B8%8B%E5%8F%B6%E5%AD%90%E7%9A%84%E7%89%B9%E5%BE%81%EF%BC%88ViT%E5%A4%BA%E5%86%A0%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">kaggle 的 木薯叶分类   不同疾病下叶子的特征（ViT夺冠）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">目标检测：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">语义分割：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%EF%BC%9A"><span class="nav-number">5.</span> <span class="nav-text">实例分割：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy"><span class="nav-number"></span> <span class="nav-text">Deploy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ONNX"><span class="nav-number"></span> <span class="nav-text">1.ONNX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-TensorRT"><span class="nav-number"></span> <span class="nav-text">2.TensorRT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-HAWP"><span class="nav-number"></span> <span class="nav-text">3.HAWP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Nvidia-Orin"><span class="nav-number"></span> <span class="nav-text">4.Nvidia Orin</span></a></div>
       </div>
       <!--/noindex-->
 
@@ -442,7 +481,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
