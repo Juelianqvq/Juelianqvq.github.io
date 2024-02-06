@@ -28,7 +28,7 @@
 <meta property="og:description" content="[2022](# 2022)  – [1.Pytorch](# 1.Pytorch)  – [2.流畅的Python](# 2.流畅的python)  – [3.Python](# 3.Python) [2023](# 2023)  – [1.Profiler](# 1.Profiler)  – 2.Pytorch  – [3.Python](# 3.Python)  – [4.Python扩展]">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-05T04:38:26.000Z">
-<meta property="article:modified_time" content="2024-01-03T14:37:13.089Z">
+<meta property="article:modified_time" content="2024-02-01T15:32:58.250Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Pytorch &amp; Python">
 <meta name="twitter:card" content="summary">
@@ -181,7 +181,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-03 22:37:13" itemprop="dateModified" datetime="2024-01-03T22:37:13+08:00">2024-01-03</time>
+                <time title="Modified: 2024-02-01 23:32:58" itemprop="dateModified" datetime="2024-02-01T23:32:58+08:00">2024-02-01</time>
               </span>
 
           
@@ -247,13 +247,7 @@
 <p>（1）支持hash()函数，并且通过__hash__方法得到的散列值是不变的</p>
 <p>（2）支持通过__eq__方法检测相等性</p>
 <p>（3）若 a &#x3D;&#x3D; b 为真，则 hash(a) =&#x3D; hash(b) 也为真</p>
-<p>4.函数</p>
-<p>__doc__：生成对象的帮助文本(‘’’注释’’’)</p>
-<p>可调用函数：实现实例方法__call__，创建函数类对象</p>
-<p>定位参数，关键字参数</p>
-<p>functools.partial冻结参数</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> operator <span class="keyword">import</span> mul</span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line">a = partial(mul, <span class="number">3</span>)</span><br><span class="line">a(<span class="number">7</span>)  <span class="comment"># 21, 3是固定的</span></span><br></pre></td></tr></table></figure>
-
+<p>4.__doc__：生成对象的帮助文本(‘’’注释’’’)</p>
 <p>5.闭包：调用averager时，make_averager已经返回了，series的本地作用域也随之一去不复返了</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">make_averager</span>():</span><br><span class="line">	series = []</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">averager</span>(<span class="params">new_value</span>):</span><br><span class="line">		series.append(new_value)</span><br><span class="line">        total = <span class="built_in">sum</span>(series)</span><br><span class="line">        <span class="keyword">return</span> total / <span class="built_in">len</span>(series)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> averager</span><br></pre></td></tr></table></figure>
 
@@ -272,9 +266,6 @@
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">clock</span>(<span class="params">func</span>):</span><br><span class="line"><span class="meta">    @functools.wraps(<span class="params">func</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">clocked</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        t0 = time.time()</span><br><span class="line">        result = func(*args)</span><br><span class="line">        elapsed = time.time() - t0</span><br><span class="line">        name = func.__name__</span><br><span class="line">        arg_lst = []</span><br><span class="line">        <span class="keyword">if</span> args:</span><br><span class="line">            arg_lst.append(<span class="string">&#x27;,&#x27;</span>.join(<span class="built_in">repr</span>(args) <span class="keyword">for</span> arg <span class="keyword">in</span> args))</span><br><span class="line">        <span class="keyword">if</span> kwargs:</span><br><span class="line">            pairs = <span class="string">f&#x27;<span class="subst">&#123;k&#125;</span> = <span class="subst">&#123;w&#125;</span>&#x27;</span> <span class="keyword">for</span> k, w <span class="keyword">in</span> <span class="built_in">sorted</span>(kwargs.items())</span><br><span class="line">            arg_lst.append(<span class="string">&#x27;,&#x27;</span>.join(pairs))</span><br><span class="line">        arg_str = <span class="string">&#x27;,&#x27;</span>.join(arg_lst)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;elapsed&#125;</span>---<span class="subst">&#123;name&#125;</span>---<span class="subst">&#123;arg_str&#125;</span>---<span class="subst">&#123;result&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    <span class="keyword">return</span> clocked</span><br></pre></td></tr></table></figure>
 
 <p>@functools.lru_cache() ：使用缓存实现，更快</p>
-<p>叠放：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@d1</span><br><span class="line">@d2</span><br><span class="line">f()  等价于 </span><br><span class="line">f = d1(d2(f))</span><br></pre></td></tr></table></figure>
-
 <p>参数化注册装饰器：</p>
 <p>嵌套函数的外层作为装饰器工厂，接收额外参数</p>
 <p>装饰器的参数一定是函数，返回值也一定是该函数，不然不满足 $dec(f()) &#x3D; f()$</p>
@@ -284,10 +275,8 @@
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> weakref</span><br><span class="line">s1 = [<span class="number">1</span>]</span><br><span class="line">s2 = s1</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bye</span>():</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&#x27;!&#x27;</span>)</span><br><span class="line">ender = weakref.finalize(s1, bye)</span><br><span class="line"><span class="built_in">print</span>(ender.alive) <span class="comment"># T</span></span><br><span class="line"><span class="keyword">del</span> s1</span><br><span class="line"><span class="built_in">print</span>(ender.alive) <span class="comment"># T</span></span><br><span class="line">s2 = <span class="string">&#x27;spam&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(ender.alive) <span class="comment"># F</span></span><br></pre></td></tr></table></figure>
 
 <p>当需要引用对象而不让对象的存在时间超过所需时间（常用于缓存）</p>
-<p>classmethod：定义操作类，而非操作实例的方法，最常用于定义备选构造方法。因此类方法的第一个参数是类本身而非实例</p>
+<p>classmethod：定义<strong>操作类，而非操作实例</strong>的方法，最常用于定义备选构造方法。因此类方法的第一个参数是类本身而非实例</p>
 <p>鸭子类型 &amp; 猴子补丁：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1484390">https://cloud.tencent.com/developer/article/1484390</a></p>
-<p>8.with语句开始运行时，会在上下文管理器对象上调用__enter__方法，</p>
-<p>​    with语句结束后，会调用__exit__方法，以此扮演finally子句的角色</p>
 <h4 id="3-Python"><a href="#3-Python" class="headerlink" title="3.Python"></a>3.Python</h4><p>递归导入模块 importlib：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/565665251">https://zhuanlan.zhihu.com/p/565665251</a></p>
 <p>Python颜色：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37844142/article/details/108282190">https://blog.csdn.net/qq_37844142/article/details/108282190</a></p>
 <p>Python魔法函数：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/344951719">https://zhuanlan.zhihu.com/p/344951719</a></p>
@@ -434,10 +423,12 @@
 <p>pybind11：<a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/advanced/cpp_extension.html">https://pytorch.org/tutorials/advanced/cpp_extension.html</a></p>
 <p>pybind11安装：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/80884925">https://zhuanlan.zhihu.com/p/80884925</a></p>
 <p>pybind11(配合官方文档答疑)：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/192974017">https://zhuanlan.zhihu.com/p/192974017</a></p>
-<p>示例：<a target="_blank" rel="noopener" href="https://github.com/CivilNet/SYSZUXav">https://github.com/CivilNet/SYSZUXav</a>  着重 Python.h说明 + 继承示例 + 函数返回值和传参时候的内存处理</p>
+<p>示例：<a target="_blank" rel="noopener" href="https://github.com/CivilNet/SYSZUXav">https://github.com/CivilNet/SYSZUXav</a>  着重 Python.h说明 + 继承示例 + 函数返回值和传参时</p>
+<p>候的内存处理</p>
 <p>C++前端介绍：<a target="_blank" rel="noopener" href="https://pytorch.org/cppdocs/frontend.html">https://pytorch.org/cppdocs/frontend.html</a></p>
 <p>安装：<a target="_blank" rel="noopener" href="https://pytorch.org/cppdocs/installing.html">https://pytorch.org/cppdocs/installing.html</a></p>
-<h2 id="2024"><a href="#2024" class="headerlink" title="2024"></a>2024</h2><h4 id="1-pytorch"><a href="#1-pytorch" class="headerlink" title="1.pytorch"></a>1.pytorch</h4><p>分布式训练代码层面: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/483656352">https://zhuanlan.zhihu.com/p/483656352</a></p>
+<h2 id="2024"><a href="#2024" class="headerlink" title="2024"></a>2024</h2><h4 id="1-Pytorch-1"><a href="#1-Pytorch-1" class="headerlink" title="1.Pytorch"></a>1.Pytorch</h4><p>分布式训练代码层面: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/483656352">https://zhuanlan.zhihu.com/p/483656352</a></p>
+<p>TFLite只支持same valid padding: <a target="_blank" rel="noopener" href="https://blog.csdn.net/ch206265/article/details/115298414">https://blog.csdn.net/ch206265/article/details/115298414</a></p>
 
     </div>
 
@@ -521,7 +512,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2022"><span class="nav-number">1.</span> <span class="nav-text">2022</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Pytorch"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.Pytorch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%B5%81%E7%95%85%E7%9A%84python"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.流畅的python</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Python"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.Python</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2023"><span class="nav-number">2.</span> <span class="nav-text">2023</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Profiler"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.Profiler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Pytorch"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.Pytorch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Python-1"><span class="nav-number">2.0.3.</span> <span class="nav-text">3.Python</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Python%E6%89%A9%E5%B1%95"><span class="nav-number">2.0.4.</span> <span class="nav-text">4.Python扩展</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2024"><span class="nav-number">3.</span> <span class="nav-text">2024</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-pytorch"><span class="nav-number">3.0.1.</span> <span class="nav-text">1.pytorch</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2022"><span class="nav-number">1.</span> <span class="nav-text">2022</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Pytorch"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.Pytorch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%B5%81%E7%95%85%E7%9A%84python"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.流畅的python</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Python"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.Python</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2023"><span class="nav-number">2.</span> <span class="nav-text">2023</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Profiler"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.Profiler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Pytorch"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.Pytorch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Python-1"><span class="nav-number">2.0.3.</span> <span class="nav-text">3.Python</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Python%E6%89%A9%E5%B1%95"><span class="nav-number">2.0.4.</span> <span class="nav-text">4.Python扩展</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2024"><span class="nav-number">3.</span> <span class="nav-text">2024</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Pytorch-1"><span class="nav-number">3.0.1.</span> <span class="nav-text">1.Pytorch</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -535,7 +526,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
