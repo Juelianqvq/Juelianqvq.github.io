@@ -176,7 +176,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-02-15 22:55:12" itemprop="dateModified" datetime="2024-02-15T22:55:12+08:00">2024-02-15</time>
+                <time title="Modified: 2024-02-16 22:03:06" itemprop="dateModified" datetime="2024-02-16T22:03:06+08:00">2024-02-16</time>
               </span>
 
           
@@ -743,31 +743,24 @@ Triton Ampere WMMA: <a target="_blank" rel="noopener" href="https://zhuanlan.zhi
 
 
 
-
-
-<p>CUDA 入门技巧方法: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/584501634">https://zhuanlan.zhihu.com/p/584501634</a></p>
 <p>Code: <a target="_blank" rel="noopener" href="https://github.com/ifromeast/cuda_learning">https://github.com/ifromeast/cuda_learning</a></p>
 <p>基础: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645330027">https://zhuanlan.zhihu.com/p/645330027</a></p>
-<p>CUDA内存模型的基本单位是 SP (线程处理器)，每个 SP 都有自己的 register 和 local memory，两者皆只能被自己访问，不同的 SP 之间相互独立</p>
-<p>多个 SP 和一块 smem 构成一个 SM (多核处理器)，其中的 SP 互相并行，smem 可以被线程块内的所有线程访问</p>
+<p>内存模型的基本单位是 SP (线程处理器)，每个 SP 都有自己的 register 和 local memory，SP 之间相互独立，多个 SP 和一块 smem 构成一个 SM (多核处理器)，其中的 SP 互相并行，smem 可以被线程块内的所有线程访问</p>
 <p>由 SM 和 全局内存构成 GPU，一个 GPU 的所有 SM 共有一块 全局内存，不同线程块的线程都可使用</p>
 <p>以上可以等价表述为：</p>
-<p>每个 thread 都有自己的一份 register 和 local memory 的空间</p>
-<p>同一个 block 中的每个 thread 则有共享的一份 share memory</p>
-<p>此外，所有的 thread (包括不同 block 的 thread) 都共享一份 global memory</p>
-<p>不同的 grid 则有各自的 global memory</p>
+<p>每个 thread 都有自己的一份 register 和 local memory 的空间，所有的 thread (包括不同 block 的 thread) 都共享一份 global memory，不同的 grid 则有各自的 global memory</p>
 <p>从软件的角度来讲：</p>
-<p>线程处理器 (SP) 对应线程 (thread)</p>
-<p>多核处理器 (SM) 对应线程块 (thread block)</p>
-<p>设备端 (device) 对应线程块组合体 (grid)</p>
-<p>线程块特点: </p>
-<p>块内的线程通过共享内存、原子操作和屏障同步进行协作</p>
-<p>不同块中的线程不能协作</p>
+<p>线程处理器 (SP) 对应线程 (thread)；多核处理器 (SM) 对应线程块 (thread block)；设备端 (device) 对应线程块组合体 (grid)</p>
+<p>线程块特点:  块内的线程通过共享内存、原子操作和屏障同步进行协作；不同块中的线程不能协作</p>
 <p><strong>非常经典的 3 种 torch 自定义 cuda 算子方法</strong></p>
 <ul>
 <li><input checked="" disabled="" type="checkbox"> CUDA 内存体系: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/654027980">https://zhuanlan.zhihu.com/p/654027980</a></li>
 </ul>
-<p>Reduction 优化: </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">将(动态)数组 d_x 中第 blockDimx.x*blockIdx.x 个元素的地址赋给指针 x ，</span><br><span class="line">real *x = d_x+blockDim.x*blockIdx.x; 等价于</span><br><span class="line">real *x = &amp;d_x[blockDim.x*blockIdx.x];</span><br><span class="line"></span><br><span class="line">使用 __shared__ 修饰共享内存变量s_y，同时其长度等于线程块大小</span><br><span class="line">比方说block开了128个线程，stride就是64,[tid]+=[tid+stide]嘛</span><br><span class="line">一个线程对应一个数，1个block就是128个数，128个数从全局内存全部从转移到共享内存</span><br><span class="line">然后这128个数的和会保存在s_y[0]中，随后给到全局内存进行累加，最后的这步累加可以通过原子操作来进一步节省时间，同时最后一个warps里的__syncthreads可以用__syncwarp来平替</span><br></pre></td></tr></table></figure>
+
+<p>进一步优化：跨网格循环，支持任意长度，<strong>但是为什么能提速呢</strong></p>
+<p>Reduce优化进阶:</p>
+<p>GEMM: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/657632577">https://zhuanlan.zhihu.com/p/657632577</a></p>
 <p><strong>V100 A100 H100 L40S 参数比较</strong> </p>
 <ul>
 <li><input disabled="" type="checkbox"> CUDA GEMM: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/657632577">https://zhuanlan.zhihu.com/p/657632577</a></li>
@@ -1262,7 +1255,7 @@ Triton Ampere WMMA: <a target="_blank" rel="noopener" href="https://zhuanlan.zhi
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-02-15 21:22:11" itemprop="dateModified" datetime="2024-02-15T21:22:11+08:00">2024-02-15</time>
+                <time title="Modified: 2024-02-16 21:35:32" itemprop="dateModified" datetime="2024-02-16T21:35:32+08:00">2024-02-16</time>
               </span>
 
           
@@ -1356,7 +1349,8 @@ Triton Ampere WMMA: <a target="_blank" rel="noopener" href="https://zhuanlan.zhi
 <p>step3：细看第一张图即可理解，mod8，mod4</p>
 <p>4.3 C4排布加速卷积实现：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/524423507">https://zhuanlan.zhihu.com/p/524423507</a></p>
 <p>nc4hw4：正视图的h及w，侧面就是c，有多少个积木块就是b</p>
-<h2 id="2023"><a href="#2023" class="headerlink" title="2023"></a>2023</h2><h4 id="1-CMake"><a href="#1-CMake" class="headerlink" title="1.CMake"></a>1.CMake</h4><p><a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/CMake-Cookbook/README.md">https://www.bookstack.cn/read/CMake-Cookbook/README.md</a></p>
+<h2 id="2023"><a href="#2023" class="headerlink" title="2023"></a>2023</h2><p>笔记: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/671684145">https://zhuanlan.zhihu.com/p/671684145</a></p>
+<h4 id="1-CMake"><a href="#1-CMake" class="headerlink" title="1.CMake"></a>1.CMake</h4><p><a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/CMake-Cookbook/README.md">https://www.bookstack.cn/read/CMake-Cookbook/README.md</a></p>
 <p>在开发过程碰到需要在上级目录中构建，而源代码又分别写在下级目录的情况，同时又要根据不同的情况选择性地添加不同的源代码进行编译，所以考虑将需要编译的源代码放到一个 cmake 列表中。但是 set() 对应生成的变量都是局部变量（即不同的目录下不共用），于是使用 set_property() 命令。</p>
 <p>undefined reference to “main”：-nostartfiles</p>
 <p>undefined symbol：<a target="_blank" rel="noopener" href="https://blog.csdn.net/buknow/article/details/96130049">https://blog.csdn.net/buknow/article/details/96130049</a></p>
