@@ -176,7 +176,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-02-16 22:03:06" itemprop="dateModified" datetime="2024-02-16T22:03:06+08:00">2024-02-16</time>
+                <time title="Modified: 2024-02-18 00:12:25" itemprop="dateModified" datetime="2024-02-18T00:12:25+08:00">2024-02-18</time>
               </span>
 
           
@@ -196,11 +196,13 @@
 <p>– [4.TensorRT-LLM](# 4.TensorRT-LLM)</p>
 <p>– [5.lmdeploy](# 5.lmdeploy)</p>
 <p>– [6.Coroutine &amp; Thread &amp; Process](# 6.Coroutine &amp; Thread &amp; Process)</p>
-<p>– [7.Frontier](# 7.Frontier)</p>
+<p>– [7.Speculative Decoding](# 7.Speculative Decoding)</p>
 <p>– [8.Triton](# 8.Triton)</p>
 <p>– [9.CUDA](# 9.CUDA)</p>
 <p>– [10.Quantization](# 10.Quantization)</p>
-<h4 id="1-LLM"><a href="#1-LLM" class="headerlink" title="1.LLM"></a>1.LLM</h4><p>杀死进程: ps -ef | grep ‘python’ | awk ‘{print $2$}’ | xargs kill -9</p>
+<h4 id="1-LLM"><a href="#1-LLM" class="headerlink" title="1.LLM"></a>1.LLM</h4><p>NCCL 环境变量配置: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/653001915">https://zhuanlan.zhihu.com/p/653001915</a></p>
+<p>HF transformer RoPE bug: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/678963442">https://zhuanlan.zhihu.com/p/678963442</a></p>
+<p>杀死进程: ps -ef | grep ‘python’ | awk ‘{print $2$}’ | xargs kill -9</p>
 <p>TPS QPS 并发数 吞吐量: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/337708438">https://zhuanlan.zhihu.com/p/337708438</a></p>
 <p>2023 技术总结: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/675287417">https://zhuanlan.zhihu.com/p/675287417</a></p>
 <p>2024 技术展望: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/637480772/answer/3351110317">https://www.zhihu.com/question/637480772/answer/3351110317</a></p>
@@ -638,13 +640,13 @@ Flash decoding: </p>
 
 
 
-<h4 id="7-Frontier"><a href="#7-Frontier" class="headerlink" title="7.Frontier"></a>7.Frontier</h4><p>HPC 课程笔记: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/671684145">https://zhuanlan.zhihu.com/p/671684145</a></p>
-<p>Paper List: <a target="_blank" rel="noopener" href="https://github.com/HuangOwen/Awesome-LLM-Compression">https://github.com/HuangOwen/Awesome-LLM-Compression</a></p>
-<p>扩散模型：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/611082996">https://zhuanlan.zhihu.com/p/611082996</a></p>
-<p>​				   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/609075353">https://zhuanlan.zhihu.com/p/609075353</a></p>
-<p>RetNet: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645974065">https://zhuanlan.zhihu.com/p/645974065</a></p>
-<p>DepGraph: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/619146631">https://zhuanlan.zhihu.com/p/619146631</a></p>
-<p>NeurIPS 2023 | 模型压缩与加速: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/673955376">https://zhuanlan.zhihu.com/p/673955376</a></p>
+<h4 id="7-Speculative-Decoding"><a href="#7-Speculative-Decoding" class="headerlink" title="7.Speculative Decoding"></a>7.Speculative Decoding</h4><p>投机采样简介: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/651359908">https://zhuanlan.zhihu.com/p/651359908</a></p>
+<p>投机采样核心问答: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/656374338">https://zhuanlan.zhihu.com/p/656374338</a></p>
+<p>Medusa head简介: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/658544279">https://zhuanlan.zhihu.com/p/658544279</a></p>
+<p>投机采样神器: </p>
+<p>speculative | medusa | self-speculative: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/672465051">https://zhuanlan.zhihu.com/p/672465051</a></p>
+<p>rest | lookahead decoding | eagle: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/678736338">https://zhuanlan.zhihu.com/p/678736338</a></p>
+<p>更多变种包括 lookahead: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/681401656">https://zhuanlan.zhihu.com/p/681401656</a></p>
 <h4 id="8-Triton"><a href="#8-Triton" class="headerlink" title="8.Triton"></a>8.Triton</h4><p>Makefile: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/350297509">https://zhuanlan.zhihu.com/p/350297509</a></p>
 <p>MLIR文章汇总: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/141256429">https://zhuanlan.zhihu.com/p/141256429</a></p>
 <p>软链接: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_21386275/article/details/79881543">https://blog.csdn.net/qq_21386275/article/details/79881543</a></p>
@@ -792,6 +794,12 @@ Triton Ampere WMMA: <a target="_blank" rel="noopener" href="https://zhuanlan.zhi
 <p>B是compactor,M本身权重的分配就是来自于A（不变）与P（剪完B之后获得） 所以这两者也是一致的</p>
 <p>Rep本身是为了剪A，那构造B&#x3D;I,得到B(A)，只对B做裁剪，不影响原来A的结构，于是得到P(A)，</p>
 <p>然后这个结果等价于生成一个M。</p>
+<p>Paper List: <a target="_blank" rel="noopener" href="https://github.com/HuangOwen/Awesome-LLM-Compression">https://github.com/HuangOwen/Awesome-LLM-Compression</a></p>
+<p>扩散模型：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/611082996">https://zhuanlan.zhihu.com/p/611082996</a></p>
+<p>​	           <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/609075353">https://zhuanlan.zhihu.com/p/609075353</a></p>
+<p>RetNet: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645974065">https://zhuanlan.zhihu.com/p/645974065</a></p>
+<p>DepGraph: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/619146631">https://zhuanlan.zhihu.com/p/619146631</a></p>
+<p>NeurIPS 2023 | 模型压缩与加速: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/673955376">https://zhuanlan.zhihu.com/p/673955376</a></p>
 
       
     </div>
@@ -2256,7 +2264,7 @@ Triton Ampere WMMA: <a target="_blank" rel="noopener" href="https://zhuanlan.zhi
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-02-01 23:32:58" itemprop="dateModified" datetime="2024-02-01T23:32:58+08:00">2024-02-01</time>
+                <time title="Modified: 2024-02-17 23:19:36" itemprop="dateModified" datetime="2024-02-17T23:19:36+08:00">2024-02-17</time>
               </span>
 
           
@@ -2281,6 +2289,7 @@ Triton Ampere WMMA: <a target="_blank" rel="noopener" href="https://zhuanlan.zhi
 <p> – [4.Python扩展](# 4.Python扩展)</p>
 <p>[2024](# 2024)</p>
 <p> – <a href="#1.Pytorch">1.Pytorch</a></p>
+<p> – <a href="#2.Python">2.Python</a></p>
 <h2 id="2022"><a href="#2022" class="headerlink" title="2022"></a>2022</h2><h4 id="1-Pytorch"><a href="#1-Pytorch" class="headerlink" title="1.Pytorch"></a>1.Pytorch</h4><p>EMA： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/479898259">https://zhuanlan.zhihu.com/p/479898259</a></p>
 <p>torch.fx.wrap：<a target="_blank" rel="noopener" href="https://vimsky.com/examples/usage/python-torch.fx.wrap-pt.html">https://vimsky.com/examples/usage/python-torch.fx.wrap-pt.html</a></p>
 <p>torch.finfo: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43844342/article/details/116209999">https://blog.csdn.net/qq_43844342/article/details/116209999</a></p>
@@ -2504,6 +2513,8 @@ Triton Ampere WMMA: <a target="_blank" rel="noopener" href="https://zhuanlan.zhi
 <p>安装：<a target="_blank" rel="noopener" href="https://pytorch.org/cppdocs/installing.html">https://pytorch.org/cppdocs/installing.html</a></p>
 <h2 id="2024"><a href="#2024" class="headerlink" title="2024"></a>2024</h2><h4 id="1-Pytorch-1"><a href="#1-Pytorch-1" class="headerlink" title="1.Pytorch"></a>1.Pytorch</h4><p>分布式训练代码层面: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/483656352">https://zhuanlan.zhihu.com/p/483656352</a></p>
 <p>TFLite只支持same valid padding: <a target="_blank" rel="noopener" href="https://blog.csdn.net/ch206265/article/details/115298414">https://blog.csdn.net/ch206265/article/details/115298414</a></p>
+<p>torch内存泄漏: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/681114402">https://zhuanlan.zhihu.com/p/681114402</a></p>
+<h4 id="2-Python"><a href="#2-Python" class="headerlink" title="2.Python"></a>2.Python</h4><p>pyi: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/665970213">https://zhuanlan.zhihu.com/p/665970213</a></p>
 
       
     </div>

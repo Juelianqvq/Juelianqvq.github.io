@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/20180318132631477.png">
 <meta property="article:published_time" content="2023-07-15T16:46:38.000Z">
-<meta property="article:modified_time" content="2024-02-16T14:03:06.119Z">
+<meta property="article:modified_time" content="2024-02-17T16:12:25.631Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="LLM">
 <meta name="twitter:card" content="summary">
@@ -183,7 +183,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-02-16 22:03:06" itemprop="dateModified" datetime="2024-02-16T22:03:06+08:00">2024-02-16</time>
+                <time title="Modified: 2024-02-18 00:12:25" itemprop="dateModified" datetime="2024-02-18T00:12:25+08:00">2024-02-18</time>
               </span>
 
           
@@ -203,11 +203,13 @@
 <p>– [4.TensorRT-LLM](# 4.TensorRT-LLM)</p>
 <p>– [5.lmdeploy](# 5.lmdeploy)</p>
 <p>– [6.Coroutine &amp; Thread &amp; Process](# 6.Coroutine &amp; Thread &amp; Process)</p>
-<p>– [7.Frontier](# 7.Frontier)</p>
+<p>– [7.Speculative Decoding](# 7.Speculative Decoding)</p>
 <p>– [8.Triton](# 8.Triton)</p>
 <p>– [9.CUDA](# 9.CUDA)</p>
 <p>– [10.Quantization](# 10.Quantization)</p>
-<h4 id="1-LLM"><a href="#1-LLM" class="headerlink" title="1.LLM"></a>1.LLM</h4><p>杀死进程: ps -ef | grep ‘python’ | awk ‘{print $2$}’ | xargs kill -9</p>
+<h4 id="1-LLM"><a href="#1-LLM" class="headerlink" title="1.LLM"></a>1.LLM</h4><p>NCCL 环境变量配置: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/653001915">https://zhuanlan.zhihu.com/p/653001915</a></p>
+<p>HF transformer RoPE bug: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/678963442">https://zhuanlan.zhihu.com/p/678963442</a></p>
+<p>杀死进程: ps -ef | grep ‘python’ | awk ‘{print $2$}’ | xargs kill -9</p>
 <p>TPS QPS 并发数 吞吐量: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/337708438">https://zhuanlan.zhihu.com/p/337708438</a></p>
 <p>2023 技术总结: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/675287417">https://zhuanlan.zhihu.com/p/675287417</a></p>
 <p>2024 技术展望: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/637480772/answer/3351110317">https://www.zhihu.com/question/637480772/answer/3351110317</a></p>
@@ -645,13 +647,13 @@ Flash decoding: </p>
 
 
 
-<h4 id="7-Frontier"><a href="#7-Frontier" class="headerlink" title="7.Frontier"></a>7.Frontier</h4><p>HPC 课程笔记: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/671684145">https://zhuanlan.zhihu.com/p/671684145</a></p>
-<p>Paper List: <a target="_blank" rel="noopener" href="https://github.com/HuangOwen/Awesome-LLM-Compression">https://github.com/HuangOwen/Awesome-LLM-Compression</a></p>
-<p>扩散模型：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/611082996">https://zhuanlan.zhihu.com/p/611082996</a></p>
-<p>​				   <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/609075353">https://zhuanlan.zhihu.com/p/609075353</a></p>
-<p>RetNet: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645974065">https://zhuanlan.zhihu.com/p/645974065</a></p>
-<p>DepGraph: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/619146631">https://zhuanlan.zhihu.com/p/619146631</a></p>
-<p>NeurIPS 2023 | 模型压缩与加速: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/673955376">https://zhuanlan.zhihu.com/p/673955376</a></p>
+<h4 id="7-Speculative-Decoding"><a href="#7-Speculative-Decoding" class="headerlink" title="7.Speculative Decoding"></a>7.Speculative Decoding</h4><p>投机采样简介: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/651359908">https://zhuanlan.zhihu.com/p/651359908</a></p>
+<p>投机采样核心问答: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/656374338">https://zhuanlan.zhihu.com/p/656374338</a></p>
+<p>Medusa head简介: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/658544279">https://zhuanlan.zhihu.com/p/658544279</a></p>
+<p>投机采样神器: </p>
+<p>speculative | medusa | self-speculative: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/672465051">https://zhuanlan.zhihu.com/p/672465051</a></p>
+<p>rest | lookahead decoding | eagle: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/678736338">https://zhuanlan.zhihu.com/p/678736338</a></p>
+<p>更多变种包括 lookahead: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/681401656">https://zhuanlan.zhihu.com/p/681401656</a></p>
 <h4 id="8-Triton"><a href="#8-Triton" class="headerlink" title="8.Triton"></a>8.Triton</h4><p>Makefile: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/350297509">https://zhuanlan.zhihu.com/p/350297509</a></p>
 <p>MLIR文章汇总: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/141256429">https://zhuanlan.zhihu.com/p/141256429</a></p>
 <p>软链接: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_21386275/article/details/79881543">https://blog.csdn.net/qq_21386275/article/details/79881543</a></p>
@@ -799,6 +801,12 @@ Triton Ampere WMMA: <a target="_blank" rel="noopener" href="https://zhuanlan.zhi
 <p>B是compactor,M本身权重的分配就是来自于A（不变）与P（剪完B之后获得） 所以这两者也是一致的</p>
 <p>Rep本身是为了剪A，那构造B&#x3D;I,得到B(A)，只对B做裁剪，不影响原来A的结构，于是得到P(A)，</p>
 <p>然后这个结果等价于生成一个M。</p>
+<p>Paper List: <a target="_blank" rel="noopener" href="https://github.com/HuangOwen/Awesome-LLM-Compression">https://github.com/HuangOwen/Awesome-LLM-Compression</a></p>
+<p>扩散模型：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/611082996">https://zhuanlan.zhihu.com/p/611082996</a></p>
+<p>​	           <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/609075353">https://zhuanlan.zhihu.com/p/609075353</a></p>
+<p>RetNet: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/645974065">https://zhuanlan.zhihu.com/p/645974065</a></p>
+<p>DepGraph: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/619146631">https://zhuanlan.zhihu.com/p/619146631</a></p>
+<p>NeurIPS 2023 | 模型压缩与加速: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/673955376">https://zhuanlan.zhihu.com/p/673955376</a></p>
 
     </div>
 
@@ -879,7 +887,7 @@ Triton Ampere WMMA: <a target="_blank" rel="noopener" href="https://zhuanlan.zhi
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-LLM"><span class="nav-number">1.</span> <span class="nav-text">1.LLM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-vLLM"><span class="nav-number">2.</span> <span class="nav-text">2.vLLM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Attention-%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">3.Attention 优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-TensorRT-LLM"><span class="nav-number">4.</span> <span class="nav-text">4.TensorRT-LLM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-lmdeploy"><span class="nav-number">5.</span> <span class="nav-text">5.lmdeploy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Coroutine-Thread-Process"><span class="nav-number">6.</span> <span class="nav-text">6.Coroutine &amp; Thread &amp; Process</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Frontier"><span class="nav-number">7.</span> <span class="nav-text">7.Frontier</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-Triton"><span class="nav-number">8.</span> <span class="nav-text">8.Triton</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-CUDA"><span class="nav-number">9.</span> <span class="nav-text">9.CUDA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-Quantization"><span class="nav-number">10.</span> <span class="nav-text">10.Quantization</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-LLM"><span class="nav-number">1.</span> <span class="nav-text">1.LLM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-vLLM"><span class="nav-number">2.</span> <span class="nav-text">2.vLLM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Attention-%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">3.Attention 优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-TensorRT-LLM"><span class="nav-number">4.</span> <span class="nav-text">4.TensorRT-LLM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-lmdeploy"><span class="nav-number">5.</span> <span class="nav-text">5.lmdeploy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Coroutine-Thread-Process"><span class="nav-number">6.</span> <span class="nav-text">6.Coroutine &amp; Thread &amp; Process</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Speculative-Decoding"><span class="nav-number">7.</span> <span class="nav-text">7.Speculative Decoding</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-Triton"><span class="nav-number">8.</span> <span class="nav-text">8.Triton</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-CUDA"><span class="nav-number">9.</span> <span class="nav-text">9.CUDA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-Quantization"><span class="nav-number">10.</span> <span class="nav-text">10.Quantization</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
