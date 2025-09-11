@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Python | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="– 1.Pytorch – 2.Python – [3.Magic Python](#3.Magic Python) 1.Pytorch2.0 feature： 1234567891011121314151617181920212223torch._inductor.config.conv_1x1_as_mm &#x3D; True # 默认 Falsetorch._inductor.config.coor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python">
+<meta property="og:url" content="http://example.com/2025/09/11/Python/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="– 1.Pytorch – 2.Python – [3.Magic Python](#3.Magic Python) 1.Pytorch2.0 feature： 1234567891011121314151617181920212223torch._inductor.config.conv_1x1_as_mm &#x3D; True # 默认 Falsetorch._inductor.config.coor">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/v2-c6630a2e49808582ed0ab36a7394752f_1440w.jpg">
+<meta property="article:published_time" content="2025-09-11T13:00:21.000Z">
+<meta property="article:modified_time" content="2025-09-11T13:16:28.746Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/home/kwx/blog/source/_posts/assets/v2-c6630a2e49808582ed0ab36a7394752f_1440w.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Python" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/11/Python/" class="article-date">
+  <time class="dt-published" datetime="2025-09-11T13:00:21.000Z" itemprop="datePublished">2025-09-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Python
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>– <a href="#1.Pytorch">1.Pytorch</a></p>
+<p>– <a href="#2.Python">2.Python</a></p>
+<p>– [3.Magic Python](#3.Magic Python)</p>
+<h4 id="1-Pytorch"><a href="#1-Pytorch" class="headerlink" title="1.Pytorch"></a>1.Pytorch</h4><p>2.0 feature：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">torch._inductor.config.conv_1x1_as_mm = True # 默认 False</span><br><span class="line">torch._inductor.config.coordinate_descent_tuning = True # 默认 False</span><br><span class="line">torch._inductor.config.epilogue_fusion = False # 默认 True</span><br><span class="line">torch._inductor.config.coordinate_descent_check_all_directions = True # 默认 False</span><br><span class="line">torch._inductor.config.triton.unique_kernel_names = True # 默认 False</span><br><span class="line">torch._inductor.config.fx_graph_cache = True # 默认 True，减少编译时间</span><br><span class="line">torch._inductor.config.triton.cudagraphs=True # 默认 False</span><br><span class="line">torch._inductor.config.shape_padding = True # 默认 True</span><br><span class="line">torch._inductor.config.max_autotune = False # 默认 False</span><br><span class="line">torch._inductor.config.triton.cudagraph_trees = False # 默认 True</span><br><span class="line">torch._inductor.config.reorder_for_compute_comm_overlap = True # 默认 False</span><br><span class="line"></span><br><span class="line">torch._dynamo.config.automatic_dynamic_shapes = True # 默认 True</span><br><span class="line">torch._dynamo.config.cache_size_limit = 100000 # 默认 8</span><br><span class="line">torch._dynamo.config.optimize_ddp = False # 默认 True</span><br><span class="line"></span><br><span class="line">torch._functorch.config.enable_autograd_cache = True # 默认 False，减少编译时间</span><br><span class="line"></span><br><span class="line">torch.ops.aten._convert_weight_to_int4pack(weight_int32, inner_k_tiles)  # fp32 -&gt; uint8(kByte) -&gt; int4</span><br><span class="line">torch.ops.aten._weight_int4pack_mm(x, weight_int4pack, groupsize, scales_and_zeros)</span><br><span class="line"></span><br><span class="line">torch.profiler._utils._init_for_cuda_graphs()</span><br><span class="line">prof = torch.profiler.profile()</span><br></pre></td></tr></table></figure>
+
+<p>lora 训练加速：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1926299705790436657">https://zhuanlan.zhihu.com/p/1926299705790436657</a></p>
+<p>flux fast：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1926285048748966177">https://zhuanlan.zhihu.com/p/1926285048748966177</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/huggingface/diffusers/pull/11696">https://github.com/huggingface/diffusers/pull/11696</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">极少的 CPU&lt;-&gt;GPU 同步，减少 inductor 缓存查找开销，因为 CPU 必须等待同步完成后才能进行 Dynamo 缓存查找，然后在 GPU 上启动指令</span><br><span class="line">启用 fullgraph=True 和 max-autotune 模式，确保使用 CUDAgraphs</span><br><span class="line">对 decoder 输出使用 torch.channels_last 内存布局</span><br><span class="line">conv_1x1_as_mm = True</span><br><span class="line">epilogue_fusion = False #将GEMM与后续激活函数、偏置加法、量化等拆分为独立的 GPU 核函数, 避免将额外计算逻辑融合到主计算核函数中</span><br><span class="line">coordinate_descent_tuning = True #启用坐标下降自动调优自动搜索最优的线程块大小、寄存器分配等,使用迭代算法在参数空间中寻找局部最优解</span><br><span class="line">coordinate_descent_check_all_directions = True #每次迭代评估所有参数搜索方向(非随机采样)，确保找到当前维度下的全局最优解</span><br></pre></td></tr></table></figure>
+
+<p>torch 打满 cpu：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1903943505098801487">https://zhuanlan.zhihu.com/p/1903943505098801487</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export OMP_NUM_THREADS=2</span><br></pre></td></tr></table></figure>
+
+<p>torch custom op：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/716663746">https://zhuanlan.zhihu.com/p/716663746</a></p>
+<p>all reduce 通信：</p>
+<p><img src="/home/kwx/blog/source/_posts/assets/v2-c6630a2e49808582ed0ab36a7394752f_1440w.jpg" alt="v2-c6630a2e49808582ed0ab36a7394752f_1440w"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">Ring优点:</span><br><span class="line">带宽效率高: 每个节点同时接收和发送数据,能充分利用硬件带宽</span><br><span class="line">负载均衡: 每个节点处理相同数量的数据,网络负载分布均匀</span><br><span class="line">实现简单: 容错和同步机制相对直观</span><br><span class="line">缺点:</span><br><span class="line">延迟与节点数呈线性关系: 完成一次 AllReduce 需要 2(n-1) 步</span><br><span class="line">不适合大规模集群: 在数千节点规模下,线性增长的延迟会显著影响性能</span><br><span class="line">对小数据传输效率不高: 启动开销相对较大</span><br><span class="line">Tree优点:</span><br><span class="line">延迟与节点数呈对数关系: 完成通信只需 O(log n) 步</span><br><span class="line">适合大规模集群: 在大规模场景(如 24000+ GPU)下表现优异</span><br><span class="line">带宽利用率高: 每个节点在两棵树中分别承担不同角色,保证负载均衡</span><br><span class="line">缺点:</span><br><span class="line">实现复杂: 需要维护两棵互补的二叉树结构</span><br><span class="line">小规模场景优势不明显: 在节点数较少时,额外的树结构维护开销可能得不偿失</span><br><span class="line">对网络拓扑结构要求较高: 需要良好的网络互联以支持树形通信</span><br><span class="line"></span><br><span class="line">从 NCCL 2.4 版本开始，默认使用的是 Double Binary Tree 算法，主要用于机间通信。相比于传统的 Tree Algorithm，构造了两棵互补的二叉树用于平衡通信开销</span><br><span class="line">互补结构：每个节点在一棵树中是内部节点（参与数据传递和计算），在另一棵树中是叶子节点（只参与数据接收），确保每个节点的工作负载大致相同。  </span><br><span class="line">数据分割：将需要传输的数据分成两部分，每棵树负责处理一半的数据，两棵树并行工作。 </span><br><span class="line">优点:</span><br><span class="line">解决带宽瓶颈：通过双树结构避免了单点瓶颈</span><br><span class="line">负载均衡：每个节点在两棵树中交替角色，保证负载均衡</span><br><span class="line">延迟优势：保持了 O(log n) 的通信步数</span><br><span class="line">高可扩展性：适合大规模集群（24000+ GPU）</span><br><span class="line">容错性好：单个节点故障影响范围小</span><br><span class="line">带宽利用率高：通过数据分流充分利用网络带宽</span><br><span class="line">缺点:</span><br><span class="line">实现复杂：需要维护两棵互补二叉树</span><br><span class="line">额外开销：结构维护和同步开销较大</span><br><span class="line">小规模劣势：节点数少时开销可能得不偿失</span><br><span class="line">网络敏感：对网络质量和拓扑结构要求高</span><br><span class="line">调试困难：双树结构增加了调试复杂度</span><br><span class="line"></span><br><span class="line">小规模集群 (&lt; 32 GPU)推荐传统 Tree Algorithm，实现简单，开销小，性能足够 </span><br><span class="line">中等规模 (32-512 GPU) 需要根据具体场景选择：简单稳定传统 Tree，性能扩展：Double Binary 大规模集群 (&gt; 512 GPU) Double Binary Tree拥有更好的可扩展性和负载均衡</span><br><span class="line">性能对比:</span><br><span class="line">以NVIDIA的测试数据为例，在24756个GPU的集群中：</span><br><span class="line">Ring延迟约180ms,Tree延迟约1ms</span><br></pre></td></tr></table></figure>
+
+<p>CPU 拷贝与dtype：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1904310977916281654">https://zhuanlan.zhihu.com/p/1904310977916281654</a></p>
+<p>torch.compile 源码深入：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27811140455">https://zhuanlan.zhihu.com/p/27811140455</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32876406491">https://zhuanlan.zhihu.com/p/32876406491</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1890414151425306760">https://zhuanlan.zhihu.com/p/1890414151425306760</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1892589397007902322">https://zhuanlan.zhihu.com/p/1892589397007902322</a></p>
+<p>训练优化显存篇：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/16066553541">https://zhuanlan.zhihu.com/p/16066553541</a></p>
+<p>torch.gather 花式索引：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/693483462">https://zhuanlan.zhihu.com/p/693483462</a></p>
+<p>进程间共享 tensor：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/10786301388">https://zhuanlan.zhihu.com/p/10786301388</a></p>
+<p>多进程传输 ndarray：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/5570578094">https://zhuanlan.zhihu.com/p/5570578094</a></p>
+<p>.storage().data_ptr() 查看是否生成了拷贝</p>
+<p>torch.compile 经验：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/16859684160">https://zhuanlan.zhihu.com/p/16859684160</a></p>
+<p>加速通信算子显存释放：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/671834539">https://zhuanlan.zhihu.com/p/671834539</a></p>
+<p>cpu gather：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/703014803">https://zhuanlan.zhihu.com/p/703014803</a></p>
+<p>调参 trick：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/25097993/answer/2718208647">https://www.zhihu.com/question/25097993/answer/2718208647</a></p>
+<p>torch.fx.wrap：<a target="_blank" rel="noopener" href="https://vimsky.com/examples/usage/python-torch.fx.wrap-pt.html">https://vimsky.com/examples/usage/python-torch.fx.wrap-pt.html</a></p>
+<p>torch.finfo：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43844342/article/details/116209999">https://blog.csdn.net/qq_43844342/article/details/116209999</a></p>
+<p>DW：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/92134485">https://zhuanlan.zhihu.com/p/92134485</a></p>
+<p>shape 广播机制：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/86997775">https://zhuanlan.zhihu.com/p/86997775</a></p>
+<p>index_select：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/329104226">https://zhuanlan.zhihu.com/p/329104226</a></p>
+<p>group卷积：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/113928413">https://zhuanlan.zhihu.com/p/113928413</a></p>
+<p>张量乘法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/hottie_xiaomiao/article/details/124262405">https://blog.csdn.net/hottie_xiaomiao/article/details/124262405</a></p>
+<p>替换模型任意层：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/356273702">https://zhuanlan.zhihu.com/p/356273702</a></p>
+<p>scatter：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u010630669/article/details/105425572/">https://blog.csdn.net/u010630669/article/details/105425572/</a> 第一个1意味着每行有1个</p>
+<p>hook：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/152314451">https://zhuanlan.zhihu.com/p/152314451</a></p>
+<p>flops：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/65305385/answer/1699436281">https://www.zhihu.com/question/65305385/answer/1699436281</a></p>
+<p>cudnn.benchmark：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/73711222">https://zhuanlan.zhihu.com/p/73711222</a></p>
+<p>gather：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/110289027">https://zhuanlan.zhihu.com/p/110289027</a></p>
+<p>np.take_long_axis &#x3D; torch.gather np.count_nonzero</p>
+<p>np.argpartition, np.partition：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/546886845">https://zhuanlan.zhihu.com/p/546886845</a></p>
+<p>np.min vs torch.min：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_37145472/article/details/94753866">https://blog.csdn.net/sinat_37145472/article/details/94753866</a></p>
+<p>np -&gt; torch.topk：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/374269641">https://zhuanlan.zhihu.com/p/374269641</a></p>
+<p>dynamo 基础接口：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/620163218">https://zhuanlan.zhihu.com/p/620163218</a></p>
+<p>debug memory leaks：<a target="_blank" rel="noopener" href="https://discuss.pytorch.org/t/how-to-debug-causes-of-gpu-memory-leaks/6741/23?page=2">https://discuss.pytorch.org/t/how-to-debug-causes-of-gpu-memory-leaks/6741/23?page=2</a></p>
+<p>BN1d &amp; 2d：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/664143309">https://zhuanlan.zhihu.com/p/664143309</a></p>
+<p>源码编译：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RUN cd pytorch &amp;&amp; \</span><br><span class="line">    CUDA_HOME=&quot;/usr/local/cuda&quot; \</span><br><span class="line">    CMAKE_PREFIX_PATH=&quot;$(dirname $(which conda))/../&quot; \</span><br><span class="line">    NCCL_INCLUDE_DIR=&quot;/usr/include/&quot; \</span><br><span class="line">    NCCL_LIB_DIR=&quot;/usr/lib/&quot; \</span><br><span class="line">    USE_SYSTEM_NCCL=1 \</span><br><span class="line">    USE_OPENCV=1 \</span><br><span class="line">    pip install --no-cache-dir -v .</span><br></pre></td></tr></table></figure>
+
+<p>ncclUniqueId：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/614746112">https://zhuanlan.zhihu.com/p/614746112</a></p>
+<p>Undefined Symbol: pybind11::detail::type_caster&lt;at::Tensor, void&gt;::load(pybind11::handle, bool)： <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch/issues/108041">https://github.com/pytorch/pytorch/issues/108041</a></p>
+<p>CUDA Error：device not ready：<a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch/issues/85796Error%EF%BC%9A">https://github.com/pytorch/pytorch/issues/85796Error：</a> Open MPI has detected that this process has attempted to initialize MPI (via MPI_INIT or MPI_INIT_THREAD) more than once. This is erroneous.</p>
+<p>Allow previously initialized：<a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch/pull/105023/files">https://github.com/pytorch/pytorch/pull/105023/files</a></p>
+<p>torch显存机制分析：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/424512257">https://zhuanlan.zhihu.com/p/424512257</a></p>
+<p>repeat, repeat_interleave, tile的用法：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/474153365">https://zhuanlan.zhihu.com/p/474153365</a></p>
+<p>offset, stride：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/101434655">https://zhuanlan.zhihu.com/p/101434655</a></p>
+<p>torch fx 调研和实践：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/654834182">https://zhuanlan.zhihu.com/p/654834182</a></p>
+<p>2.0 Graph Capture：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/644590863">https://zhuanlan.zhihu.com/p/644590863</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flag = torch.lt(x.sum(), 0)</span><br><span class="line">return flag * (x + 1) + (1 - flag) * (x - 1)</span><br></pre></td></tr></table></figure>
+
+<p>gather &amp; scatter_：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/187401278">https://zhuanlan.zhihu.com/p/187401278</a></p>
+<p>clone copy detach data：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/393041305">https://zhuanlan.zhihu.com/p/393041305</a></p>
+<p>clone()可以返回完全相同的tensor,新的tensor开辟新的内存，tensor仍然留在计算图中</p>
+<p>detach() 函数返回完全相同的tensor，新的tensor与旧的tensor共享内存，新的tensor脱离计算图(不会有梯度计算，梯度只流向原始的tensor，in-place操作会出错)；data() 是共用同一块内存，不在计算图中，但不安全，可以做in-place 操作</p>
+<p>pad：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jorg_zhao/article/details/105295686">https://blog.csdn.net/jorg_zhao/article/details/105295686</a></p>
+<p>Function<strong>一般只定义一个操作</strong>，因为其无法保存参数，因此适用于激活函数、pooling等操作；Module是保存了参数，因此适合于定义一层，如线性层，卷积层，也适用于定义一个网络</p>
+<p>TorchDynamo初探（字节码）：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/589115427">https://zhuanlan.zhihu.com/p/589115427</a></p>
+<p>嵌套 list,tensor,ndarray 互转：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38703529/article/details/120216078">https://blog.csdn.net/qq_38703529/article/details/120216078</a></p>
+<p>转置卷积：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/115070523">https://zhuanlan.zhihu.com/p/115070523</a></p>
+<p>DDP详细流程：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/178402798">https://zhuanlan.zhihu.com/p/178402798</a></p>
+<p>torch.utils.benchmark：<a target="_blank" rel="noopener" href="https://runebook.dev/zh/docs/pytorch/benchmark_utils">https://runebook.dev/zh/docs/pytorch/benchmark_utils</a></p>
+<p>bn vs LN：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/113233908">https://zhuanlan.zhihu.com/p/113233908</a></p>
+<p>bmm：<a target="_blank" rel="noopener" href="https://blog.csdn.net/foneone/article/details/103876519">https://blog.csdn.net/foneone/article/details/103876519</a></p>
+<p>baddbmm：<a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/generated/torch.baddbmm.html">https://pytorch.org/docs/stable/generated/torch.baddbmm.html</a></p>
+<p>tril_：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38406029/article/details/122059507">https://blog.csdn.net/qq_38406029/article/details/122059507</a></p>
+<p>apply, _apply：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/340453841">https://zhuanlan.zhihu.com/p/340453841</a></p>
+<p>einsum：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/361209187">https://zhuanlan.zhihu.com/p/361209187</a> 出现在右的自由索引与只出现在左的求和索引</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/44954540">https://zhuanlan.zhihu.com/p/44954540</a></p>
+<p>torch.compile：<a target="_blank" rel="noopener" href="https://docs.google.com/document/d/1y5CRfMLdwEoF1nTk9q8qEu1mgMUuUtvhklPKJ2emLU8/edit#heading=h.ivdr7fmrbeab">https://docs.google.com/document/d/1y5CRfMLdwEoF1nTk9q8qEu1mgMUuUtvhklPKJ2emLU8/edit#heading=h.ivdr7fmrbeab</a></p>
+<p>one of the variables needed for gradient computation has been modified by an inplace operation, good luck： 非流式显式喂了全0, 可以用torch.autograd.set_detect_anomaly(True)生成更具体的报错日志定位到代码行配合._version+shape判断具体是哪个变量</p>
+<p>分布式训练代码层面：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/483656352">https://zhuanlan.zhihu.com/p/483656352</a></p>
+<p>TFLite 只支持 same valid padding：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ch206265/article/details/115298414">https://blog.csdn.net/ch206265/article/details/115298414</a></p>
+<p>no_sync：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/250471767">https://zhuanlan.zhihu.com/p/250471767</a></p>
+<h4 id="2-Python"><a href="#2-Python" class="headerlink" title="2.Python"></a>2.Python</h4><p>inspect：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/689351399">https://zhuanlan.zhihu.com/p/689351399</a></p>
+<p>GIL：</p>
+<p>GIL 的设计可以追溯到 1992 年 Python 内存管理的线程安全问题。那时多核处理器还不普及，单线程执行是主流。GIL 大大简化了 Python 的内存管理，特别是引用计数机制的实现。不需要复杂的锁机制来保护每个对象，一个全局锁就解决了。</p>
+<p>优点:</p>
+<ol>
+<li>实现简单且可靠：单线程执行保证了内存管理的安全性，减少了死锁等并发 bug 的可能性，简化了 C 扩展的开发，不需要考虑复杂的线程同步问题。</li>
+<li>对于 I&#x2F;O 密集型应用影响较小：<strong>Python 在进行 I&#x2F;O 操作时会释放 GIL，所以对于网络请求、文件读写等场景，多线程仍然可以提供性能提升</strong>，多线程 I&#x2F;O 是个很实在的需求。</li>
+<li>单线程性能更好：没有线程切换开销，不需要复杂的锁机制，内存管理效率更高。</li>
+</ol>
+<p>缺点:</p>
+<ol>
+<li>无法充分利用多核 CPU：同一时刻只能执行一个线程。</li>
+<li>在计算密集型任务中性能受限：即使有多个 CPU 核心也无法实现真正的并行计算，所以<strong>Python 处理计算密集型任务需要用多进程</strong></li>
+</ol>
+<p>typing hint：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/464979921">https://zhuanlan.zhihu.com/p/464979921</a></p>
+<p>pdb 入门：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/37294138">https://zhuanlan.zhihu.com/p/37294138</a></p>
+<p>描述符：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/196473543">https://zhuanlan.zhihu.com/p/196473543</a></p>
+<p>cpu 推理性能抖动：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/18022692140">https://zhuanlan.zhihu.com/p/18022692140</a></p>
+<p>dataclass：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/419778289">https://zhuanlan.zhihu.com/p/419778289</a></p>
+<p>conda 安装 nvcc：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/21676609751">https://zhuanlan.zhihu.com/p/21676609751</a></p>
+<p>鸭子类型 &amp; 猴子补丁：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/577415129">https://zhuanlan.zhihu.com/p/577415129</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1484390">https://cloud.tencent.com/developer/article/1484390</a></p>
+<p>Python颜色：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37844142/article/details/108282190">https://blog.csdn.net/qq_37844142/article/details/108282190</a></p>
+<p>copy &amp; deepcopy：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sodalife/article/details/89461030">https://blog.csdn.net/sodalife/article/details/89461030</a></p>
+<p>pickle：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/152527979">https://zhuanlan.zhihu.com/p/152527979</a></p>
+<p>类方法 &amp; 静态方法： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28010894">https://zhuanlan.zhihu.com/p/28010894</a></p>
+<p>@staticmethod：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/389770470">https://zhuanlan.zhihu.com/p/389770470</a></p>
+<p>静态方法放到类外边也不影响，主要是放在类里面给它一个作用域，方便管理</p>
+<p>需要和类交互而不需要和实例交互时，就可以选择类方法</p>
+<p>classmethod：定义<strong>操作类，而非操作实例</strong>的方法，最常用于定义<strong>备选构造方法</strong>。因此类方法的第一个参数是类本身而非实例</p>
+<p>@classmethod：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/leviopku/article/details/100745811">https://blog.csdn.net/leviopku/article/details/100745811</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20021164/answer/132619179">https://www.zhihu.com/question/20021164/answer/132619179</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/544021480">https://zhuanlan.zhihu.com/p/544021480</a></p>
+<p>数据分析：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_35757704/article/details/89280715">https://blog.csdn.net/weixin_35757704/article/details/89280715</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000015926584">https://segmentfault.com/a/1190000015926584</a></p>
+<p>setuptools详解： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/460233022">https://zhuanlan.zhihu.com/p/460233022</a></p>
+<p>alternative 切换 python 版本：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/15948314">https://zhuanlan.zhihu.com/p/15948314</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_17105473/article/details/120909679">https://blog.csdn.net/qq_17105473/article/details/120909679</a></p>
+<p>jupyter-remote：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36603177/article/details/132117549">https://blog.csdn.net/qq_36603177/article/details/132117549</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40641725/article/details/114636779">https://blog.csdn.net/weixin_40641725/article/details/114636779</a></p>
+<p>fire：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_17550379/article/details/79943740">https://blog.csdn.net/qq_17550379/article/details/79943740</a></p>
+<p>Nginx负载均衡： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/134220193">https://zhuanlan.zhihu.com/p/134220193</a></p>
+<p>locals() -局部变量的字典 globals() -全局变量的字典</p>
+<p>mpi4py基本使用： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/441259590">https://zhuanlan.zhihu.com/p/441259590</a></p>
+<p>mpi4py多进程并行： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25332041">https://zhuanlan.zhihu.com/p/25332041</a></p>
+<p>ClientOSError：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/70448419/how-to-retry-async-requests-upon-clientoserror-errno-104-connection-reset-by">https://stackoverflow.com/questions/70448419/how-to-retry-async-requests-upon-clientoserror-errno-104-connection-reset-by</a></p>
+<p>nohup：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42840933/article/details/85780125">https://blog.csdn.net/weixin_42840933/article/details/85780125</a></p>
+<p>函数默认参数一定要设定为不可变参数：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34395671">https://zhuanlan.zhihu.com/p/34395671</a></p>
+<p>可变对象地址不变 所以改变a b也跟着变 不可变对象改变其中之一 地址发生变化 另一个则不会变</p>
+<p>可变对象： list dict set 不可变对象： tuple string int float bool</p>
+<p><code>*args, **kwargs</code> 这是一个非常常见的捕获<strong>不定长位置参数</strong>与<strong>不定长关键字参数</strong>的方式</p>
+<p>repr vs str：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/542320058">https://zhuanlan.zhihu.com/p/542320058</a></p>
+<p><strong>slot</strong>：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/578699693">https://zhuanlan.zhihu.com/p/578699693</a></p>
+<p>值传递与引用传递：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/578152117">https://zhuanlan.zhihu.com/p/578152117</a></p>
+<p>正则表达式：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/91689180">https://zhuanlan.zhihu.com/p/91689180</a></p>
+<p>functools.wraps：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/45535784">https://zhuanlan.zhihu.com/p/45535784</a></p>
+<p>惰性求值：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/420508064">https://zhuanlan.zhihu.com/p/420508064</a></p>
+<p>Unittest：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/466076772">https://zhuanlan.zhihu.com/p/466076772</a></p>
+<p>traceback：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yuanfate/article/details/119916008">https://blog.csdn.net/yuanfate/article/details/119916008</a></p>
+<p>mro：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/de7d38c84443">https://www.jianshu.com/p/de7d38c84443</a></p>
+<p>super和父类没有实质性的关联；super(cls, inst)获得的是cls在inst的MRO列表中下一个类</p>
+<p>super：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/636105836">https://zhuanlan.zhihu.com/p/636105836</a></p>
+<p>dataclass： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/419778289">https://zhuanlan.zhihu.com/p/419778289</a></p>
+<p>setuptools_scm：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ExMan/p/10678565.html">https://www.cnblogs.com/ExMan/p/10678565.html</a></p>
+<p>tensorrt api 变更：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/691157302">https://zhuanlan.zhihu.com/p/691157302</a></p>
+<p>np.set_printoptions：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/659123626">https://zhuanlan.zhihu.com/p/659123626</a></p>
+<p>纯 python 调用NCCL： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/689643675">https://zhuanlan.zhihu.com/p/689643675</a></p>
+<p><code>ldconfig -p | grep nccl</code>查看服务器上的<code>nccl</code>库文件的位置</p>
+<p><code>nm -D /lib/x86_64-linux-gnu/libnccl.so.2 </code>查看它有哪些符号可供外部使用</p>
+<p>subprocess： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/664895510">https://zhuanlan.zhihu.com/p/664895510</a></p>
+<p>判断点在多边形内： <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/26934313/answer/3528590082">https://www.zhihu.com/question/26934313/answer/3528590082</a></p>
+<p>conda install cuda -c nvidia</p>
+<p>polygraphy： <a target="_blank" rel="noopener" href="https://blog.csdn.net/yitiaoxiaolu/article/details/136413877">https://blog.csdn.net/yitiaoxiaolu/article/details/136413877</a></p>
+<p>trt-10.0 demo：<a target="_blank" rel="noopener" href="https://github.com/NVIDIA/trt-samples-for-hackathon-cn/blob/master/cookbook/01-SimpleDemo/TensorRT-10.0/main_pytorch.py">https://github.com/NVIDIA/trt-samples-for-hackathon-cn/blob/master/cookbook/01-SimpleDemo/TensorRT-10.0/main_pytorch.py</a></p>
+<p>python3 -m site 查看 sys.path.append 解决 no module named error</p>
+<p>hash complexity： <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/51338089/complexity-of-the-internal-hash-function-in-python">https://stackoverflow.com/questions/51338089/complexity-of-the-internal-hash-function-in-python</a></p>
+<p>pyi： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/665970213">https://zhuanlan.zhihu.com/p/665970213</a></p>
+<p>deepcopy memo： <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1950563/what-is-the-purpose-of-deepcopys-second-parameter-memo">https://stackoverflow.com/questions/1950563/what-is-the-purpose-of-deepcopys-second-parameter-memo</a></p>
+<p>frozen&#x3D;True &amp; 元类只读保护： <a target="_blank" rel="noopener" href="https://blog.csdn.net/yuhengshi/article/details/127527765">https://blog.csdn.net/yuhengshi/article/details/127527765</a></p>
+<p>wrap async to sync： <a target="_blank" rel="noopener" href="https://gist.github.com/phizaz/20c36c6734878c6ec053245a477572ec">https://gist.github.com/phizaz/20c36c6734878c6ec053245a477572ec</a></p>
+<p>杀死进程： ps -ef | grep ‘python’ | awk ‘{print $2$}’ | xargs kill -9</p>
+<p>seaborn：</p>
+<p>displot 子图： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/451862785">https://zhuanlan.zhihu.com/p/451862785</a></p>
+<p>color： <a target="_blank" rel="noopener" href="https://blog.csdn.net/Droke_Zhou/article/details/87479132">https://blog.csdn.net/Droke_Zhou/article/details/87479132</a></p>
+<p>set_theme： <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_35757704/article/details/119325859">https://blog.csdn.net/weixin_35757704/article/details/119325859</a></p>
+<p>叠加多图： <a target="_blank" rel="noopener" href="https://geek-docs.com/seaborn/seaborn-questions/15_seaborn_how_can_i_overlay_two_graphs_in_seaborn.html">https://geek-docs.com/seaborn/seaborn-questions/15_seaborn_how_can_i_overlay_two_graphs_in_seaborn.html</a></p>
+<p>中文乱码： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/566430362">https://zhuanlan.zhihu.com/p/566430362</a></p>
+<p>seaborn 图表大小： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/451862785">https://zhuanlan.zhihu.com/p/451862785</a></p>
+<p>pickle 深入理解： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/695157912">https://zhuanlan.zhihu.com/p/695157912</a></p>
+<p>itertools： <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/581245124/answer/3363576932">https://www.zhihu.com/question/581245124/answer/3363576932</a></p>
+<p>闭包计时器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import functools</span><br><span class="line">def recorder(a, b, n)：</span><br><span class="line">    def outer(func)：</span><br><span class="line">        @functools.wraps(func)</span><br><span class="line">        def record(*args, **kwargs)：</span><br><span class="line">            a.record()</span><br><span class="line">            for i in range(n)：</span><br><span class="line">                result = func(*args, **kwargs)</span><br><span class="line">            # torch.cuda.synchronize()</span><br><span class="line">            b.record()</span><br><span class="line">            torch.cuda.synchronize()</span><br><span class="line">            print(f&quot;&#123;func.__qualname__&#125;&quot;.replace(&quot;.forward&quot;, &quot;&quot;) + f&quot;average cost： &#123;(a.elapsed_time(b) / n)：.6f&#125; s&quot;)</span><br><span class="line">            return result</span><br><span class="line">        return record</span><br><span class="line">    return outer</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-Magic-Python"><a href="#3-Magic-Python" class="headerlink" title="3.Magic Python"></a>3.Magic Python</h4><p>美化 json：python -m json.tool demo.json</p>
+<p>python -i 报错立马进入调试模式，如果希望脚本正确完成时自动退出，可以在脚本最后加上一行<code>__import__(&quot;os&quot;)._exit(0)</code></p>
+<p>快速计算程序执行时长：python3 -m timeit ‘“-“.join(map(str, range(100)))’</p>
+<p>想要使用 <code>-m</code> 的方式执行模块，有两种方式：</p>
+<ul>
+<li>第一种：以 <code>-m &lt;package&gt;</code> 的方式执行，只要在 package 下写一个 <code>__main__.py</code> 的文件即可。</li>
+<li>第二种：以 <code>-m &lt;package.module&gt;</code> 的方式执行，只要在 module 的代码中，定义一个 main 函数，然后在最外层写入下面这段固定的代码</li>
+</ul>
+<p>创建一个 tar 压缩包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 将 demo 文件夹压缩成 demo.tar </span><br><span class="line">$ python3 -m tarfile/zipfile -c demo.tar demo</span><br></pre></td></tr></table></figure>
+
+<p>解压 tar 压缩包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 解压 demo.tar 到 demo_new 文件夹下</span><br><span class="line">$ python3 -m tarfile -e demo.tar demo_new </span><br></pre></td></tr></table></figure>
+
+<p>连接列表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">将可迭代对象（在这里指的是列表）串联起来，组成一个更大的可迭代对象，再用 list 将其转化为列表。</span><br><span class="line">&gt;&gt;&gt; from itertools import chain</span><br><span class="line">&gt;&gt;&gt; list(chain(list01, list02, list03))</span><br><span class="line"></span><br><span class="line">from heapq import merge # 还会高效排序</span><br><span class="line">&gt;&gt;&gt; list(merge(list01, list02, list03))</span><br></pre></td></tr></table></figure>
+
+<p>字典合并：a | b</p>
+<p>and or</p>
+<p>fileinput：<a target="_blank" rel="noopener" href="https://github.com/iswbm/magic-python/blob/master/source/c07/c07_07.md">https://github.com/iswbm/magic-python/blob/master/source/c07/c07_07.md</a></p>
+<p>读取文件中任意行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import linecache</span><br><span class="line">&gt;&gt;&gt; linecache.getline(&#x27;/etc/passwd&#x27;, 4)</span><br><span class="line">found = False</span><br><span class="line">for thing in things:</span><br><span class="line">    if thing == other_thing:</span><br><span class="line">        found = True</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
+
+<p>更好的写法是使用 <code>any()</code> 函数，能够使这段代码变得更加清晰、简洁</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">found = any(thing == other_thing for thing in things)</span><br></pre></td></tr></table></figure>
+
+<p>同理，当需要判断是否满足某一组集合中所有条件，也可以使用 <code>all()</code> 函数，只要有一个不满足条件，all 函数的结果就会立刻返回 False</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">found = all(thing == other_thing for thing in things)</span><br></pre></td></tr></table></figure>
+
+<p>父类自己独有的，不想被子类继承的属性，可以在前面加两个下划线</p>
+<p>默认参数不要是可变对象：<a target="_blank" rel="noopener" href="https://github.com/iswbm/magic-python/blob/master/source/c06/c06_02.md">https://github.com/iswbm/magic-python/blob/master/source/c06/c06_02.md</a> 理解入栈图</p>
+<p>嵌套 for 循环写成单行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">list1 = range(1,3)</span><br><span class="line">list2 = range(4,6)</span><br><span class="line">list3 = range(7,9)</span><br><span class="line">for item1 in list1:</span><br><span class="line">    for item2 in list2:</span><br><span class="line">      	for item3 in list3:</span><br><span class="line">        	  print(item1+item2+item3)</span><br></pre></td></tr></table></figure>
+
+<p>使用 itertools 这个库来实现更优雅易读的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from itertools import product</span><br><span class="line">list1 = range(1,3)</span><br><span class="line">list2 = range(4,6)</span><br><span class="line">list3 = range(7,9)</span><br><span class="line">for item1,item2,item3 in product(list1, list2, list3):</span><br><span class="line">    print(item1+item2+item3)</span><br></pre></td></tr></table></figure>
+
+<p>单行 for 死循环：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in iter(int, 1):pass</span><br></pre></td></tr></table></figure>
+
+<p>iter有两种使用方法。</p>
+<ul>
+<li>将一个列表转化为一个迭代器。</li>
+<li>而第二种方法，他接收一个 callable对象，和一个sentinel 参数。第一个对象会一直运行，直到它返回 sentinel 值才结束。</li>
+</ul>
+<p>那<code>int</code> 呢？</p>
+<p>int 是一个内建方法。通过看注释，可以看出它是有默认值0的。你可以在console 模式下输入 <code>int()</code> 看看是不是返回0。</p>
+<p>由于int() 永远返回0，永远返回不了1，所以这个 for 循环会没有终点，一直运行下去。</p>
+<p>缓存：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@functools.lru_cache(maxsize=None, typed=False)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>maxsize：最多可以缓存多少个此函数的调用结果，如果为None，则无限制，设置为 2 的幂时，性能最佳</li>
+<li>typed：若为 True，则不同参数类型的调用将分别缓存。</li>
+</ul>
+<p>流式读取超大文件：指定每次只读取固定大小的内容，比如下面的代码中，每次只读取 8kb 返回。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def read_from_file(filename, block_size = 1024 * 8):</span><br><span class="line">    with open(filename, &quot;r&quot;) as fp:</span><br><span class="line">        while True:</span><br><span class="line">            chunk = fp.read(block_size)</span><br><span class="line">            if not chunk:</span><br><span class="line">                break</span><br><span class="line"></span><br><span class="line">            yield chunk</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码，功能上已经没有问题了，但是代码看起来还是有些臃肿。</p>
+<p>借助偏函数 和 iter 函数可以优化一下代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from functools import partial</span><br><span class="line"></span><br><span class="line">def read_from_file(filename, block_size = 1024 * 8):</span><br><span class="line">    with open(filename, &quot;r&quot;) as fp:</span><br><span class="line">        for chunk in iter(partial(fp.read, block_size), &quot;&quot;):</span><br><span class="line">            yield chunk</span><br></pre></td></tr></table></figure>
+
+<p>海象运算符 代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def read_from_file(filename, block_size = 1024 * 8):</span><br><span class="line">    with open(filename, &quot;r&quot;) as fp:</span><br><span class="line">        while chunk := fp.read(block_size):</span><br><span class="line">            yield chunk</span><br><span class="line">&gt;&gt;&gt; from inspect import signature</span><br><span class="line">&gt;&gt;&gt; inspect.getsource(add)</span><br><span class="line">&gt;&gt;&gt; sig = signature(add) # # 获取函数签名</span><br></pre></td></tr></table></figure>
+
+<p>打印内容输出到文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">with open(&#x27;test.log&#x27;, mode=&#x27;w&#x27;) as f:</span><br><span class="line">	print(&#x27;hello, python&#x27;, file=f, flush=True)</span><br><span class="line">&gt;&gt;&gt; &quot;a&quot;.ljust(10) </span><br><span class="line">&#x27;a         &#x27;</span><br><span class="line">&gt;&gt;&gt; &quot;a&quot;.rjust(10)</span><br><span class="line">&#x27;         a&#x27;</span><br><span class="line">&gt;&gt;&gt; &quot;a&quot;.center(10)</span><br><span class="line">&#x27;    a     &#x27;</span><br></pre></td></tr></table></figure>
+
+<p>版本比较：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from distutils.version import LooseVersion, StrictVersion</span><br><span class="line">&gt;&gt;&gt; LooseVersion(&quot;2.3.1&quot;) &lt; LooseVersion(&quot;10.1.2&quot;)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; StrictVersion(&quot;2.3.1&quot;) &lt; StrictVersion(&quot;10.1.2&quot;)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>在 types 中有一个 MethodType，可以将普通方法与实例进行绑定：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import types</span><br><span class="line"></span><br><span class="line">class People:</span><br><span class="line">    def speak(self):</span><br><span class="line">        print(&quot;hello, world&quot;)</span><br><span class="line"></span><br><span class="line">def speak(self):</span><br><span class="line">    print(&quot;hello, python&quot;)</span><br><span class="line"></span><br><span class="line">p = People()</span><br><span class="line">p.speak = types.MethodType(speak, p)</span><br><span class="line">p.speak()</span><br></pre></td></tr></table></figure>
+
+<p>捕获 &#x2F; 过滤 warning：上下文管理器，加上 <code>record=True</code> 会返回一个列表，列表里存放的是所有捕获到的警告</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import warnings</span><br><span class="line">warnings.filterwarnings(&#x27;error&#x27;)    </span><br><span class="line"></span><br><span class="line">def do_warning():</span><br><span class="line">    warnings.warn(&quot;deprecated&quot;, DeprecationWarning)</span><br><span class="line"></span><br><span class="line">with warnings.catch_warnings(record=True) as w:</span><br><span class="line">    do_warning()</span><br><span class="line">    if len(w) &gt;0:</span><br><span class="line">        print(w[0].message)</span><br></pre></td></tr></table></figure>
+
+<p>协程：遇到 IO 自动切换，等待 IO 结束期间去做别的事</p>
+<p>事件循环：一个死循环</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">while True：</span><br><span class="line">	可执行的任务列表，已完成的任务列表 = 检查任务列表</span><br><span class="line">	for 就绪任务 in 可执行：</span><br><span class="line">		执行就绪任务</span><br><span class="line">	for 已完成 in 已完成：</span><br><span class="line">		移除任务列表中的已完成</span><br><span class="line">	如果 任务列表 中的任务都已完成，终止循环</span><br><span class="line"></span><br><span class="line">所以，如果在任务列表中遇到不可执行的，就会忽略它，继续放在任务列表里，比如说遭遇 IO 等待</span><br><span class="line"></span><br><span class="line">import asyncio</span><br><span class="line"></span><br><span class="line">async def func():</span><br><span class="line">	print(&quot;hello&quot;)</span><br><span class="line"></span><br><span class="line">result = func()</span><br><span class="line">执行协程函数仅创建对象，函数内部代码并未运行,必须交给事件循环来处理</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line"># 任务放到任务列表，让事件循环去检测状态是否可执行</span><br><span class="line">loop.run_until_complete(result)</span><br><span class="line">or </span><br><span class="line">asyncio.run(result) # 3.7</span><br><span class="line"></span><br><span class="line">await + 可等待对象(协程对象, Future, Task -&gt; IO 等待)</span><br><span class="line">await 在等待的过程中依然会切到其他任务(但不是这之后的语句)去执行</span><br><span class="line"></span><br><span class="line">asyncio.create_task(协程对象, name=&#x27;&#x27;)创建对象的瞬间，会将任务添加到事件循环</span><br><span class="line">done, pending = await asyncio.wait([task1, task2], timeout=最多等多久)  # 返回值的集合，用得更多</span><br><span class="line"></span><br><span class="line">done, pending = asyncio.run(asyncio.wait([task1, task2]))  # 事件循环还未创建，报错</span><br><span class="line">done, pending = asyncio.run(asyncio.wait([co1, co2]))  # 放协程对象可以，因为内部会在创建完loop后加入包装成Task的协程</span><br><span class="line"></span><br><span class="line">Future是Task的基类,Task对象内部await结果的处理是基于Future对象来的</span><br><span class="line">future = loop.create_future()  # 什么也不干 永远也等不到结果</span><br><span class="line">await loop.create_task(set_after(future))  # set_after里给future赋值，就能等到了</span><br><span class="line">await future</span><br><span class="line"></span><br><span class="line">loop.run_in_executor(None, func)  # 返回一个 Future，None等价于用concurrent.futures创建一个Threadpoolexecutor，默认min(32,os.cpu_count()+4)</span><br><span class="line"></span><br><span class="line">import asyncio</span><br><span class="line">import uvloop  # fastapi使用</span><br><span class="line">asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())</span><br></pre></td></tr></table></figure>
+
+<p>迭代器和生成器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">## 迭代器</span><br><span class="line">for _ in + 可迭代对象</span><br><span class="line">共同 __iter__</span><br><span class="line"></span><br><span class="line">iter(可迭代对象) 得到 迭代器</span><br><span class="line">共同 __next__ __iter__</span><br><span class="line">超过长度得到 stopiteration </span><br><span class="line"></span><br><span class="line">迭代器的__iter__返回self</span><br><span class="line">使得整个迭代过程只需要迭代器就够了，直接让可迭代对象远离了循环</span><br><span class="line">意思就是不用再去遍历列表等容器类型了</span><br><span class="line"></span><br><span class="line">一个可迭代对象可以拥有任意多个迭代器</span><br><span class="line">a=[0] b=iter(a) c=iter(a) b==c False 不同内存地址</span><br><span class="line"></span><br><span class="line">迭代器协议：</span><br><span class="line">__iter__返回迭代器自身</span><br><span class="line">__next__每次返回一个迭代数据，如果没有数据则抛出StopIteration异常</span><br><span class="line"></span><br><span class="line">## 生成器</span><br><span class="line">yield 函数没有运行而是返回一个生成器对象</span><br><span class="line">生成器函数内的代码需要通过生成器对象来执行 生成器函数的作用和类差不多</span><br><span class="line">import inspect</span><br><span class="line">print(inspect.isfunction(gen))</span><br><span class="line">print(inspect.isgeneratorfunction(gen)) 含yield的函数就叫生成器函数</span><br><span class="line">print(inspect.isgenerator(g))</span><br><span class="line">生成器对象一定是迭代器，通过next调用，每次next都会返回yield后的结果，函数运行结束(遇到return或默认返回None)抛出StopIteration异常</span><br><span class="line"></span><br><span class="line">## 内部机制</span><br><span class="line">生成器函数并不直接运行，而是借助于生成器对象间接运行</span><br><span class="line">创建生成器对象的同时创建了帧对象，并且由生成器对象保持引用</span><br><span class="line">每次使用next调用生成器就是将生成器引用的帧对象入栈</span><br><span class="line">next返回，也就是遇到yield暂停的时候，就是将帧出栈</span><br><span class="line">直到迭代结束，帧最后一次出栈并且被销毁</span><br><span class="line"></span><br><span class="line">同步 普通函数</span><br><span class="line">调用：构建帧对象并入栈</span><br><span class="line">函数执行结束：帧出栈并销毁</span><br><span class="line"></span><br><span class="line">异步 生成器函数</span><br><span class="line">创建生成器：构建帧对象</span><br><span class="line">（多次）通过next触发执行：帧入栈</span><br><span class="line">（多次）遇到yield：帧出栈（保留）# 在帧出栈的时候可以插入其他任务的执行</span><br><span class="line">迭代结束：帧出栈并销毁</span><br><span class="line"></span><br><span class="line">生成器对象是一个迭代执行生成器函数的迭代器，针对一个包含很多代码的函数，分段执行其中的代码</span><br><span class="line">让一个函数可以多次迭代运行其中的代码才是生成器对象最根本的作用</span><br><span class="line"></span><br><span class="line">def a()：</span><br><span class="line">    print(&quot;here&quot;)</span><br><span class="line">    x = (yield) + 1</span><br><span class="line">    print(x)</span><br><span class="line">g = a()</span><br><span class="line">g.send(None) # here 停在yield处没有print的动作</span><br><span class="line">g.send(1) # 2</span><br><span class="line"></span><br><span class="line">结束协程也是靠异常实现的，GeneratorExit，except之后必须接return或者是循环时的break</span><br><span class="line"></span><br><span class="line">事件通常都是通过回调函数来处理的</span><br><span class="line"></span><br><span class="line">## yield from</span><br><span class="line">大大减少了被动协程的编码</span><br><span class="line">最末端遇到阻塞而不得不主动yield的协程叫做主动协程</span><br><span class="line">中间接收到下游传导而不得不跟随着yield的协程叫做被动协程</span><br><span class="line">用yield from统一yield</span><br><span class="line">总结：Task任务驱动器封装 + yield from 完全体改造 + YieldFromable</span><br><span class="line">协程的传染性也就是yield from的必要性；</span><br><span class="line">明白yield是怎么被隐藏的，从而理解协程的调用链末端发生了什么；</span><br><span class="line">理解协程的开端Task存在的必要性</span><br><span class="line">yield为了暂停 task驱动生成器 yield from链接生成器</span><br><span class="line"></span><br><span class="line">看到yield要等同于理解成函数要出栈了，暂时让出函数运行的权力</span><br><span class="line">yield from/await并不会执行一个出栈的过程，而是透传，层层深入直到遇到了yiel</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/09/11/Python/" data-id="cmffft7950009hjwdcw68bk4j" data-title="Python" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/09/11/Misc/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Misc
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/09/11/CUDA/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CUDA</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CUDA/" rel="tag">CUDA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/" rel="tag">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Confused/" rel="tag">Confused</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/" rel="tag">Cpp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CV/" style="font-size: 10px;">CV</a> <a href="/tags/Confused/" style="font-size: 10px;">Confused</a> <a href="/tags/Cpp/" style="font-size: 10px;">Cpp</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">September 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/09/11/Cpp/">Cpp</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/11/CV/">CV</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/11/LLM/">LLM</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/11/Misc/">Misc</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/11/Python/">Python</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Cpp | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="动态库查找：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;655813152 数组退化为指针其实就是丢失了长度信息，3 个特例：https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;56442598&#x2F;answer&#x2F;202694271 真实的数组指针：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;33911187 虽然可以保留数组信息，但是函数的声明必须把数组长度表示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cpp">
+<meta property="og:url" content="http://example.com/2025/09/11/Cpp/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="动态库查找：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;655813152 数组退化为指针其实就是丢失了长度信息，3 个特例：https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;56442598&#x2F;answer&#x2F;202694271 真实的数组指针：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;33911187 虽然可以保留数组信息，但是函数的声明必须把数组长度表示">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-09-11T13:20:36.000Z">
+<meta property="article:modified_time" content="2025-09-11T13:20:59.289Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Cpp">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Cpp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/09/11/Cpp/" class="article-date">
+  <time class="dt-published" datetime="2025-09-11T13:20:36.000Z" itemprop="datePublished">2025-09-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Cpp
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>动态库查找：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/655813152">https://zhuanlan.zhihu.com/p/655813152</a></p>
+<p>数组退化为指针其实就是丢失了长度信息，3 个特例：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/56442598/answer/202694271">https://www.zhihu.com/question/56442598/answer/202694271</a></p>
+<p>真实的数组指针：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33911187">https://zhuanlan.zhihu.com/p/33911187</a></p>
+<p>虽然可以保留数组信息，但是函数的声明必须把数组长度表示出来，这意味着必须事先知道长度，而且不能改变，这就限制了函数的能力</p>
+<p>所以C的处理方式是退化数组为指针，然后加上数组长度，C++加入了 <strong>std::array&lt;type, length&gt;</strong> 的容器</p>
+<p>POD：plain old data，简单数据，没有动态分配部分，没有间接引用、没有构造过程、可以直接复制内存的直接数据</p>
+<p>清晰的左右值，左右引用：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2ed2689afa49">https://www.jianshu.com/p/2ed2689afa49</a></p>
+<p>左值右值：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/402251966">https://zhuanlan.zhihu.com/p/402251966</a></p>
+<p>调用一个返回引用的函数得到左值，其他返回类型得到右值</p>
+<p>this是一个常量指针，不允许改变其保存的地址（顶层const）</p>
+<p>重载运算符本质上是函数，也有其返回类型与参数列表;如果一个运算符是成员函数，其左侧运算对象就绑定到隐式的this参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Foo</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	Fool&amp; operator=(const Foo&amp;) // 拷贝赋值运算符接受一个与其所在类相同类型的参数:</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>子类不能访问父类的private，但能通过父类的protected、private方法间接访问父类的private</p>
+<p>子类通过public继承不会改变父类的数据属性；protected继承private是private，其余都是protected；private继承全是private</p>
+<p>父类的原属性并没改变，降级的是子类在父类的个别成员属性</p>
+<p>std::move &amp;&amp; std::forward：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/384316039">https://zhuanlan.zhihu.com/p/384316039</a></p>
+<p>std::forward ，可以保持原始参数的类型，将实参从右值引用的左值，变成了本身就是右值引用</p>
+<p>restrict: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/349726808">https://zhuanlan.zhihu.com/p/349726808</a></p>
+<p>C 指针层级理解:</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/660265595">https://zhuanlan.zhihu.com/p/660265595</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/660539465">https://zhuanlan.zhihu.com/p/660539465</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/660678544">https://zhuanlan.zhihu.com/p/660678544</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/660828422">https://zhuanlan.zhihu.com/p/660828422</a></p>
+<p>题:</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/661249637">https://zhuanlan.zhihu.com/p/661249637</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/661378386">https://zhuanlan.zhihu.com/p/661378386</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/661767815">https://zhuanlan.zhihu.com/p/661767815</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662313049">https://zhuanlan.zhihu.com/p/662313049</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662640581">https://zhuanlan.zhihu.com/p/662640581</a></p>
+<p>const 一语中的: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/443195492/answer/1723886545">https://www.zhihu.com/question/443195492/answer/1723886545</a></p>
+<p>extern C: <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_46606290/article/details/119973574">https://blog.csdn.net/m0_46606290/article/details/119973574</a></p>
+<p>cpu sgemm: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/684812336+">https://zhuanlan.zhihu.com/p/684812336+</a></p>
+<p>线程池：</p>
+<p>简易线程池：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/356904887">https://zhuanlan.zhihu.com/p/356904887</a></p>
+<p>for(;;) vs while(1)：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44395686/article/details/103409425">https://blog.csdn.net/weixin_44395686/article/details/103409425</a></p>
+<p>notify_one&#x2F;all：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43743711/article/details/115803461">https://blog.csdn.net/weixin_43743711/article/details/115803461</a></p>
+<p>lock：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/91062516">https://zhuanlan.zhihu.com/p/91062516</a></p>
+<p>静态库编译：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/595527528">https://zhuanlan.zhihu.com/p/595527528</a></p>
+<h4 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h4><p>w右跳到下一个单词开头 W还能无视一些符号(破折号) b 向左 e跳转到下一个单词的末尾</p>
+<p>:w test.txt :wqa qa退出所有窗口 ZZ 退出 ZQ不保存退出</p>
+<p>0 $ 行首行尾 ^非空格行首 3$ 下3行的行尾 3- 上3行 + 下 跳到行首</p>
+<p>v(visualize) bve选中单词 u撤销</p>
+<p>x删除 d在normal模式下还会继续等待输入 D &#x3D; d$ 直接删至行尾</p>
+<p>cw直接删掉并立即进入插入模式 cw&#x3D;dwi c3w cW</p>
+<p>g跳转到第一行 G跳转到最后一行 66G(行尾)66gg(行首)</p>
+<p>&#x2F;kwx向下查找 n跳转到下一个 N往上 ？向上找 n上N下 单词# 向上找 *向下找</p>
+<p>选中当前单词bve viw c修改 ciw b 修改a&#x3D;x为b&#x3D;x</p>
+<p>f b 查找第一个b ；跳转下一个 cf&#x3D; cfb 当前到&#x3D;(b)全部重命名 包含&#x3D; ct&#x3D; 不包含&#x3D;</p>
+<p>I# 在^处变为注释 I当前行开头插入 A末尾 i向前插入 a向后插入 insert append</p>
+<p>录制宏：q u xj q 录入u寄存器 5@u反复调用 j向下</p>
+<p>:norm 0x 0行首 即删除行首注释 :norm I重新注释</p>
+<p>ctrl+u &#x2F; d 上下翻页 ctrl+y &#x2F; e 上下单行</p>
+<p>:s&#x2F;debian&#x2F;ubuntu&#x2F;g多次文本替换 全局替换：ggVG全部选中 或将标记符换成%</p>
+<p>o向下新起一行插入 O向上 5o world自动创建5行world</p>
+<p>D&#x3D;d$ 删除该行后续内容 C&#x3D;c$额外进入insert</p>
+<p>vi&lt; va&lt; 选中&lt;&gt;内&#x2F;包含&lt;&gt;的内容 “同理</p>
+<p>ciw修改当前word caw会连同当前空格一并修改</p>
+<p>%可以在两头的{}互换 &lt;&lt;减小缩进 &gt;&gt;增大 &#x3D;&#x3D;自动调整缩进</p>
+<p>vi {选中花括号内 a含{} {上一段落 }下 ()在多个函数之间跳转</p>
+<p>ggvG :s&#x2F;\s*$&#x2F;&#x2F; 去除末尾不该有的空格</p>
+<p>v选择 V选择整行 y复制 yyp 向后复制1行 yyP向前</p>
+<p>dd删除一整行 ddp互换两行 xp交换两个字符的位置</p>
+<p>5s修改当前5个字符 r仅修改当前字符</p>
+<p>:sh g++ tset.cpp &amp;&amp; .&#x2F;a.out exit &#x2F; ctrl+d :nnoremap : sh</p>
+<p>%可以直接替换当前的文件名 :nnoremap :wa::!g++ test.cpp -o a.out &amp;&amp; .&#x2F;a.out</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">run: hello</span><br><span class="line">	./hello</span><br><span class="line">hello: hello.cpp</span><br><span class="line">	g++ hello.cpp -o hello</span><br></pre></td></tr></table></figure>
+
+<p>:make :cw直接进入调错窗口</p>
+<p>ctrl+i ctrl+o 历史页面跳转 gf向内跳转</p>
+<p>:ls查看缓冲区 :b1跳转到1号缓冲</p>
+<h4 id="CMake"><a href="#CMake" class="headerlink" title="CMake"></a>CMake</h4><p>本地cmake: <a target="_blank" rel="noopener" href="https://blog.csdn.net/mj412828668/article/details/135766455">https://blog.csdn.net/mj412828668/article/details/135766455</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/CMake-Cookbook/README.md">https://www.bookstack.cn/read/CMake-Cookbook/README.md</a></p>
+<p>在开发过程碰到需要在上级目录中构建，而源代码又分别写在下级目录的情况，同时又要根据不同的情况选择性地添加不同的源代码进行编译，所以考虑将需要编译的源代码放到一个 cmake 列表中。但是 set() 对应生成的变量都是局部变量（即不同的目录下不共用），于是使用 set_property() 命令。</p>
+<p>undefined symbol：<a target="_blank" rel="noopener" href="https://blog.csdn.net/buknow/article/details/96130049">https://blog.csdn.net/buknow/article/details/96130049</a></p>
+<p>INTERFACE: 在interface后面引入的库不会被链接到你的target中，只会导出符号</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/znsoft/article/details/119035578">https://blog.csdn.net/znsoft/article/details/119035578</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 寻找 python 解释器</span><br><span class="line">find_package(PythonInterp REQUIRED)</span><br><span class="line"># Python 头文件和库的模块，称为FindPythonLibs.cmake</span><br><span class="line">find_package(PythonLibs $&#123;PYTHON_VERSION_MAJOR&#125;.$&#123;PYTHON_VERSION_MINOR&#125; EXACT REQUIRED)</span><br><span class="line"># 执行 python 命令</span><br><span class="line">execute_process(</span><br><span class="line">  COMMAND</span><br><span class="line">      $&#123;PYTHON_EXECUTABLE&#125; &quot;-c&quot; &quot;print(&#x27;Hello, world!&#x27;)&quot;</span><br><span class="line">  RESULT_VARIABLE _status</span><br><span class="line">  OUTPUT_VARIABLE _helftflo_world</span><br><span class="line">  ERROR_QUIET</span><br><span class="line">  OUTPUT_STRIP_TRAILING_WHITESPACE</span><br><span class="line">  )</span><br><span class="line">  </span><br><span class="line"># PYTHON_EXECUTABLE：Python解释器到可执行文件的路径</span><br><span class="line"></span><br><span class="line"># 软件包没有安装在标准位置时，CMake无法正确定位它们,可使用CLI的-D参数告诉CMake查看特定的位置</span><br><span class="line">$ cmake -DPYTHON_EXECUTABLE=/custom/location/python ..</span><br></pre></td></tr></table></figure>
+
+<p>其他常用操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line">$ cmake -D CMAKE_CXX_FLAGS=&quot;-fno-exceptions -fno-rtti&quot; .. # 编译项目时，禁用异常和运行时类型标识(RTTI)</span><br><span class="line"></span><br><span class="line">include(CMakeDependentOption)</span><br><span class="line"># 相当于 if M_S_L==off: U_L=on</span><br><span class="line">cmake_dependent_option(</span><br><span class="line">    MAKE_STATIC_LIBRARY &quot;Compile sources into a static library&quot; OFF</span><br><span class="line">    &quot;USE_LIBRARY&quot; ON</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"># 打印编译器标志</span><br><span class="line">message(&quot;C++ compiler flags: $&#123;CMAKE_CXX_FLAGS&#125;&quot;)</span><br><span class="line"></span><br><span class="line"># 设置编译选项 可以是链接库也可以是可执行文件</span><br><span class="line">target_compile_options(geometry</span><br><span class="line">  PRIVATE</span><br><span class="line">    $&#123;flags&#125;</span><br><span class="line">  ) </span><br><span class="line"># INTERFACE，只应用于指定目标，并传递给与目标相关的目标</span><br><span class="line"></span><br><span class="line"># 设定语言标准</span><br><span class="line">set_target_properties(animals</span><br><span class="line">  PROPERTIES</span><br><span class="line">    CXX_STANDARD 14</span><br><span class="line">    CXX_EXTENSIONS OFF  # 只启用ISO C++标准的编译器标志，而不使用特定编译器的扩展</span><br><span class="line">    CXX_STANDARD_REQUIRED ON  # 如果off 就先从 c++20 17往下找</span><br><span class="line">    POSITION_INDEPENDENT_CODE 1</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"># 控制流</span><br><span class="line">list(</span><br><span class="line">  APPEND sources_with_lower_optimization</span><br><span class="line">    geometry_circle.cpp</span><br><span class="line">    geometry_rhombus.cpp</span><br><span class="line">  )</span><br><span class="line">foreach(_source IN LISTS sources_with_lower_optimization)</span><br><span class="line">  set_source_files_properties($&#123;_source&#125; PROPERTIES COMPILE_FLAGS -O2)</span><br><span class="line">  message(STATUS &quot;Appending -O2 flag for $&#123;_source&#125;&quot;)</span><br><span class="line">  get_source_file_property(_flags $&#123;_source&#125; COMPILE_FLAGS)</span><br><span class="line">  message(STATUS &quot;Source $&#123;_source&#125; has the following extra COMPILE_FLAGS: $&#123;_flags&#125;&quot;)</span><br><span class="line">endforeach()</span><br><span class="line"></span><br><span class="line">if(CMAKE_SIZEOF_VOID_P EQUAL 8)</span><br><span class="line">  target_compile_definitions(arch-dependent PUBLIC &quot;IS_64_BIT_ARCH&quot;)</span><br><span class="line">elseif(CMAKE_HOST_SYSTEM_PROCESSOR MATCHES &quot;x86_64&quot;)</span><br><span class="line">  message(STATUS &quot;x86_64 architecture detected&quot;)</span><br><span class="line">  </span><br><span class="line"># 寻找CheckCXXCompilerFlag.cmake标准模块文件</span><br><span class="line">include(CheckCXXCompilerFlag)</span><br><span class="line"># 检查 -march=native编译器标志是否工作</span><br><span class="line">check_cxx_compiler_flag(&quot;-march=native&quot; _march_native_works)</span><br><span class="line"></span><br><span class="line"># 打印模块</span><br><span class="line">include(CMakePrintHelpers)</span><br><span class="line">cmake_print_variables(_status _hello_world)</span><br><span class="line"></span><br><span class="line"># pkg-config检测外部库</span><br><span class="line">find_package(PkgConfig REQUIRED QUIET)  # 传递QUIET参数，只有在找不到 pkg-config时，CMake才会报错</span><br><span class="line">pkg_search_module(</span><br><span class="line">  ZeroMQ</span><br><span class="line">  REQUIRED</span><br><span class="line">      libzeromq libzmq lib0mq</span><br><span class="line">  IMPORTED_TARGET</span><br><span class="line">  )</span><br><span class="line">if(TARGET PkgConfig::ZeroMQ)</span><br><span class="line">    message(STATUS &quot;Found ZeroMQ&quot;)</span><br><span class="line">endif()</span><br><span class="line"></span><br><span class="line"># 单元测试</span><br><span class="line">find_package(PythonInterp REQUIRED)</span><br><span class="line">find_program(BASH_EXECUTABLE NAMES bash REQUIRED)</span><br><span class="line"></span><br><span class="line">enable_testing()  # 测试这个目录和所有子文件夹</span><br><span class="line">add_test(  # 设置测试名称和运行指令</span><br><span class="line">  NAME cpp_test</span><br><span class="line">  COMMAND $&lt;TARGET_FILE:cpp_test&gt;  # 生成器表达式，是在生成构建系统生成时的表达式</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line"># 动态分析检测内存泄露</span><br><span class="line">find_program(MEMORYCHECK_COMMAND NAMES valgrind)</span><br><span class="line">set(MEMORYCHECK_COMMAND_OPTIONS &quot;--trace-children=yes --leak-check=full&quot;)</span><br><span class="line">$ ctest -T memcheck --parallel 4</span><br><span class="line"></span><br><span class="line"># 文件操作</span><br><span class="line">add_custom_target(unpack-eigen  # 构建没有输出的命令</span><br><span class="line">  ALL  # 目标始终被执行</span><br><span class="line">  COMMAND</span><br><span class="line">      $&#123;CMAKE_COMMAND&#125; -E tar xzf $&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/eigen-eigen-5a0156e40feb.tar.gz</span><br><span class="line">  COMMAND</span><br><span class="line">      $&#123;CMAKE_COMMAND&#125; -E rename eigen-eigen-5a0156e40feb eigen-3.3.4</span><br><span class="line">  WORKING_DIRECTORY</span><br><span class="line">      $&#123;CMAKE_CURRENT_BINARY_DIR&#125;</span><br><span class="line">  COMMENT</span><br><span class="line">      &quot;Unpacking Eigen3 in $&#123;CMAKE_CURRENT_BINARY_DIR&#125;/eigen-3.3.4&quot;</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line"># 探究编译器是否支持某种特性</span><br><span class="line">try_compile(</span><br><span class="line">  omp_taskloop_test_1</span><br><span class="line">      $&#123;CMAKE_CURRENT_BINARY_DIR&#125;/omp_try_compile  # 用于保存编译成功与否的状态</span><br><span class="line">  SOURCES</span><br><span class="line">      $&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/taskloop.cpp</span><br><span class="line">  LINK_LIBRARIES</span><br><span class="line">      OpenMP::OpenMP_CXX</span><br><span class="line">  )</span><br><span class="line">message(STATUS &quot;Result of try_compile: $&#123;omp_taskloop_test_1&#125;&quot;)</span><br><span class="line"></span><br><span class="line">include(CheckCXXSourceCompiles)  # 使用check_cxx_source_compiles函数，需要包含CheckCXXSourceCompiles.cmake模块文件</span><br><span class="line">file(READ $&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/taskloop.cpp _snippet)  # 复制源文件的内容，file(READ ...)命令读取内容到一个变量中，试图编译和连接这个变量</span><br><span class="line">set(CMAKE_REQUIRED_LIBRARIES OpenMP::OpenMP_CXX)  # 对于下一步正确调用编译器是必需的,使用导入的OpenMP::OpenMP_CXX目标，它还将设置正确的编译器标志和包含目录:</span><br><span class="line">check_cxx_source_compiles(&quot;$&#123;_snippet&#125;&quot; omp_taskloop_test_2)</span><br><span class="line">unset(CMAKE_REQUIRED_LIBRARIES)</span><br><span class="line"></span><br><span class="line"># 探究编译器标志</span><br><span class="line">list(APPEND CXX_BASIC_FLAGS &quot;-g3&quot; &quot;-O1&quot;)  # 声明列表CXX_BASIC_FLAGS，其中包含构建项目时始终使用的编译器标志-g3和-O1:</span><br><span class="line">include(CheckCXXCompilerFlag)</span><br><span class="line">check_cxx_compiler_flag($&#123;ASAN_FLAGS&#125; asan_works)  # 调用check_cxx_compiler_flag来确保编译器理解ASAN_FLAGS变量中的标志</span><br><span class="line">unset(CMAKE_REQUIRED_FLAGS)</span><br><span class="line">if(asan_works)  # 如果编译器理解这些选项，将变量转化为一个列表，分号替换空格</span><br><span class="line">    string(REPLACE &quot; &quot; &quot;;&quot; _asan_flags $&#123;ASAN_FLAGS&#125;)</span><br><span class="line">    </span><br><span class="line"># 将cmake子目录添加到CMake模块搜索的路径列表中,告诉cmake去哪里查找宏</span><br><span class="line">list(APPEND CMAKE_MODULE_PATH &quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/cmake&quot;)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/09/11/Cpp/" data-id="cmffft7900004hjwde3izfb9c" data-title="Cpp" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/" rel="tag">Cpp</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/09/11/CV/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CV</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CUDA/" rel="tag">CUDA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CV/" rel="tag">CV</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Confused/" rel="tag">Confused</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/" rel="tag">Cpp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Misc/" rel="tag">Misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CUDA/" style="font-size: 10px;">CUDA</a> <a href="/tags/CV/" style="font-size: 10px;">CV</a> <a href="/tags/Confused/" style="font-size: 10px;">Confused</a> <a href="/tags/Cpp/" style="font-size: 10px;">Cpp</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Misc/" style="font-size: 10px;">Misc</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">September 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/09/11/Cpp/">Cpp</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/11/CV/">CV</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/11/LLM/">LLM</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/11/Misc/">Misc</a>
+          </li>
+        
+          <li>
+            <a href="/2025/09/11/Python/">Python</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
