@@ -13,13 +13,11 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="– [1.LLM](# 1.LLM) – [2.vLLM](# 2.vLLM) – [3.FlashAttention](# 3.FlashAttention) – [4.TensorRT-LLM](# 4.TensorRT-LLM) – [5.Coroutine &amp; Thread &amp; Process](# 5.Coroutine &amp; Thread &amp; Proces">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/home/kwx/blog/source/_posts/assets/v2-00480748742764c41b4d2ce2463a0ac6_r.jpg">
 <meta property="article:published_time" content="2025-09-11T13:18:28.000Z">
-<meta property="article:modified_time" content="2025-09-11T13:18:58.205Z">
+<meta property="article:modified_time" content="2025-11-04T14:38:02.795Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="LLM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/home/kwx/blog/source/_posts/assets/v2-00480748742764c41b4d2ce2463a0ac6_r.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -147,8 +145,6 @@
 <p>显存会先于算力达到瓶颈点，而且是显存带宽，而非显存容量</p>
 <p>什么是 Grouped GEMM：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/484319691">https://zhuanlan.zhihu.com/p/484319691</a></p>
 <p>部署提炼：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/23640350617">https://zhuanlan.zhihu.com/p/23640350617</a></p>
-<p>FP8：</p>
-<p><img src="/home/kwx/blog/source/_posts/assets/v2-00480748742764c41b4d2ce2463a0ac6_r.jpg" alt="v2-00480748742764c41b4d2ce2463a0ac6_r"></p>
 <p>MLA：</p>
 <p>核心必读：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1896980602214925821">https://zhuanlan.zhihu.com/p/1896980602214925821</a></p>
 <p>MLA 省显存了吗：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/714761319">https://zhuanlan.zhihu.com/p/714761319</a></p>
@@ -329,6 +325,7 @@
 <p>fa变长使用： <a target="_blank" rel="noopener" href="https://66ring.github.io/2024/05/31/universe/ml/flash_attn_varlen_batcing_api_usage/">https://66ring.github.io/2024/05/31/universe/ml/flash_attn_varlen_batcing_api_usage/</a></p>
 <p>MoE 通信初探：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/658007181">https://zhuanlan.zhihu.com/p/658007181</a></p>
 <p><strong>SGLang：</strong></p>
+<p>确定性推理：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1956415532606665583">https://zhuanlan.zhihu.com/p/1956415532606665583</a></p>
 <p>二分 sgl：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1939041055208112436">https://zhuanlan.zhihu.com/p/1939041055208112436</a></p>
 <p>FA3 backend：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1888278828897523473">https://zhuanlan.zhihu.com/p/1888278828897523473</a></p>
 <p>SGLang 源码深度导读：</p>
@@ -339,8 +336,6 @@
 <p>Radix cache：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2511078239">https://zhuanlan.zhihu.com/p/2511078239</a></p>
 <p>CPU GPU 流水 overlap：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/17744625577">https://zhuanlan.zhihu.com/p/17744625577</a></p>
 <p>KV Cache 设计：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/31160183506">https://zhuanlan.zhihu.com/p/31160183506</a></p>
-<p>SGL walk through：</p>
-<p>![截图 2025-02-22 20-02-56](&#x2F;home&#x2F;kwx&#x2F;blog&#x2F;source&#x2F;_posts&#x2F;assets&#x2F;截图 2025-02-22 20-02-56.png)</p>
 <h4 id="2-CUDA"><a href="#2-CUDA" class="headerlink" title="2.CUDA"></a>2.CUDA</h4><p>cuobjdump nvdisasm cu++filt nvprune：<a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-binary-utilities/index.html">https://docs.nvidia.com/cuda/cuda-binary-utilities/index.html</a></p>
 <p>CUDA 全局坐标运算： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/675603584">https://zhuanlan.zhihu.com/p/675603584</a></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x,y,z三维坐标系，先确定z，x*y是平面面积大小</span><br></pre></td></tr></table></figure>
@@ -776,7 +771,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">September 2025</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">February 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">September 2025</a></li></ul>
     </div>
   </div>
 
@@ -787,6 +782,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2026/02/20/2026/">2026.md</a>
+          </li>
         
           <li>
             <a href="/2025/09/11/Cpp/">Cpp</a>
@@ -804,10 +803,6 @@
             <a href="/2025/09/11/Misc/">Misc</a>
           </li>
         
-          <li>
-            <a href="/2025/09/11/Python/">Python</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -821,7 +816,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2025 John Doe<br>
+      &copy; 2026 John Doe<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
