@@ -6,17 +6,17 @@
   
   <title>2026.md | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="GRPO 基金助手训练迭代：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;2005390937266857291 Flow Matching 简易理解：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;28731517852 12Gaussian 是最大熵分布，自回归降噪训练时：对于每一个target样本，生成一个随机的输入source，然后连线source-&gt;targe">
+  <meta name="description" content="具身： Pi05推理流程：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;1976697762763518184 vla 2025 洞察：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;1989799567177307432 零推导理解diffusion &amp; flow matching：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;11228697012 零">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2026.md">
 <meta property="og:url" content="http://example.com/2026/02/20/2026/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="GRPO 基金助手训练迭代：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;2005390937266857291 Flow Matching 简易理解：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;28731517852 12Gaussian 是最大熵分布，自回归降噪训练时：对于每一个target样本，生成一个随机的输入source，然后连线source-&gt;targe">
+<meta property="og:description" content="具身： Pi05推理流程：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;1976697762763518184 vla 2025 洞察：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;1989799567177307432 零推导理解diffusion &amp; flow matching：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;11228697012 零">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/home/kwx/blogs/source/_posts/assets/%E6%88%AA%E5%9B%BE%202026-02-21%2019-31-22.png">
 <meta property="og:image" content="http://example.com/home/kwx/blogs/source/_posts/assets/%E6%88%AA%E5%9B%BE%202026-02-21%2019-32-01.png">
 <meta property="article:published_time" content="2026-02-19T17:42:46.000Z">
-<meta property="article:modified_time" content="2026-02-21T11:34:17.374Z">
+<meta property="article:modified_time" content="2026-04-18T04:06:03.412Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/home/kwx/blogs/source/_posts/assets/%E6%88%AA%E5%9B%BE%202026-02-21%2019-31-22.png">
@@ -98,10 +98,32 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>GRPO 基金助手训练迭代：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2005390937266857291">https://zhuanlan.zhihu.com/p/2005390937266857291</a></p>
+        <p><strong>具身：</strong></p>
+<p>Pi05推理流程：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1976697762763518184">https://zhuanlan.zhihu.com/p/1976697762763518184</a></p>
+<p>vla 2025 洞察：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1989799567177307432">https://zhuanlan.zhihu.com/p/1989799567177307432</a></p>
+<p>零推导理解diffusion &amp; flow matching：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/11228697012">https://zhuanlan.zhihu.com/p/11228697012</a></p>
+<p>零推导随机性：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1947597090311090928">https://zhuanlan.zhihu.com/p/1947597090311090928</a></p>
+<p>随机性注入：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1948388095151026330">https://zhuanlan.zhihu.com/p/1948388095151026330</a></p>
 <p>Flow Matching 简易理解：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28731517852">https://zhuanlan.zhihu.com/p/28731517852</a></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Gaussian 是最大熵分布，自回归降噪</span><br><span class="line">训练时：对于每一个target样本，生成一个随机的输入source，然后连线source-&gt;target，并采样N步，对中间的采样点，调用一个网络，预测其斜率是多少，然后拿source-&gt;target的斜率作为监督值。（实际上预测的是速度场，也就是移动的方向和单位时间内移动的距离，在粗理解时，在二维空间上可以先简单理解成斜率）</span><br></pre></td></tr></table></figure>
 
+<p>Pi0 lerobot复现： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1937902734314561658">https://zhuanlan.zhihu.com/p/1937902734314561658</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pi0的思考：</span><br><span class="line">“高质量数据不能教会模型如何从错误中恢复”，言下之意低质量数据中一下错误后重新尝试的数据对这方面有帮助。这个观点很认同，但文中并没有分析训练数据中是否真的有这类数据，也没有相关实验佐证。（intervention）</span><br><span class="line">没有history ；没有区分不同本体指示的token，只靠action space 维度区分不太靠谱；同时也没有展示本体层面的泛化能力。</span><br><span class="line">机器人控制中，当前状态往往不足以做出最佳决策（例如，物体正在移动、上一个动作导致了什么后果）。将过去几帧的观测和动作作为输入，能为模型提供时序上下文，对理解动态、纠正错误至关重要。仅仅靠改变输出动作空间的维度（例如，机械臂是7维，无人机是4维）不太靠谱。因为模型内部如果没有一个明确的信号（如一个特殊的 [robot_type]标识token）来告知它“你现在控制的是哪种机器人”，它很难学习到针对不同本体泛化的控制策略。仅靠输出维度区分，模型可能会因混淆而性能不佳。</span><br><span class="line">要处理多种本体，关键的一个评测就是跨本体的零样本泛化能力。原文没有这方面实验，因此无法证明其设计在“多本体控制”上真正有效。</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>Agent:</strong></p>
+<p>React &amp; Plan and Solve &amp; Refection ：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2000210358820946463">https://zhuanlan.zhihu.com/p/2000210358820946463</a></p>
+<p>上下文管理策略：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2012088406826562496">https://zhuanlan.zhihu.com/p/2012088406826562496</a></p>
+<p>从 Claude Code 看 Agent 设计思路：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2014805541709447594">https://zhuanlan.zhihu.com/p/2014805541709447594</a></p>
+<p>Harness 的失败经验：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2021229438939965162">https://zhuanlan.zhihu.com/p/2021229438939965162</a></p>
+<p><strong>强化学习：</strong></p>
+<p>Optimizer params group 注意事项: <a target="_blank" rel="noopener" href="https://www.zhihu.com/pin/2019913416823812718">https://www.zhihu.com/pin/2019913416823812718</a></p>
+<p>SFT vs DPO：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/1997421149668271160/answer/1997969823309793091">https://www.zhihu.com/question/1997421149668271160/answer/1997969823309793091</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SFT好比模型拼命在学数据集里的动作，让这些动作出现的概率变高，让模型的输出分布和数据集的分布越来越像</span><br></pre></td></tr></table></figure>
+
+<p>GRPO 基金助手训练迭代：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2005390937266857291">https://zhuanlan.zhihu.com/p/2005390937266857291</a></p>
+<p>GRPO 策略梯度区别：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1932026138219225177">https://zhuanlan.zhihu.com/p/1932026138219225177</a></p>
 <p>RL训练 reward在涨 val在跌：<a target="_blank" rel="noopener" href="https://www.zhihu.com/pin/2001681714678882960">https://www.zhihu.com/pin/2001681714678882960</a></p>
 <p>on policy 自蒸馏： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2004306938188537902">https://zhuanlan.zhihu.com/p/2004306938188537902</a></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1.蒸馏损失用于正则化和缓解灾难性遗忘</span><br><span class="line">GRPO是一种基于人类反馈的强化学习方法，通过比较不同输出的优劣来训练模型。</span><br><span class="line">模型为了获得高奖励而突然生成一些看似正确但逻辑不通的文本，骗过奖励模型，但损害了泛化能力和稳定性。</span><br><span class="line">当模型为了适应新的任务或环境而更新参数时，可能会忘记之前学到的有用知识。</span><br><span class="line">蒸馏损失强制学生模型在优化奖励的同时，保持与教师模型输出的一致性。相当于给模型加了一个“正则化”约束，防止它为了追求高奖励而过度偏离正常的输出分布，相当于强制复习旧知识，从而有效缓解了灾难性遗忘。</span><br><span class="line">2.token level reward</span><br><span class="line">传统的RLHF（如PPO）通常只在生成完整个序列后给出一个总的奖励分数，这被称为稀疏奖励。而 OPD 通过计算学生模型和教师模型在每个Token上的输出差异（如 KL 散度），为模型提供了每一步的指导信号。这种密集的、细粒度的信号比稀疏的序列级奖励更容易训练，收敛更快。</span><br><span class="line">3.易用性</span><br><span class="line">获取一个更强的教师模型训练大语言模型成本极高。</span><br><span class="line">蒸馏损失可以直接作为强化学习目标函数的一部分（例如与 PPO 的损失相加）。不改变RL框架，只是在原有基础上增加了一个约束项，所以实现起来相对容易，不需要重构整个训练系统。</span><br><span class="line">4.forward / reverse KL</span><br><span class="line">P有概率的地方，Q也必须要有概率,如果P有Q没有（Q(x)=0），KL 值会趋于无穷大（惩罚极大）。</span><br><span class="line">forward 行为：要求Q覆盖P的所有模式，即使P概率很小，Q也不能忽略它。Q分布比P更宽。</span><br><span class="line">reverse 行为：要求Q只存在于P有概率的地方，Q分布比P更窄，抓住P的主要模式忽略其他次要模式。</span><br><span class="line">Reverse KL 强制学生只探索教师已经探索过的区域。如果学生策略试图“走捷径”去探索一个教师策略从未去过的高奖励区域，由于该区域在教师分布中概率为 0，Reverse KL 会给出极大的惩罚，从而抑制这种行为。</span><br><span class="line">稳定训练：它防止策略分布发生剧烈的突变，因为学生策略被限制在教师策略的“信任域”内。这有助于缓解灾难性遗忘，因为策略不会突然跳到完全不同的行为模式上。</span><br><span class="line">3. 直观对比</span><br><span class="line">假设教师P在某个状态下有两个可能的动作：A（概率 0.7）和 B（概率 0.3）。</span><br><span class="line">Forward：学生Q必须给A分配0.7，给B分配0.3，精确模仿教师的所有行为，包括那个概率较低的B</span><br><span class="line">Reverse：学生Q可以自由选择，为了最小化损失，它很可能会选择只做 A（概率 1.0），而完全忽略 B（概率 0.0）。因为只要它不去碰 B，就不会因为 Q(B)&gt;0而 P(B)=0.3受到惩罚（惩罚只发生在 Q(x)&gt;0且 P(x)=0的情况，这里 P(B)不为 0，所以是安全的）。这被称为Zero Forcing​ 行为。</span><br></pre></td></tr></table></figure>
@@ -109,6 +131,64 @@
 <img src="/home/kwx/blogs/source/_posts/assets/截图 2026-02-21 19-31-22.png" alt="截图 2026-02-21 19-31-22" style="zoom:77%;" />
 
 <img src="/home/kwx/blogs/source/_posts/assets/截图 2026-02-21 19-32-01.png" alt="截图 2026-02-21 19-32-01" style="zoom:85%;" />
+
+
+
+<p><strong>推理框架：</strong></p>
+<p>Automatic prefix caching：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/693556044">https://zhuanlan.zhihu.com/p/693556044</a></p>
+<p>SGLang profiler: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2004605638760763526">https://zhuanlan.zhihu.com/p/2004605638760763526</a></p>
+<p>video generation 不多batch：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2010468294965090197">https://zhuanlan.zhihu.com/p/2010468294965090197</a></p>
+<p>减少 torch compile 时间：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1999511972585166078">https://zhuanlan.zhihu.com/p/1999511972585166078</a></p>
+<p><strong>模型：</strong></p>
+<p>VL综述：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1898484496715718840">https://zhuanlan.zhihu.com/p/1898484496715718840</a></p>
+<p>rmsnorm softmax数值稳定性作用：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1997621330464511246">https://zhuanlan.zhihu.com/p/1997621330464511246</a></p>
+<p>Qwen3 &amp; 3.5 tool call 差异：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2022966991753937044">https://zhuanlan.zhihu.com/p/2022966991753937044</a></p>
+<p>基模发展方向：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/1923113361563938873/answer/2021241926557467274">https://www.zhihu.com/question/1923113361563938873/answer/2021241926557467274</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">模型承载信息量的探讨：</span><br><span class="line">“一个比较经验主义的结论：同参数下，一个更深的MLP表征能力是大于一个更宽的MLP的”这个没啥问题，包括arxiv.org/abs/2503.0396这篇论文直接证明，同样预算下，增加深度能让表达能力指数增长，增加CoT长度能让表达能力线性增长，增加宽度只能让表达能力对数级增长。</span><br><span class="line">但一个更著名的结论是scaling law, 同样参数和训练设置下，在很大的一个范围里深宽比对模型性能的影响挺小的（观察attention residual消融实验每一行的loss也能得到类似的结论）</span><br><span class="line">一个解释是，深模型更强的表达能力往往也需要更大量和高质量的数据才训得出来，导致在现有的大水漫灌的预训练范式下，深模型无法达到其上限，实际表现和宽模型差不多。</span><br><span class="line"></span><br><span class="line">这对d&lt;512的小模型是不适用的，MLP太窄的情况下，再深也学不到什么有用的。Hwang那篇论文（arxiv:2308.15873）就专门证明了，窄网络有最小宽度门槛，低于这个阈值你无限加深也没用，信息根本装不下。只有跨过这个门槛——差不多就是1B到3B这个规模，单层MLP参数量到一定份上，内部的表征才开始“重整化”，有了足够的冗余和分化，这时候深度的优势（arxiv:2503.0396里说的指数级表达增长）才能真正兑现。</span><br><span class="line">MoE也是同理。专家参数要是太小，相当于每个专家都是那种没跨过门槛的窄MLP，再怎么堆专家、叠层数，每个专家都像个弱分类器，没法形成清晰的功能分工。arxiv:2509.23678系统验证过，激活参数有个最优区间，太小的话性能掉得厉害。arxiv:2603.10379也提到，专家宽度不够，计算分配比例会跑偏，到不了理论上界。反过来说，只要每个专家宽度过了阈值，深度带来的组合能力和MoE的稀疏激活就能配合好，这就是为啥激活参数不同，能力差别能那么大。从这个角度上看保证让RWKV7等强表达力的线性层和M2RNN这种非线性层加入MoE，实现表达能力的提高，减小对深度的依赖，然后实现最优深宽比才是优解</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>分布式并行：</strong></p>
+<p>16$\phi$ 基础概念：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25783337136">https://zhuanlan.zhihu.com/p/25783337136</a></p>
+<p>pure fp32：4param + 4grad + （4+4）optim</p>
+<p>mixed bf16：2param + 2grad + （4+4）optim + 4param_fp32copy</p>
+<p>如果需要梯度在fp32上累积，那还需要更多的4grad</p>
+<p>torch profiler CPU GPU overlap的图例比较精彩</p>
+<p>TP USP 通信 overlap 分析：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/700639611">https://zhuanlan.zhihu.com/p/700639611</a></p>
+<p>Megatron vpp：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/432969288">https://zhuanlan.zhihu.com/p/432969288</a></p>
+<p>1F1B 一短一长：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/693425934">https://zhuanlan.zhihu.com/p/693425934</a><br>更进一步诠释：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/694556728">https://zhuanlan.zhihu.com/p/694556728</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">图2 &amp; 3:</span><br><span class="line">靠bp计算2倍来overlap拿fwd activation的通信</span><br><span class="line">拿下一个stage grad的通信和计算下一个minibatch的fwd overlap</span><br><span class="line">还需要体会naive 1F1B为什么做不到overlap，计算通信的强依赖</span><br><span class="line">interleave是send fwd recv fwd</span><br><span class="line">Naive在做fwd的时候，接下来是要做bwd，但是所需的grad并没有准备好，因为下一个stage的grad和当前stage的fwd几乎是同时结束的</span><br><span class="line">图8:</span><br><span class="line">1）device3的bp影响到了device0的fwd （chunk0）</span><br><span class="line">本来是垂直往上对齐 现在device3的bp4计算慢了拖累了device3的fwd5 然后device3的fwd5顺延拖累了device0的fwd5</span><br><span class="line">2）device3的bp影响到了device2的bp（chunk1）</span><br><span class="line">由于灰色滞后，关键是要看出顺延传递给device1，0 （平行四边形）</span><br><span class="line">warmup step 过大，activation 显存占用过大，因为没发送走，单个rank上minibatch变大了</span><br></pre></td></tr></table></figure>
+
+<p>1F1B MoE A2A overlap：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28463368206">https://zhuanlan.zhihu.com/p/28463368206</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">消除同一时刻计算流和通信流上的数据依赖，如果计算与通信 1:1, 那就意味着前向的计算比通信少，反向的计算比通信多，前向的计算不足以 overlap 反向的通信, 需要用 dw 来 overlap 部分反向通信。</span><br><span class="line">图3:</span><br><span class="line">以前Bp的dispatch通信流需要等fwd的dispatch通信流，而fwd的dispatch通信流必须要等待mlp整个bp动作完成才能发起，实际上可以提前至 dw dx拆分</span><br><span class="line">以及：双端收发通信overlap</span><br><span class="line">评论区：引入vpp的影响，加重负载不均衡，缓解措施</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>优化加速</strong></p>
+<p>CUDNN性能问题: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2020620181550932123">https://zhuanlan.zhihu.com/p/2020620181550932123</a></p>
+<p>torch compile 实战：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1999579346256553226">https://zhuanlan.zhihu.com/p/1999579346256553226</a></p>
+<p>更优的 sdpa：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1961851196642944921">https://zhuanlan.zhihu.com/p/1961851196642944921</a></p>
+<p>SDPA dispatch：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1951418724851619024">https://zhuanlan.zhihu.com/p/1951418724851619024</a></p>
+<p>how to profile：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/1927112862976972744/answer/1">https://www.zhihu.com/question/1927112862976972744/answer/1</a></p>
+<p>SGLang server 交互profile技巧：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1992613341697438794">https://zhuanlan.zhihu.com/p/1992613341697438794</a></p>
+<p>SGLang 开发 Skills：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2022826328534073830">https://zhuanlan.zhihu.com/p/2022826328534073830</a></p>
+<p>对照定位瓶颈：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1987623785982076436">https://zhuanlan.zhihu.com/p/1987623785982076436</a></p>
+<p>ViT 性能优化：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2014798839354247087">https://zhuanlan.zhihu.com/p/2014798839354247087</a></p>
+<p><strong>Topic</strong></p>
+<p>TurboQuant 创新点：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/2021000785224287940/answer/2021671166532756431">https://www.zhihu.com/question/2021000785224287940/answer/2021671166532756431</a></p>
+<p>WHT初始化：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/2021000785224287940/answer/2021229915341604862">https://www.zhihu.com/question/2021000785224287940/answer/2021229915341604862</a></p>
+<p><strong>算法 sense</strong></p>
+<p>transformer 期望背后：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/580810624/answer/1976600872675977173">https://www.zhihu.com/question/580810624/answer/1976600872675977173</a></p>
+<p>线性代数核心：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/448135596/answer/1980328511689475452">https://www.zhihu.com/question/448135596/answer/1980328511689475452</a></p>
+<p>学习率设置与凸优化：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/656501138/answer/1990846902309257311">https://www.zhihu.com/question/656501138/answer/1990846902309257311</a></p>
+<p>业界 RL 简单样本：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/1949402757544010726/answer/1993424079592649058">https://www.zhihu.com/question/1949402757544010726/answer/1993424079592649058</a></p>
+<p>SFT 就是行为克隆：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/1989082556772135720/answer/1997457198754850615">https://www.zhihu.com/question/1989082556772135720/answer/1997457198754850615</a></p>
+<p>修复 bad case 是用 sft 还是 dpo：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/9246153349/answer/1958297365950735225">https://www.zhihu.com/question/9246153349/answer/1958297365950735225</a></p>
+<p><strong>PyTorch</strong></p>
+<p>CUDA Caching Allocator：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/2022774072103159068">https://zhuanlan.zhihu.com/p/2022774072103159068</a></p>
+<p>DataLoader pin_memory：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1927742442943263876">https://zhuanlan.zhihu.com/p/1927742442943263876</a></p>
 
       
     </div>
